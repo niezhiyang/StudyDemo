@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="niezhiyang.cn.rxjava2_android_samples">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".CreatActivity">
+        </activity>
+        <activity android:name=".TransformingActivity">
+        </activity>
+        <activity android:name=".FilteringActivity">
+        </activity>
+        <activity android:name=".CombiningActivity">
+        </activity>
+        <activity android:name=".ErrorHandlingActivity">
+        </activity>
+        <activity android:name=".UtilityActivity">
+        </activity>
+        <activity android:name=".ConditionalandBooleanActivity">
+        </activity>
+        <activity android:name=".CalculationActivity">
+        </activity>
+        <activity android:name=".ConnectActivity">
+        </activity>
+        <activity android:name=".AsyncActivity">
+        </activity>
+        <activity android:name=".BlockActivity">
+        </activity>
+        <activity android:name=".StringsActivity">
+        </activity>
+        <activity android:name=".SchedulersActivity">
+        </activity>
+    </application>
+
+</manifest>

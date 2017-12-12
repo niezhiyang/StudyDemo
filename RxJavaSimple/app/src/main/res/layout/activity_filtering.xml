@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+ >
+    <TextView
+        android:id="@+id/filter_filter"
+        style="@style/TextViewStyle1"
+         
+        android:text="filter"
+        />
+
+    <TextView
+        android:id="@+id/filter_distince"
+        style="@style/TextViewStyle1"
+        android:onClick="filter"
+        android:text="distince"
+        />
+
+    <TextView
+        android:id="@+id/filter_skip"
+        android:onClick="filter"
+        android:text="skip"
+        style="@style/TextViewStyle1"/>
+
+    <TextView
+        android:id="@+id/filter_take"
+        android:onClick="filter"
+        android:text="take"
+        style="@style/TextViewStyle1"/>
+
+
+    <TextView
+        android:id="@+id/filter_last"
+        android:onClick="filter"
+        android:text="last"
+        style="@style/TextViewStyle1"/>
+
+    <TextView
+        android:id="@+id/filter_debounce"
+        android:onClick="filter"
+        android:text="debounce"
+        style="@style/TextViewStyle1"/>
+</LinearLayout>
