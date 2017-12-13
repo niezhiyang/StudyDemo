@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="niezhiyang.cn.rxjava2_android_samples.TransformingActivity">
+    <TextView
+        android:id="@+id/transform_map"
+        style="@style/TextViewStyle1"
+        android:onClick="transform"
+        android:text="map"
+       />
+
+    <TextView
+        android:id="@+id/transform_flatMap"
+        style="@style/TextViewStyle1"
+        android:onClick="transform"
+        android:text="flatMap"
+        />
+
+    <TextView
+        android:id="@+id/transform_concatMap"
+        android:onClick="transform"
+        android:text="concatMap"
+        style="@style/TextViewStyle1"/>
+
+    <TextView
+        android:id="@+id/transform_buffer"
+        android:onClick="transform"
+        android:text="buffer"
+        style="@style/TextViewStyle1"/>
+
+
+    <TextView
+        android:id="@+id/transform_window"
+        android:onClick="transform"
+        android:text="window"
+        style="@style/TextViewStyle1"/>
+
+    <TextView
+        android:id="@+id/transform_groupby"
+        android:onClick="transform"
+        android:text="groupBy"
+        style="@style/TextViewStyle1"/>
+</LinearLayout>

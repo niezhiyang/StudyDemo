@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="niezhiyang.cn.rxjava2_android_samples.ErrorHandlingActivity">
+
+    <TextView
+        android:layout_width="250dp"
+        android:id="@+id/error_retry"
+        style="@style/TextViewStyle1"
+        android:text="retry"
+
+        />
+
+    <TextView
+        android:id="@+id/error_retryWhen"
+        style="@style/TextViewStyle1"
+        android:layout_width="250dp"
+        android:text="retryWhen"
+        />
+    <TextView
+        android:id="@+id/error_onExceptionResumeNext"
+        style="@style/TextViewStyle1"
+android:layout_width="250dp"
+        android:text="onExceptionResumeNext"
+        />
+    <TextView
+        android:id="@+id/error_onErrorResumeNext"
+        style="@style/TextViewStyle1"
+        android:layout_width="250dp"
+        android:text="onErrorResumeNext"
+        />
+    <TextView
+        android:id="@+id/error_onErrorReturn"
+        style="@style/TextViewStyle1"
+        android:layout_width="250dp"
+        android:text="onErrorReturn"
+        />
+
+
+
+
+</LinearLayout>
