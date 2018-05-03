@@ -1,0 +1,1 @@
+include  ':butterknife_annotations', ':butterknife-compiler', ':butterknife_api', ':butterknife_demo'
