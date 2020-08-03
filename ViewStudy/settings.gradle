@@ -1,0 +1,4 @@
+include ':fish'
+include ':textdraw'
+include ':app'
+rootProject.name = "VIewStudy"

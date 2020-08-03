@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff0"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+        <TextView
+            android:id="@+id/tv_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="搜索历史"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+<!--    <com.nzy.viewstudy.view.FlowLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:paddingLeft="10dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="水果味孕妇奶粉" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="儿童洗衣机" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="洗衣机全自动" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="小度" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="儿童汽车可坐人" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="抽真空收纳袋" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="儿童滑板车" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="稳压器 电容" />-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="羊奶粉" />-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="奶粉1段" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/shape_button_circular"-->
+<!--            android:text="图书勋章日" />-->
+<!--    </com.nzy.viewstudy.view.FlowLayout>-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="搜索发现"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.nzy.viewstudy.view.FlowLayout
+                    android:id="@+id/iv_flowlayougt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="惠氏3段" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="奶粉2段" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="图书勋章日" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="伯爵茶" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="阿迪5折秒杀" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="蓝胖子" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="婴儿洗衣机" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="小度在家" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="遥控车可坐" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="搬家袋" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="剪刀车" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="滑板车儿童" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="空调风扇" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="空鼓锤" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_button_circular"
+                        android:text="笔记本电脑" />
+                </com.nzy.viewstudy.view.FlowLayout>
+            </FrameLayout>
+</LinearLayout>

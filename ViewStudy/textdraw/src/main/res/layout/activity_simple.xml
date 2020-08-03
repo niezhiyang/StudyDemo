@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SimpleActivity">
+        <TextView
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:text="世尊地藏"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+<!--    <com.zero.toutiaodemo.view.CustomView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+    <com.example.textdraw.view.MyTextView
+        android:id="@+id/color_change_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:onClick="onStartLeft"
+        android:text="StartLeft" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:onClick="onStartRight"
+        android:text="StartRight" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:onClick="onStartTop"
+        android:text="StartTop" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:onClick="onStartBottom"
+        android:text="StartBottom" />
+
+
+    <!--    <com.zero.toutiaodemo.view.TextMeasureView1-->
+    <!--        android:text="今日头条"-->
+    <!--        android:textSize="50sp"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+
+</LinearLayout>
