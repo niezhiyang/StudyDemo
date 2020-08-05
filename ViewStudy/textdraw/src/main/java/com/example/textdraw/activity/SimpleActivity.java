@@ -28,11 +28,13 @@ public class SimpleActivity extends AppCompatActivity {
             public void run() {
                 onStartLeft(null);
             }
-        },2000);
+        },3000);
     }
 
     public void onStartLeft(View view){
-        ObjectAnimator.ofFloat(mView1,"percent",0,1).setDuration(5000).start();
+       ObjectAnimator.ofFloat(mView1, "percent", 0, 1).setDuration(5000).start();
+//        percent.setRepeatCount(Integer.MAX_VALUE);
+//        percent.start();
     }
 
     public void onStartRight(View view){

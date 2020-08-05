@@ -44,20 +44,20 @@ public class MyTextView extends View {
         //绘制文字
         Paint paint = new Paint();
         paint.setTextSize(80);
-        float baseline = 100;
-        canvas.drawText(mText,0,baseline,paint);
+//        float baseline = 100;
+//        canvas.drawText(mText,0,baseline,paint);
 
         drawCenterLineX(canvas);
-        float x = getWidth()/2;
-
-        //默认LEFT
-        canvas.drawText(mText,x,baseline,paint);
-        //1. 设置文字对齐
-        paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(mText,x,baseline+ paint.getFontSpacing(),paint);
-        //RIGHT
-        paint.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText(mText,x,baseline + paint.getFontSpacing()*2,paint);
+//        float x = getWidth()/2;
+//
+//        //默认LEFT
+//        canvas.drawText(mText,x,baseline,paint);
+//        //1. 设置文字对齐
+//        paint.setTextAlign(Paint.Align.CENTER);
+//        canvas.drawText(mText,x,baseline+ paint.getFontSpacing(),paint);
+//        //RIGHT
+//        paint.setTextAlign(Paint.Align.RIGHT);
+//        canvas.drawText(mText,x,baseline + paint.getFontSpacing()*2,paint);
 
         drawCenterLineY(canvas);
         //把文字绘制到view的中心
@@ -98,6 +98,12 @@ public class MyTextView extends View {
         float baseline = getHeight()/2 - (fontMetrics.descent + fontMetrics.ascent)/2;
         Rect rect = new Rect((int)left_x,0,getWidth(),getHeight());
         canvas.clipRect(rect);
+        Paint  paint2 = new Paint();
+        paint2.setStyle(Paint.Style.FILL);
+        paint2.setColor(Color.parseColor("#66000000"));
+        paint2.setAntiAlias(true);
+
+//        canvas.drawRect(rect,paint2);
         canvas.drawText(mText,left,baseline ,paint);
         canvas.restore();
     }
@@ -109,14 +115,29 @@ public class MyTextView extends View {
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         paint.setTextSize(80);
+        // 测量设置成 mText 的时候 的大小
         float width = paint.measureText(mText);
+        // 设置居中方式，只支持水平，不支持垂直部分
         paint.setTextAlign(Paint.Align.LEFT);
+
         float left = getWidth()/2 -width/2;
+        // 根据百分比设置右边界
         float right = left + width*mPercent;
+        // 这个主要是为了算垂直的baseLine
         Paint.FontMetrics fontMetrics = paint.getFontMetrics();
         float baseline = getHeight()/2 - (fontMetrics.descent + fontMetrics.ascent)/2;
+
+        // 裁剪了红色的rect
         Rect rect = new Rect((int)left,0,(int)right,getHeight());
+        // 裁剪canvas 用于对画布进行矩形裁剪的方法
         canvas.clipRect(rect);
+
+        Paint  paint2 = new Paint();
+        paint2.setStyle(Paint.Style.FILL);
+        paint2.setColor(Color.parseColor("#11000000"));
+        paint2.setAntiAlias(true);
+
+//        canvas.drawRect(rect,paint2);
         canvas.drawText(mText,left,baseline ,paint);
         canvas.restore();
 

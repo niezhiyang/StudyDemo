@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.SimpleActivity">
-        <TextView
-            android:textColor="#000"
-            android:textSize="30sp"
-            android:text="世尊地藏"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
 <!--    <com.zero.toutiaodemo.view.CustomView-->
