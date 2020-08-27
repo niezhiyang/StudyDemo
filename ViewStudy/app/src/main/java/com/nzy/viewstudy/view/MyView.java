@@ -33,6 +33,5 @@ public class MyView extends View {
         long i = System.currentTimeMillis()-tiem;
         tiem = System.currentTimeMillis();
         Log.e("MyView",i+"");
-        invalidate();
     }
 }

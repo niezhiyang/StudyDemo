@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.nzy.coldboot.MyTextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tv_go_two"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textSize="29sp"
+        android:text="第一个Activity"
+        android:background="#474743"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

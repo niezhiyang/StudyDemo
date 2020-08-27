@@ -12,9 +12,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/coldboot" />
+            <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/fish" />
             <option value="$PROJECT_DIR$/recyclerview" />
             <option value="$PROJECT_DIR$/textdraw" />
+            <option value="$PROJECT_DIR$/usercenter" />
+            <option value="$PROJECT_DIR$/webview" />
+            <option value="$PROJECT_DIR$/webviewapp" />
+            <option value="$PROJECT_DIR$/webviewnew" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
