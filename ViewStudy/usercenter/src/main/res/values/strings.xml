@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">usercenter</string>
+    <string name="login">登录</string>
+    <string name="hint_password">密码</string>
+    <string name="hint_email">邮箱</string>
+    <string name="register">注册</string>
+    <string name="forget_password">忘记密码</string>
+</resources>

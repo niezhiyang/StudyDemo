@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone = no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style type="text/css">
+         .item {
+         padding: 20px;
+         max-width: 600px;
+         margin: 0 auto;
+         text-align: center;
+         background-color: #999999;
+         margin-top: 20px;
+         }
+      </style>
+    <script>
+        function callAppToast(){
+            console.log("callAppToast.");
+            xiangxuejs.takeNativeAction("showToast", {message: "this is a message from html."});
+        }
+        function openActivityA(){
+            console.log("openActivityA.");
+            xiangxuejs.takeNativeAction("openPage", {target_class: "com.xiangxue.webview.MainProcessTestActivity"});
+        }
+        function openActivityB(){
+            console.log("openActivityA.");
+            xiangxuejs.takeNativeAction("openPage", {target_class: "com.xiangxue.webview.MainProcessTestActivityB"});
+        }
+        function login(){
+            console.log("login.");
+            xiangxuejs.takeNativeActionWithCallback("login", {}, function(res) {
+                 var element = document.createElement("div");
+                 element.appendChild(document.createTextNode("userName: "+res.accountName));
+                 document.getElementById('login_id').appendChild(element);
+            });
+        }
+    </script>
+    <script src="js/xiangxuejs.js" charset="utf-8"></script>
+</head>
+<body style="height: 100%;">
+<div class="item" style="font-size: 20px; color: #ffffff" onclick="callAppToast()">调用: showToast</div>
+<div class="item" style="font-size: 20px; color: #ffffff" onclick="openActivityA()">打开MainProcessTestActivity</div>
+<div class="item" style="font-size: 20px; color: #ffffff" onclick="openActivityB()">打开另外一个主进程的activity</div>
+<div id="login_id" class="item" style="font-size: 20px; color: #ffffff" onclick="login()">登录并且返回结果</div>
+
+</body>
+</html>
