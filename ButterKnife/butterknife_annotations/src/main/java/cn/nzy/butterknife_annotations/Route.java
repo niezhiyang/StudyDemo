@@ -11,9 +11,9 @@ import java.lang.annotation.Target;
  */
 // 注解用在哪里， ElementType.TYPE代表类上
 @Target({ElementType.TYPE})
-// 注解的生命周期，
+//   注解的生命周期，
 //    SOURCE, 只有源码的时候
-//    CLASS,  编译型注解，也就是编译成class之后不会在看到了
+//    CLASS,  编译型注解，也就是编译成class之后还是会有
 //    RUNTIME; 运行时也存在
 @Retention(RetentionPolicy.CLASS)
 public @interface Route {

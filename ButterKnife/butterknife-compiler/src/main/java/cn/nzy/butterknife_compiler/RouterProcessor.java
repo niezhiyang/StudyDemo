@@ -29,50 +29,37 @@ import cn.nzy.butterknife_annotations.Route;
  */
 @AutoService(Processor.class)
 public class RouterProcessor extends AbstractProcessor {
+    private static final String TAG = "RouterProcessor";
     private HashMap<String, String> clazzMap = new HashMap<>();
     private Filer mFileUtils;
     private Messager mMessager;
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-//        Writer writer = null;
-//        JavaFileObject source = null;
-//        try {
-//            source = mFileUtils.createSourceFile("com.nzy.arouter.util.niezhiyang.java" );
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            writer = source.openWriter();
-//            writer.write("lalalallalalal");
-//            writer.flush();
-//            writer.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
+        // 因为这里可能会执行多次，所以这里需要clear
         clazzMap.clear();
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(Route.class);
-        mMessager.printMessage(Diagnostic.Kind.NOTE,"sssssssssss"+"1111111111111111");
         for (Element element : elements) {
+            // 直接拿到的就是类，所以强转成类的type
             TypeElement typeElement = (TypeElement) element;
+            // 得到全限定名
             String clazzName = typeElement.getQualifiedName().toString();
-            mMessager.printMessage(Diagnostic.Kind.NOTE,"sssssssssss"+"2222222222222");
-
+            // 拿到注解
             Route route = typeElement.getAnnotation(Route.class);
+            // 注解的value
             String key = route.value();
 
+            // 添加到map中
             clazzMap.put(key, clazzName + ".class");
 
         }
 
         if (clazzMap.size() > 0) {
-            mMessager.printMessage(Diagnostic.Kind.NOTE,"sssssssssssize---"+clazzMap.get("main2"));
+            mMessager.printMessage(Diagnostic.Kind.NOTE,TAG+clazzMap.size());
             Writer writer = null;
-            // 创建文件的名子
+            // 创建文件的名字
             String clazzName = "RouterUtil" + System.currentTimeMillis();
             try {
-                mMessager.printMessage(Diagnostic.Kind.NOTE,"sssssssssss"+"55555");
                 JavaFileObject source = mFileUtils.createSourceFile("com.nzy.arouter.util." + clazzName);
                 writer = source.openWriter();
                 StringBuilder builder = new StringBuilder();
@@ -89,7 +76,6 @@ public class RouterProcessor extends AbstractProcessor {
                     builder.append("ARouter.getInstance().addActivity(\"" + key + "\"," + value + ");");
 
                 }
-                mMessager.printMessage(Diagnostic.Kind.NOTE,"sssssssssss"+"66666");
                 builder.append("    }\n" +
                         "}\n");
                 writer.write(builder.toString());
@@ -97,7 +83,6 @@ public class RouterProcessor extends AbstractProcessor {
                 writer.close();
 
             } catch (IOException e) {
-                mMessager.printMessage(Diagnostic.Kind.NOTE,"sssssssssss"+e.toString()+"44444444");
 //                e.printStackTrace();
             } finally {
                 try {
@@ -113,7 +98,9 @@ public class RouterProcessor extends AbstractProcessor {
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
+        // 用来写文件的
         mFileUtils = processingEnvironment.getFiler();
+        // 可以打印日志
         mMessager = processingEnvironment.getMessager();
         super.init(processingEnvironment);
     }
@@ -121,6 +108,7 @@ public class RouterProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> annotationTypes = new LinkedHashSet<String>();
+        // 需要添加的注解类型
         annotationTypes.add(Route.class.getCanonicalName());
         return annotationTypes;
 

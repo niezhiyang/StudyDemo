@@ -56,12 +56,9 @@ public class ARouter {
     }
 
     public void addActivity(String key, Class activityClass) {
-        if (key != null && activityClass != null) {
-            if (routerMap.containsKey(key)) {
-                new RuntimeException("已经有这个key:" + key + "了");
-            } else {
-                routerMap.put(key, activityClass);
-            }
+        if (key != null && activityClass != null && (!routerMap.containsKey(key))) {
+            routerMap.put(key, activityClass);
+
         }
     }
 
