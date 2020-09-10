@@ -1,3 +1,6 @@
+include ':feedlibrary'
+include ':arouterdemo'
+include ':coroutinedemo'
 include ':webviewnew'
 include ':common'
 include ':webviewapp'

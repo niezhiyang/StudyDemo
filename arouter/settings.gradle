@@ -1,0 +1,6 @@
+include ':arouter-api'
+include ':arouter-compiler'
+include ':arouter-annotations'
+include ':feedlibrary'
+include ':arouterdemo'
+rootProject.name = "Arouter"

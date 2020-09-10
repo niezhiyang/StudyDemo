@@ -22,23 +22,22 @@ public class MainActivity extends AppCompatActivity {
         myview = findViewById(R.id.myview);
 
         tv_name = findViewById(R.id.tv_name);
-        tv_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        try {
-                            tv_name.setText("你倒是更新呀");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
-                    }
-                }.start();
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    tv_name.setText("你倒是更新呀");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
-        });
+        }.start();
+
+
+
         new Thread(){
             @Override
             public void run() {

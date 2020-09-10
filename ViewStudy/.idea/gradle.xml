@@ -12,9 +12,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/arouterdemo" />
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/coldboot" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/coroutinedemo" />
+            <option value="$PROJECT_DIR$/feedlibrary" />
             <option value="$PROJECT_DIR$/fish" />
             <option value="$PROJECT_DIR$/recyclerview" />
             <option value="$PROJECT_DIR$/textdraw" />
