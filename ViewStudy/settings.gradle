@@ -1,5 +1,4 @@
-include ':feedlibrary'
-include ':arouterdemo'
+include ':hook'
 include ':coroutinedemo'
 include ':webviewnew'
 include ':common'

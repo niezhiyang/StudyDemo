@@ -1,0 +1,98 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        body, html{width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        #allmap {
+            width:100%;
+            height:50%;
+        }
+        #resultContainer{
+            width:100%;
+            height:50%;
+        }
+        #resultContainer button{
+            margin:15px;
+        }
+        #r-result{
+            margin:10px;
+            font-size:14px;
+            color:#333;
+            height:60%;
+            overflow:scroll; 
+            border-radius:5px;
+            border:1px solid #666;
+            padding:5px;
+        }
+
+    </style>
+    <script type="text/javascript"
+            src="https://api.map.baidu.com/api?v=2.0&ak=my8OeWiwATya00e1N8GdNalXxG6GCsLN&s=1"></script>
+    <title>浏览器定位</title>
+</head>
+<body>
+<div id="allmap"></div>
+<div id="resultContainer">
+    <button onclick="getPosition()">开始定位</button>
+    <button onclick="stopPosition()">停止定位</button>
+    <button onclick="watchPosition()">连续定位</button>
+    <button onclick="cleanResult()" }>清空日志</button>
+    <div id="r-result">
+
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.331398,39.897445);
+    map.centerAndZoom(point,12);
+    map.enableScrollWheelZoom();
+    var geolocation = new BMap.Geolocation();
+    var result= '',timer1;
+
+    // 开启SDK辅助定位
+    geolocation.enableSDKLocation();
+
+    // 开始定位
+    function getPosition(){
+        map.clearOverlays();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                result = result + '经度：'+ r.longitude + '; 纬度：'+r.latitude + '<br>';
+                var mk = new BMap.Marker(r.point);
+                map.addOverlay(mk);
+                map.panTo(r.point);
+                document.getElementById('r-result').innerHTML = result;
+            }
+            else {
+                document.getElementById('r-result').innerHTML = '获取定位结果失败！';
+            }
+            }, {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 3000,
+            SDKLocation:true
+        })
+    }
+
+    // 设置周期回掉函数
+    function watchPosition(){
+
+        timer1 =  setInterval(getPosition, 3000);
+    }
+
+    // 清楚定时器
+    function stopPosition() {
+        if(timer1) {
+            window.clearInterval(timer1)
+        }
+    }
+
+    // 清空定位结果
+    function cleanResult() {
+        document.getElementById('r-result').innerHTML = '';
+    }
+
+</script>

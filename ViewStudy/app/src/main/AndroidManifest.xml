@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nzy.viewstudy">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".view.App"
         android:allowBackup="true"
@@ -10,14 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.NoSingleActivity"></activity>
+        <activity android:name=".MainActivity2" android:process=":niezhiyang"></activity>
+        <activity android:name=".view.NoSingleActivity" />
         <activity
             android:name=".view.SingleActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".view.FirstActivity"
-            android:theme="@style/MyTheme">
-
-        </activity>
+        <activity
+            android:name=".view.FirstActivity"
+            android:theme="@style/MyTheme"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".MyService" />
     </application>
 
 </manifest>
