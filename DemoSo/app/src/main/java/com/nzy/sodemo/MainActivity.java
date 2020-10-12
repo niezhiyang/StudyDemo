@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,MainActivity2.class));
                 String classPath = System.getProperty("java.class.path", ".");
                 String librarySearchPath = System.getProperty("java.library.path", "");
                 String property = System.getProperty("java.library.path");
