@@ -11,9 +11,15 @@ public class App extends Application {
     public static String logo = "";
 
     @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("ssssss","Application-onCreate");
+        Log.e("ssssss",logo);
+        logo = "改变了";
 //        try {
 //            Thread.sleep(2000);
 //        } catch (InterruptedException e) {
