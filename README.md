@@ -2,3 +2,6 @@
 ## 本人所写demo
 - [VirtualAPK插件测试代码](https://github.com/niezhiyang/StudyDemo/tree/master/VirtualAPKDemo)
 - [腾讯Tinker的Demo](https://github.com/niezhiyang/StudyDemo/tree/master/TinkerDemo)
+- SoDemo:动态加载so
+- ViewStudy:学习的东西
+- 
