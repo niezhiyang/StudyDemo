@@ -77,7 +77,7 @@ public class TreeTest {
 
 
         List<List<Integer>> result = new ArrayList<>();
-        binaryTreePathsForSum(node, new ArrayList<>(), result, 21);
+        binaryTreePathsForSum(node, new ArrayList<>(), result);
         System.out.println("打印路径：" + Arrays.toString(result.toArray()));
 
 
@@ -96,7 +96,7 @@ public class TreeTest {
     public void binaryTreePaths(TreeNode root, String path, List<String> paths) {
 
         if (root != null) {
-            path = path + root.value;
+            path = path + root.val;
             if (root.right == null && root.left == null) {
                 // 当right 和 left 都是null的时候，证明已经到底了
                 paths.add(path);
@@ -115,7 +115,7 @@ public class TreeTest {
     public void bianliTreeLeft(TreeNode root) {
 
         if (root != null) {
-            System.out.print(root.value + "->");
+            System.out.print(root.val + "->");
             bianliTreeLeft(root.left);
             bianliTreeLeft(root.right);
         }
@@ -125,9 +125,9 @@ public class TreeTest {
 
         if (root != null) {
 
-            System.out.print(root.value + "->");
-            bianliTreeRight(root.right);
             bianliTreeRight(root.left);
+            bianliTreeRight(root.right);
+            System.out.print(root.val + "->");
 
 
         }
@@ -138,7 +138,7 @@ public class TreeTest {
         if (root != null) {
 
             bianliTreeMid(root.left);
-            System.out.print(root.value + "->");
+            System.out.print(root.val + "->");
             bianliTreeMid(root.right);
         }
     }
@@ -157,7 +157,7 @@ public class TreeTest {
 
         if (root != null) {
             StringBuffer sb = new StringBuffer(path);
-            sb.append(root.value);
+            sb.append(root.val);
             if (root.right == null && root.left == null) {
                 // 当right 和 left 都是null的时候，证明已经到底了
                 paths.add(sb.toString());
@@ -175,40 +175,28 @@ public class TreeTest {
     }
 
     /**
+     * 10
+     * 5        15
+     * 4   6    14  16
      * 二叉树的路径和 ，存放在一个集合中["1->2->5", "1->3->4"]
      *
      * @param root   第一个Note
      * @param path   "1->2"
      * @param result 全路径的集合
      */
-    public void binaryTreePathsForSum(TreeNode root, List<Integer> path, List<List<Integer>> result, int sum) {
+    public void binaryTreePathsForSum(TreeNode root, List<Integer> path, List<List<Integer>> result) {
 
         if (root != null) {
-            path.add(root.value);
+            path.add(root.val);
             if (root.right == null && root.left == null) {
-                // 当right 和 left 都是null的时候，证明已经到底了
-                // 开始算path的集合里面的相加
-
-//                int sumTemp = 0;
-//                for (int i = 0; i < path.size(); i++) {
-//                    sumTemp += path.get(i);
-//                }
-//                if (sumTemp == sum) {
                 // 比如 先到  10-5-4， 左边遍历完事了，遍历右边改10-5-6了，
                 result.add(new ArrayList(path));// 得用一个 新的list保存，否则都是path了，地址值没变
-                // 所以path 要移除 4
-//                }
                 path.remove(path.size() - 1);
-
-
-//
             } else {
                 // 进入下一节点
-                binaryTreePathsForSum(root.left, path, result, sum);
-                binaryTreePathsForSum(root.right, path, result, sum);
-                // 证明左右都遍历完事了，改遍历 上个节点的了
-                // 比如 10-5-4  10-5-6 都完事了
-                // 改遍历  10-15->的了
+                binaryTreePathsForSum(root.left, path, result);
+                binaryTreePathsForSum(root.right, path, result);
+                // // 比如 先到  10-5-4， 左边遍历完事了，遍历右边改10-5-6了，
                 path.remove(path.size() - 1);
             }
 
@@ -222,14 +210,6 @@ public class TreeTest {
         if (root == null) return 0;
         // 先算出来左节点的深度，+1 相当于本节点也算一个
         return Math.max(getTreeDepth(root.left), getTreeDepth(root.right)) + 1;
-
-//        if(root == null){
-//            return 0;
-//        }
-//        int left = getTreeDepth(root.left);
-//        int right = getTreeDepth(root.right);
-//
-//        return Math.max(left+1, right+1);
     }
 
 
@@ -243,7 +223,7 @@ public class TreeTest {
             return true;
         }
 
-        if (left == null || right == null || left.value != right.value) {
+        if (left == null || right == null || left.val != right.val) {
             return false;
         } else {
             return isDuichengTree(left.left, left.right) && isDuichengTree(right.left, right.right);
@@ -274,13 +254,12 @@ public class TreeTest {
     }
 
     /**
-     *
-     *       1
-     *   2          3
+     * 1
+     * 2          3
      * 4   5    6     7
      * <p>
      * 从上到下打印二叉树
-     *
+     * <p>
      * 这样打印 1-2-3-4-5-6-7
      * <p>
      * 思路：当打印1的时候，把 2，3 存起来放入队列。当打印2的时候，去除2.然后把 4.5 放进队列 此时 队列里面是 3.4.5
@@ -292,7 +271,7 @@ public class TreeTest {
         list.addLast(root);
         while (!list.isEmpty()) {
             TreeNode treeNode = list.pollFirst();
-            sb.append(treeNode.value);
+            sb.append(treeNode.val);
             sb.append("--->");
             if (treeNode.left != null) {
                 list.addLast(treeNode.left);
@@ -306,5 +285,223 @@ public class TreeTest {
 
     }
 
+    /**
+     * 验证二叉搜索树
+     *
+     * @param root
+     * @return
+     */
+    public boolean isValidBST(TreeNode root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean isValidBST(TreeNode node, long lower, long upper) {
+        if (node == null) {
+            return true;
+        }
+        if (node.val <= lower || node.val >= upper) {
+            return false;
+        }
+        return isValidBST(node.left, lower, node.val) && isValidBST(node.right, node.val, upper);
+    }
+
+    @Test
+    public void reverseTree1() {
+        /**
+         *          10
+         *      5        15
+         *    4   6    14  16
+         */
+        TreeNode node = new TreeNode(10);
+        TreeNode nodeL = new TreeNode(5);
+        TreeNode nodeR = new TreeNode(15);
+        node.left = nodeL;
+        node.right = nodeR;
+
+
+        TreeNode nodeLL = new TreeNode(4);
+        TreeNode nodeLR = new TreeNode(6);
+
+        nodeL.left = nodeLL;
+        nodeL.right = nodeLR;
+
+
+        TreeNode nodeRL = new TreeNode(14);
+        TreeNode nodeRR = new TreeNode(16);
+
+        nodeR.left = nodeRL;
+        nodeR.right = nodeRR;
+        System.out.println(levelOrder(node));
+    }
+
+    /**
+     * 给你一个二叉树，请你返回其按 层序遍历 得到的节点值
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        LinkedList<TreeNode> linkedList = new LinkedList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        if (root != null) {
+            linkedList.add(root);
+        }
+        while (!linkedList.isEmpty()) {
+            List<Integer> temp = new ArrayList<>();
+            for (int i = linkedList.size() - 1; i >= 0; i--) {
+                TreeNode first = linkedList.removeFirst();
+                temp.add(first.val);
+                if (first.left != null) {
+                    linkedList.add(first.left);
+                }
+                if (first.right != null) {
+                    linkedList.add(first.right);
+                }
+
+            }
+            result.add(temp);
+        }
+
+        return result;
+
+    }
+
+    /**
+     * Z字形打印
+     * 给你一个二叉树，请你返回其按 层序遍历 得到的节点值
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrderZ(TreeNode root) {
+        LinkedList<TreeNode> linkedList = new LinkedList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        if (root != null) {
+            linkedList.add(root);
+        }
+        while (!linkedList.isEmpty()) {
+            // 偶数 添加到头部 ，奇数 添加到尾部
+            LinkedList<Integer> temp = new LinkedList<>();
+            for (int i = linkedList.size() - 1; i >= 0; i--) {
+                TreeNode first = linkedList.removeFirst();
+                if (result.size() % 2 == 0) {
+                    temp.addLast(first.val);
+                } else {
+                    temp.addFirst(first.val);
+
+                }
+
+                if (first.left != null) {
+                    linkedList.add(first.left);
+                }
+                if (first.right != null) {
+                    linkedList.add(first.right);
+                }
+
+            }
+            result.add(temp);
+        }
+
+        return result;
+
+    }
+
+
+    @Test
+    public void Tesss() {
+        /**
+         *          1
+         *      1        1
+         *    1   2    3  4
+         */
+        TreeNode node = new TreeNode(1);
+        TreeNode nodeL = new TreeNode(1);
+        TreeNode nodeR = new TreeNode(1);
+        node.left = nodeL;
+        node.right = nodeR;
+
+
+        TreeNode nodeLL = new TreeNode(1);
+        TreeNode nodeLR = new TreeNode(2);
+
+        nodeL.left = nodeLL;
+        nodeL.right = nodeLR;
+
+
+        TreeNode nodeRL = new TreeNode(3);
+        TreeNode nodeRR = new TreeNode(4);
+
+        nodeR.left = nodeRL;
+        nodeR.right = nodeRR;
+        isHave = false;
+        hasPathSum(node, 5);
+        System.out.println(isHave);
+
+    }
+
+    boolean isHave = false;
+
+    public boolean hasPathSum(TreeNode root, int sum) {
+
+        isHave(root, sum);
+
+        return isHave;
+    }
+
+    public void isHave(TreeNode root, int sum) {
+        if (root != null) {
+            sum = sum - root.val;
+            if (root.right == null && root.left == null) {
+                if (sum == 0) {
+                    isHave = true;
+                }
+            } else {
+                isHave(root.left, sum);
+                isHave(root.right, sum);
+
+            }
+
+        }
+    }
+
+
+    /**
+     * 二叉树的路径和 ，存放在一个集合中["1->2->5", "1->3->4"]
+     *
+     * @param root   第一个Note
+     * @param path   "1->2"
+     * @param result 全路径的集合
+     */
+    public void hasPathSum(TreeNode root, List<Integer> path, List<List<Integer>> result) {
+
+
+    }
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int index1 = m - 1;
+        int index2 = n - 1;
+        // 从后往前赋值
+        int tail = m + n - 1;
+        while (index1 >= 0 || index2 >= 0) {
+            // 如果又一个走到头了 就是 -1； 那直接赋值给另一个
+            if (index1 == -1) {
+                nums1[tail] = nums2[index2];
+                index2--;
+            } else if (index2 == -1) {
+                nums1[tail] = nums1[index1];
+                index1--;
+            } else if (nums1[index1] > nums2[index2]) {
+                nums1[tail] = nums1[index1];
+                index1--;
+
+            } else {
+                nums1[tail] = nums2[index2];
+                index2--;
+            }
+            tail--;
+
+
+        }
+    }
 
 }

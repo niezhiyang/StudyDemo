@@ -1,45 +1,72 @@
 package com.nzy.viewstudy
 
-import android.app.ActivityManager
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.content.Intent
+import android.graphics.PixelFormat
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.DisplayMetrics
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import android.view.ViewStub
-import android.widget.EditText
-import android.widget.ImageView
+import android.view.WindowManager
+import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.File
+
 
 class MainActivity3 : AppCompatActivity() {
-    var view1 :View? = null
-    val TAG =" MainActivity"
+    var view1: View? = null
+    val TAG = " MainActivity"
+    val mToast:Toast by lazy {
+        Toast.makeText(this, "", Toast.LENGTH_SHORT)
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main3)
-//
+        setContentView(R.layout.activity_main7)
 
-        findViewById<View>(R.id.iv_ddd).setOnClickListener{
-            Thread.sleep(10000)
-//            findViewById<ViewStub>(R.id.viewstub).visibility = View.VISIBLE
-        }
-        findViewById<EditText>(R.id.edittext).addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+    }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun show(view: View) {
 
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
+//        mToast.setText("大哥哥")
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+//                 showText();
+            var intent = Intent(this,MyService::class.java)
+            startService(intent)
+
+        },5000)
+
+    }
+
+    private fun showText() {
+        val windowManager: WindowManager = getWindowManager() ?: return
+
+        val params = WindowManager.LayoutParams()
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT
+        params.format = PixelFormat.TRANSLUCENT
+        params.windowAnimations = android.R.style.Animation_Toast
+        params.flags = (WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        params.packageName = "packageName"
+        params.gravity = mToast.getGravity()
+        params.x = mToast.getXOffset()
+        params.y = mToast.getYOffset()
+        params.verticalMargin = mToast.getVerticalMargin()
+        params.horizontalMargin = mToast.getHorizontalMargin()
+        var textView = TextView(this);
+        textView.setText("大家好")
+        textView.setTextColor(0xFFFFFF)
+        windowManager.addView(mToast.view, params)
+    }
+
+    fun remove(view: View) {
+        val windowManager: WindowManager = getWindowManager()
+                ?: return
+
+        windowManager.removeViewImmediate(mToast.getView())
     }
 
 }

@@ -131,10 +131,59 @@ public class ListNodeTest {
 
     }
 
+    public ListNode theFirstNode1(ListNode headA, ListNode headB) {
+        int lengthA = getLenth(headA);
+        int lengthB = getLenth(headB);
+        if (lengthA > lengthB) {
+            for (int i = 0; i < lengthA - lengthB; i++) {
+                headA = headA.next;
+            }
+
+            for (int i = 0; i < lengthB; i++) {
+                if (headA == headB) {
+                    return headB;
+                } else {
+                    headA = headA.next;
+                    headB = headB.next;
+                }
+            }
+
+        } else {
+            for (int i = 0; i < lengthB - lengthA; i++) {
+                headB = headB.next;
+            }
+            for (int i = 0; i < lengthB; i++) {
+                if (headA == headB) {
+                    return headB;
+                } else {
+                    headA = headA.next;
+                    headB = headB.next;
+                }
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public int getLenth(ListNode node) {
+        ListNode temp = node;
+        int lenth = 0;
+        while (temp != null) {
+            temp = temp.next;
+            lenth++;
+        }
+        return lenth;
+    }
+
 
     // 链表中倒数第k个节点
-    // 时间复杂度 N
-    // 空间复杂度 1
+
+    /**
+     * 时间复杂度 N
+     * 空间复杂度 1
+     */
     public ListNode getkNode(ListNode head, int k) {
         ListNode fastNode, slowNode;
         slowNode = head;
@@ -173,7 +222,7 @@ public class ListNodeTest {
 
         ListNode prev = prehead;
         while (node1 != null && node2 != null) {
-            if (node1.value <= node2.value) {
+            if (node1.val <= node2.val) {
                 prev.next = node1;
                 node1 = node1.next;
             } else {
@@ -189,16 +238,66 @@ public class ListNodeTest {
         return prehead.next;
     }
 
+    /**
+     * 两两交换链表中的节点
+     *
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        //1->2->3->4
+        // temp : 2->3->4
+        ListNode temp = head.next;
+        // head: 1->4->3
+        head.next = swapPairs(temp.next);
+
+        // temp: 2->1->4->3
+        temp.next = head;
+
+
+        return temp;
+    }
 
     public String printListNode(ListNode node) {
         StringBuffer sb = new StringBuffer();
         while (node != null) {
-            sb.append(node.value);
+            sb.append(node.val);
             sb.append(" -> ");
             node = node.next;
 
         }
         return sb.toString();
     }
+
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head.val == val) {
+            // 如果是头结点，直接返回下一个就行
+            return head.next;
+        }
+        ListNode pre = head;
+        ListNode cur = head.next;
+        while (cur != null) {
+            if (cur.val == val) {
+                // 找到了 直接break，此时 cur就是当前需要删除的，pre，就是需要删除的前一个
+                break;
+            } else {
+                pre = cur;
+                cur = cur.next;
+            }
+
+        }
+        // 把 pre 执行 需要删除的下一个即可
+        if (cur != null) {
+            pre.next = cur.next;
+        }
+        // 返回头结点
+        return head;
+
+
+    }
+
 
 }

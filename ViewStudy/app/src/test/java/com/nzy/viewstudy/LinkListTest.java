@@ -247,4 +247,7 @@ public class LinkListTest {
         System.out.println("反转链表：" + res);
     }
 
+
+
+
 }

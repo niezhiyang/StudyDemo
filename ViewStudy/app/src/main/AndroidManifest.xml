@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nzy.viewstudy">
+
     <permission android:name="com.thanlon.permission.name" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.thanlon.permission.name" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,13 +16,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity2"></activity>
+        <activity android:name=".ViewModeActivity"></activity>
+        <activity
+            android:name=".SinglTopActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".MainActivity2" />
         <activity android:name=".Maintactivity4">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".MainActivity3">
+
         </activity>
         <activity android:name=".view.NoSingleActivity" />
         <activity
@@ -27,16 +39,24 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".view.FirstActivity"
-            android:theme="@style/MyTheme"></activity>
-        <activity android:name=".MainActivity">
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.Light.CustomDialog" />
+        <activity android:name=".viewmode.ViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
-        <receiver android:name="com.nzy.viewstudy.MyBroadCast">
+        <receiver android:name=".MyBroadCast">
             <intent-filter>
                 <action android:name="com.nzy.viewstudy.MyBroadCast" />
             </intent-filter>
         </receiver>
+
         <service android:name=".MyService" />
     </application>
 

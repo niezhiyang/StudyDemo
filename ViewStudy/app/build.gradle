@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "30.0.0"
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.nzy.viewstudy"
@@ -32,7 +32,7 @@ android {
             //加载默认混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //签名
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -50,6 +50,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.orhanobut:logger:2.2.0'
+//    implementation 'com.github.tbruyelle:rxpermissions:0.12'
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 
 }

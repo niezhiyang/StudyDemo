@@ -18,16 +18,16 @@ public class TreeNode implements Cloneable {
     @Override
     public String toString() {
         return "ListNode{" +
-                "value=" + value +
+                "value=" + val +
                 ", right=" + right +
                 ", left=" + left +
                 '}';
     }
 
-    public int value;
+    public int val;
 
-    public TreeNode(int value) {
-        this.value = value;
+    public TreeNode(int val) {
+        this.val = val;
     }
 
 

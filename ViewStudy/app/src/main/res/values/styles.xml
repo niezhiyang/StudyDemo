@@ -14,5 +14,15 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorAccent</item>
     </style>
-
+    <style name="AppTheme.Light.CustomDialog" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
 </resources>

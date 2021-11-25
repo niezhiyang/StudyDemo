@@ -1,100 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nzy.viewstudy.view.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/lv_line"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_ddd"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/demo500" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我是文字"
-            android:textColor="#f00"
-            android:textSize="20sp" />
-    </LinearLayout>
-<EditText
-    android:id="@+id/edittext"
-    android:hint="打我"
-    android:layout_width="match_parent"
+<FrameLayout
+    android:id="@+id/fl_contnier"
+    android:layout_width="100dp"
     android:layout_height="100dp"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/include_me" />
-    </FrameLayout>
-
-    <ViewStub
-        android:id="@+id/viewstub"
+    <com.nzy.viewstudy.view.MyButton
+        android:text="show"
+        android:id="@+id/iv_button"
+        android:onClick="show"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+    <Button
+        android:onClick="hide"
+        android:text="hide"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout="@layout/include_me2" />
-
-    <LinearLayout
-        android:measureWithLargestChild="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.nzy.viewstudy.adb.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="text1" />
-
-        <com.nzy.viewstudy.MyTextView2
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="text2" />
-    </LinearLayout>
-
-<!--    <LinearLayout-->
-<!--        android:measureWithLargestChild="true"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
-<!--        <com.nzy.viewstudy.MyTextView3-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="text4" />-->
-<!--        <com.nzy.viewstudy.adb.MyTextView-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="text3" />-->
-
-<!--        <com.nzy.viewstudy.MyTextView2-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="text4" />-->
-<!--    </LinearLayout>-->
-
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
-<!--        <com.nzy.viewstudy.MyTextView3-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="text4" />-->
-<!--        <com.nzy.viewstudy.adb.MyTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="text3" />-->
-
-<!--        <com.nzy.viewstudy.MyTextView2-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="text4" />-->
-<!--    </RelativeLayout>-->
-</LinearLayout>
+        android:layout_height="wrap_content"/>
+</com.nzy.viewstudy.view.MyLinearLayout>
