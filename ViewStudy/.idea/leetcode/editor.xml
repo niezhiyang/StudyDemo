@@ -3,6 +3,14 @@
   <component name="LeetcodeEditor">
     <option name="projectConfig">
       <map>
+        <entry key="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[1005]K 次取反后最大化的数组和.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[1005]K 次取反后最大化的数组和.java" />
+              <option name="questionId" value="1047" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[1]两数之和.java">
           <value>
             <LeetcodeEditor>
@@ -48,6 +56,14 @@
             <LeetcodeEditor>
               <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[27]移除元素.java" />
               <option name="questionId" value="27" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[283]移动零.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[283]移动零.java" />
+              <option name="questionId" value="283" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -104,6 +120,30 @@
             <LeetcodeEditor>
               <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[4]寻找两个正序数组的中位数.java" />
               <option name="questionId" value="4" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[5]最长回文子串.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[5]最长回文子串.java" />
+              <option name="questionId" value="5" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[6]Z 字形变换.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[6]Z 字形变换.java" />
+              <option name="questionId" value="6" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[7]整数反转.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dx/tp2h_wpn5sgbs69bc17jq8tr0000gn/T/leetcode/editor/cn/[7]整数反转.java" />
+              <option name="questionId" value="7" />
             </LeetcodeEditor>
           </value>
         </entry>

@@ -78,7 +78,6 @@ public class MyLinearLayout extends LinearLayout {
             case MotionEvent.ACTION_UP:
 
                 Log.e(TAG, "onInterceptTouchEvent ACTION_UP");
-//                return true;
                 break;
 
 

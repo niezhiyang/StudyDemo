@@ -16,12 +16,19 @@ import android.widget.TextView;
 import com.nzy.viewstudy.adb.A;
 import com.nzy.viewstudy.view.FlowLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ConnectionPool;
+import okhttp3.Dispatcher;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements ComponentCallbacks2 {
     private static final String TAG = "MainActivity";
@@ -34,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ComponentCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        HashMap map  = new HashMap();
+        HashMap map = new HashMap();
         super.onCreate(savedInstanceState);
         DisplayMetrics dm = new DisplayMetrics();
         dm = getResources().getDisplayMetrics();
@@ -139,4 +146,25 @@ public class MainActivity extends AppCompatActivity implements ComponentCallback
 //        memoryInfo.threshold;
 //        memoryInfo.totalMem;
     }
+
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(10_000, TimeUnit.MILLISECONDS)
+            .readTimeout(10_000, TimeUnit.MILLISECONDS)
+            .connectionPool(new ConnectionPool())
+            .dispatcher(new Dispatcher())
+            .build();
+
+
+    String run(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        // 同步请求
+        Response response = client.newCall(request).execute();
+        // 异步请求
+
+        return response.body().string();
+    }
+
 }

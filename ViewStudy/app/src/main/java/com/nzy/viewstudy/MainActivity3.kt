@@ -25,6 +25,8 @@ class MainActivity3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main7)
 
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -68,5 +70,12 @@ class MainActivity3 : AppCompatActivity() {
 
         windowManager.removeViewImmediate(mToast.getView())
     }
+
+    suspend fun getImage(){
+
+
+    }
+
+
 
 }

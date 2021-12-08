@@ -47,6 +47,7 @@ public class MyView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.e("MeasureSpec", "MeasureSpec.Defult111");
         canvas.drawColor(0xFF0000);
     }
 }

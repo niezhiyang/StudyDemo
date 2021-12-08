@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.nzy.viewstudy.view.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lv_line"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:id="@+id/lv_line"
     android:orientation="vertical">
-<FrameLayout
-    android:id="@+id/fl_contnier"
-    android:layout_width="100dp"
-    android:layout_height="100dp"/>
-    <com.nzy.viewstudy.view.MyButton
-        android:text="show"
-        android:id="@+id/iv_button"
-        android:onClick="show"
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
-    <Button
-        android:onClick="hide"
-        android:text="hide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</com.nzy.viewstudy.view.MyLinearLayout>
+
+  <com.nzy.viewstudy.fragment.MyRecyclerView
+      android:orientation="vertical"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      android:id="@+id/recyclerview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+  <FrameLayout
+      android:id="@+id/fl1"
+      android:layout_width="100dp"
+      android:layout_height="100dp"/>
+    <FrameLayout
+        android:id="@+id/fl2"
+      android:layout_width="100dp"
+      android:layout_height="100dp"/>
+</LinearLayout>

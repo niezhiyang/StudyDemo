@@ -7,8 +7,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.thanlon.permission.name" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,12 +25,12 @@
         <activity android:name=".MainActivity2" />
         <activity android:name=".Maintactivity4">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity android:name=".MainActivity3">
 
@@ -41,14 +43,13 @@
             android:name=".view.FirstActivity"
             android:theme="@style/MyTheme" />
         <activity
+            android:name=".ScorllActivity"
+            android:theme="@style/MyTheme" />
+        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.Light.CustomDialog" />
         <activity android:name=".viewmode.ViewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver android:name=".MyBroadCast">

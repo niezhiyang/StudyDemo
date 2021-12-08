@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author niezhiyang
@@ -30,7 +32,6 @@ public class StringTest {
         String ss1 = "pwwkew";
         System.out.println("---" + minWindow3(ss));
         System.out.println("---" + minWindow3(ss1));
-
 
 
         String sss = "babad";
@@ -224,10 +225,10 @@ public class StringTest {
 
                 window.put(test.charAt(right), window.getOrDefault(test.charAt(right), 0) + 1);
 
-                if (right - left  > maxLenth) {
-                    maxLenth = right - left ;
+                if (right - left > maxLenth) {
+                    maxLenth = right - left;
                     resL = left;
-                    resR = right ;
+                    resR = right;
                 }
 
 
@@ -261,22 +262,23 @@ public class StringTest {
     /**
      * 题目 最长回文子串
      * 给定一个字符串 s，找到 s 中最长的回文子串
-     *
+     * <p>
      * 输入: "babad"
      * 输出: "bab"
      * 注意: "aba" 也是一个有效答案。
-     *
+     * <p>
      * 输入: "cbbd"
      * 输出: "bb"
+     *
      * @param test
      * @return
      */
     public String minWindow4(String test) {
 
         HashMap<Integer, Character> window = new HashMap<>();
-        for(int i=0;i<test.length();i++){
+        for (int i = 0; i < test.length(); i++) {
             char c = test.charAt(i);
-            window.put(i,c);
+            window.put(i, c);
         }
         int left = -1, right = 0;
         int maxLenth = 0;
@@ -284,13 +286,13 @@ public class StringTest {
         int resR = 0;
         while (left < test.length() && left <= right) {
             left++;
-            right = left+1;
+            right = left + 1;
             window.clear();
-            while (check4(window,right,left) && right < test.length()) {
-                if (right - left  > maxLenth) {
-                    maxLenth = right - left ;
+            while (check4(window, right, left) && right < test.length()) {
+                if (right - left > maxLenth) {
+                    maxLenth = right - left;
                     resL = left;
-                    resR = right ;
+                    resR = right;
                 }
 
 
@@ -306,12 +308,41 @@ public class StringTest {
 
     // 是否符合
     public boolean check4(HashMap<Integer, Character> window, int right, int left) {
-       for(int i = left ;i<((right-left+1)/2);i++){
-          if(window.get(i) != window.get(left-i)){
-              return false;
-          }
+        for (int i = left; i < ((right - left + 1) / 2); i++) {
+            if (window.get(i) != window.get(left - i)) {
+                return false;
+            }
         }
         return true;
+    }
+
+
+    @Test
+    public void getData() {
+        LinkedHashMap<String, String> map = new LinkedHashMap(10, 0.75f, true);
+        map.put("123", "123");
+        map.put("124", "124");
+        map.put("1", "125");
+        map.put("125", "126");
+
+        String s = map.get("124");
+
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            System.out.println(entry.getValue());
+        }
+    }
+
+    class Parent{
+        protected synchronized void getName(){
+
+        }
+    }
+
+    class Son extends Parent{
+        @Override
+        protected  void getName() {
+        }
     }
 
 }
