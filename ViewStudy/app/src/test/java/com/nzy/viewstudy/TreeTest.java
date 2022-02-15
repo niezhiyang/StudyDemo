@@ -13,12 +13,21 @@ import java.util.List;
  */
 public class TreeTest {
     @Test
+    public void reverseTree111() {
+
+        String s = "012";
+        int i = Integer.parseInt(s);
+        System.out.println(i);
+    }
+    @Test
     public void reverseTree() {
         /**
          *          10
          *      5        15
          *    4   6    14  16
          */
+
+
         TreeNode node = new TreeNode(10);
         TreeNode nodeL = new TreeNode(5);
         TreeNode nodeR = new TreeNode(15);

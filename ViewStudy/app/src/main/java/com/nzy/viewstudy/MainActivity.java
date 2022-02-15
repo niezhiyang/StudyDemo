@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements ComponentCallback
     protected void onPause() {
         super.onPause();
         Log.e(TAG, "MainActivity - - onPause");
+
+
     }
 
     @Override
@@ -166,5 +168,6 @@ public class MainActivity extends AppCompatActivity implements ComponentCallback
 
         return response.body().string();
     }
+
 
 }

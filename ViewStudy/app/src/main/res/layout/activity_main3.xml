@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lv_line"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
-
-  <com.nzy.viewstudy.fragment.MyRecyclerView
-      android:orientation="vertical"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      android:id="@+id/recyclerview"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
-  <FrameLayout
-      android:id="@+id/fl1"
-      android:layout_width="100dp"
-      android:layout_height="100dp"/>
+    <RelativeLayout
+        android:id="@+id/rllll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.nzy.viewstudy.view.MyView
+            android:id="@+id/myview"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="clickc" />
+    <!--  <com.nzy.viewstudy.fragment.MyRecyclerView-->
+    <!--      android:orientation="vertical"-->
+    <!--      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+    <!--      android:id="@+id/recyclerview"-->
+    <!--      android:layout_width="match_parent"-->
+    <!--      android:layout_height="wrap_content"/>-->
     <FrameLayout
+        android:id="@+id/fl1"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <fragment
+        android:name="com.nzy.viewstudy.fragment.MyFragment"
         android:id="@+id/fl2"
-      android:layout_width="100dp"
-      android:layout_height="100dp"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 </LinearLayout>

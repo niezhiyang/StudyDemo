@@ -1,5 +1,6 @@
 package com.nzy.viewstudy.stady;
 
+import com.nzy.viewstudy.ListNode;
 import com.nzy.viewstudy.TreeNode;
 
 import org.junit.Test;
@@ -42,8 +43,21 @@ public class Stady {
         int[] nums1 = new int[]{0};
         int[] nums2 = new int[]{1};
         merge(nums1, 0, nums2, 1);
+        ListNode head = new ListNode(-1);
+        ArrayList<Integer> temp = new ArrayList<>();
+        while (head!=null){
+            temp.add(head.val);
+            head =head.next;
+        }
+        int[]  result = new int[temp.size()];
+        for(int i = 0; i<temp.size();i++){
+            result[i] = temp.get(i);
+        }
+
+
 
     }
+
 
     /**
      * 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
