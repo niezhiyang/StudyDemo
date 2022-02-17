@@ -73,6 +73,38 @@ public class LeetCodeNote {
 
     }
 
+    /**
+     * 一个数组 把奇数移动到偶数的前面，前面都是奇数，后面都是偶数，并且顺讯位置不变
+     * 牛客网
+     *  https://www.nowcoder.com/questionTerminal/beb5aa231adc45b2a5dcc5b62c93f593?u_atoken=50210515-9ecb-4717-bb2f-5105515b6fd4&u_asession=01lBEXJ5iJK-xqW6oYZGYBehv9UE9_diPO1VLmeJeQOZZAATrvape1CnvPG9A52NwvX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K-Li7-QNHLulm_9hi6RWM_7MJtBx3S14qt35vRMTfjp8mBkFo3NEHBv0PZUm6pbxQU&u_asig=05TrrStJKDQyRL6Pe0d0BBudB2njKw7Ild18MC7W8uajnCmX7k-lOaZub8O9ZeALTgWuIgbONlBHRXu1-B12kifP4LHPjX5907K-txzQcH3UmpMabM_J-UKBMf6nWHl-5wjPPn-XeGXDreuo9MsIM9WLZnSPGDnr5S6-RvOtHKEgP9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzToa8Vt0r92plzbIg9M640pZXxwQHSsLQNDfkbILggi41YpiKJZCArXmgv6vSk2RSO3h9VXwMyh6PgyDIVSG1W84e5kNRA7V7_g0dyd2LP3xxPV46rxeunwwnCjSohRo2NjjroiW10CAo3omzWtvqz3EekJQaPUEiizeJrvIM-UVmWspDxyAEEo4kbsryBKb9Q&u_aref=6mGzVj%2F4f%2BRG0%2BwoVXwsnwXRSu4%3D
+     *
+     */
+    @Test
+    public void temp(){
+        int[] arr = new int[]{1,2,4,3,6,5};
+        moveJiOuShu(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+    public void moveJiOuShu(int[] nums) {
+        int left = 0; // 移动完成的末尾
+        int right = 0; // 还没移动的开始
+        while (right < nums.length) {
+            if (nums[right] %2!= 0) {
+                // 这里就不能 简单的交换了，需要先记录下来这个奇数
+                // 然后把前面的往后移一位,然后给
+                int temp = nums[right];
+                for (int i = right; i > left; i--) {
+                    nums[i] = nums[i - 1];
+                }
+                nums[left] = temp;
+                left++;
+
+            }
+            right++;
+        }
+    }
+
+
     ///------------------------ 2 ---------------------
 
     /**
@@ -102,6 +134,8 @@ public class LeetCodeNote {
 
     /**
      * 爬楼梯
+     * <p>
+     * https://leetcode-cn.com/problems/climbing-stairs/
      *
      * @param n
      * @return
@@ -128,6 +162,7 @@ public class LeetCodeNote {
 
     /**
      * 反转链表
+     * https://leetcode-cn.com/problems/reverse-linked-list/
      *
      * @param head
      * @return
@@ -153,6 +188,7 @@ public class LeetCodeNote {
 
     /**
      * 链表是否有环
+     * https://leetcode-cn.com/problems/linked-list-cycle/
      *
      * @param head
      * @return
@@ -175,6 +211,7 @@ public class LeetCodeNote {
 
     /**
      * 两个链表的交点，
+     * https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/
      *
      * @param headA
      * @param headB
@@ -219,6 +256,7 @@ public class LeetCodeNote {
 
     /**
      * 链表倒数第K个节点
+     * https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/
      *
      * @param head
      * @param k
@@ -303,6 +341,7 @@ public class LeetCodeNote {
 
     ///------------------------ 10 ---------------------
     // 删除节点
+    // https://leetcode-cn.com/problems/delete-middle-node-lcci/
     public void deleteNode(ListNode node) {
         //既然不能先删除自己，那就把自己整容成儿子，再假装儿子养活孙子
         node.val = node.next.val;
@@ -310,6 +349,7 @@ public class LeetCodeNote {
     }
 
     // 给个头结点，然后删除某个节点val 是 val的
+    // https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/
     public ListNode deleteNode(ListNode head, int val) {
         if (head.val == val) {
             // 如果是头结点，直接返回下一个就行
@@ -337,6 +377,7 @@ public class LeetCodeNote {
 
     /**
      * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+     * https://leetcode-cn.com/problems/SLwz0R/
      */
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
@@ -369,6 +410,8 @@ public class LeetCodeNote {
 
     /**
      * 二叉树前序遍历
+     * <p>
+     * https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
      *
      * @param root
      */
@@ -392,6 +435,7 @@ public class LeetCodeNote {
 
     /**
      * 层遍历二叉树,每一层放到数组中
+     * https://leetcode-cn.com/problems/binary-tree-level-order-traversal/
      *
      * @param root
      * @return
@@ -426,6 +470,7 @@ public class LeetCodeNote {
 
     /**
      * 层遍历二叉树,Z字形，每一层放到数组中
+     * https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
      *
      * @param root
      * @return
@@ -504,6 +549,7 @@ public class LeetCodeNote {
 
     /**
      * 二叉树中所有的路径  ["1->2->5","1->3"]
+     * https://leetcode-cn.com/problems/binary-tree-paths/
      *
      * @param root
      * @return
@@ -538,6 +584,7 @@ public class LeetCodeNote {
     ///------------------------ 15 ---------------------
 
     /**
+     * https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
      * 二叉树中和为某一值的路径
      * <p>
      * 先把所有的路径放到一个集合中，然后遍历集合
@@ -570,11 +617,36 @@ public class LeetCodeNote {
         if (root != null) {
             ArrayList<Integer> temp = new ArrayList<>(path);
             temp.add(root.val);
+
             if (root.left == null && root.right == null) {
                 result.add(temp);
             } else {
                 getPath(root.left, result, temp);
                 getPath(root.right, result, temp);
+            }
+        }
+    }
+
+    public List<List<Integer>> pathSum1(TreeNode root, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        getPath1(result, target, new ArrayList<Integer>(), root);
+        return result;
+    }
+
+    public void getPath1(List<List<Integer>> result, int target, ArrayList<Integer> path, TreeNode root) {
+        if (root != null) {
+            ArrayList<Integer> temp = new ArrayList<>(path);
+            temp.add(root.val);
+            target = target - root.val;
+            System.out.println(Arrays.toString(temp.toArray()) + "---" + target);
+            if (root.left == null && root.right == null) {
+                if (target == 0) {
+                    result.add(temp);
+                }
+            } else {
+                getPath1(result, target, temp, root.left);
+                getPath1(result, target, temp, root.right);
+
             }
         }
     }
@@ -599,10 +671,10 @@ public class LeetCodeNote {
      * @return
      */
     public boolean isValidBST(TreeNode root) {
-        return isValidBST(root, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    private boolean isValidBST(TreeNode node, int upper, int lower) {
+    public boolean isValidBST(TreeNode node, long lower, long upper) {
         if (node == null) {
             return true;
         }
@@ -686,6 +758,7 @@ public class LeetCodeNote {
     /**
      * 是否是对称二叉树
      * 给定一个二叉树，检查它是否是镜像对称的。
+     * https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/
      *
      * @param root
      * @return
@@ -711,6 +784,7 @@ public class LeetCodeNote {
 
     /**
      * 两数之和
+     * https://leetcode-cn.com/problems/two-sum/
      *
      * @param nums
      * @param target
@@ -767,6 +841,7 @@ public class LeetCodeNote {
     ///------------------------ 23 ---------------------
 
     /**
+     * https://leetcode-cn.com/problems/jump-game/
      * 给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
      * <p>
      * 数组中的每个元素代表你在该位置可以跳跃的最大长度。
@@ -798,6 +873,7 @@ public class LeetCodeNote {
     /**
      * 有效的括号
      * 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+     * https://leetcode-cn.com/problems/valid-parentheses/
      *
      * @param s
      * @return
@@ -935,6 +1011,7 @@ public class LeetCodeNote {
      * 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
      * <p>
      * 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
+     * https://leetcode-cn.com/problems/unique-paths/
      */
 
     public int uniquePaths(int m, int n) {
@@ -962,6 +1039,7 @@ public class LeetCodeNote {
      * 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
      * 切记，第一行 第一列赋值的时候，如果有障碍物 ，直接跳出循环
      * 不同路径 II
+     * https://leetcode-cn.com/problems/unique-paths-ii/
      */
 
     @Test
@@ -1014,6 +1092,8 @@ public class LeetCodeNote {
      * 最小路径和
      * 给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
      * dp[m][n] = Math.min(dp[m-1][n],dp[m][n])+1
+     * <p>
+     * https://leetcode-cn.com/problems/minimum-path-sum/
      */
 
     public int minPathSum(int[][] grid) {
@@ -1074,6 +1154,7 @@ public class LeetCodeNote {
     /**
      * 打家劫舍
      * dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+     * https://leetcode-cn.com/problems/house-robber/
      */
     public int rob(int[] nums) {
         int[] dp = new int[nums.length];
@@ -1103,6 +1184,7 @@ public class LeetCodeNote {
     /**
      * 最大子数组和
      * dp[i] = Math.max(nums[i], dp[i - 1]);
+     * https://leetcode-cn.com/problems/maximum-subarray/
      */
     public int maxSubArray(int[] nums) {
 
@@ -1122,6 +1204,7 @@ public class LeetCodeNote {
 
     /**
      * 实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，xn）。
+     * https://leetcode-cn.com/problems/powx-n/
      */
     public double myPow(double x, int n) {
         // 先变换 n 是负数的时候
@@ -1155,6 +1238,7 @@ public class LeetCodeNote {
 
     /**
      * 合并两个有序数组
+     * https://leetcode-cn.com/problems/merge-sorted-array/
      *
      * @param nums1
      * @param m
@@ -1320,6 +1404,7 @@ public class LeetCodeNote {
     ///------------------------ 35 ---------------------
 
     /**
+     * https://leetcode-cn.com/problems/add-two-numbers/
      * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
      * <p>
      * 请你将两个数相加，并以相同形式返回一个表示和的链表。
