@@ -203,6 +203,7 @@ public class LeetCodeNote {
                 return true;
             }
 
+
         }
         return false;
     }
@@ -2643,6 +2644,39 @@ public class LeetCodeNote {
         return result.toString();
     }
 
+    @Test
+    public void lowest(){
+        TreeNode node7 = new TreeNode(7);
+        TreeNode node4 = new TreeNode(4);
+
+
+        TreeNode node6 = new TreeNode(6);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node0 = new TreeNode(0);
+        TreeNode node8 = new TreeNode(8);
+
+
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node1 = new TreeNode(1);
+
+
+        TreeNode node3 = new TreeNode(3);
+        node3.left = node5;
+        node3.right = node1;
+
+        node5.left = node6;
+        node5.right =node2;
+        node1.left = node0;
+        node1.right = node8;
+
+        node2.left = node7;
+        node2.right = node4;
+
+
+        System.out.println("-----------"+lowestCommonAncestor(node3,node6,node4).val);;
+
+
+    }
     //给定一个二叉树, 找到该树中两个指定节点的最近公共祖先
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
@@ -2669,6 +2703,47 @@ public class LeetCodeNote {
         }
         //左右子树都找到p和q了，那就说明p和q分别在左右两个子树上，所以此时的最近公共祖先就是root
         return root;
+    }
+
+
+    // 在排序数组中查找元素的第一个和最后一个位置
+    // https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+
+    @Test
+    public void te(){
+        int[] arr = new int[]{5,7,7,8,8,10};
+        searchRange(arr,8);
+    }
+    public int[] searchRange(int[] nums, int target) {
+         int left = 0;
+         int right = nums.length-1;
+         int rightIndex = -1;
+         int leftIndex = -1;
+         while (right>=left){
+             if(nums[right]==target){
+                 rightIndex = right;
+                 if(leftIndex!=-1){
+                     break;
+                 }
+             }else {
+                 right--;
+             }
+             if(nums[left]==target){
+                 leftIndex = left;
+                 if(rightIndex!=-1){
+                     break;
+                 }
+             }else {
+                 left++;
+             }
+         }
+        System.out.println(rightIndex+"======"+leftIndex);
+         if(rightIndex==-1||leftIndex==-1){
+             return new int[]{-1,-1};
+         }else {
+             return new int[]{leftIndex,rightIndex};
+         }
+
     }
 }
 
