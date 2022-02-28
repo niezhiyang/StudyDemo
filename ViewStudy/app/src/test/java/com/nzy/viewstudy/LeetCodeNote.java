@@ -76,20 +76,20 @@ public class LeetCodeNote {
     /**
      * 一个数组 把奇数移动到偶数的前面，前面都是奇数，后面都是偶数，并且顺讯位置不变
      * 牛客网
-     *  https://www.nowcoder.com/questionTerminal/beb5aa231adc45b2a5dcc5b62c93f593?u_atoken=50210515-9ecb-4717-bb2f-5105515b6fd4&u_asession=01lBEXJ5iJK-xqW6oYZGYBehv9UE9_diPO1VLmeJeQOZZAATrvape1CnvPG9A52NwvX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K-Li7-QNHLulm_9hi6RWM_7MJtBx3S14qt35vRMTfjp8mBkFo3NEHBv0PZUm6pbxQU&u_asig=05TrrStJKDQyRL6Pe0d0BBudB2njKw7Ild18MC7W8uajnCmX7k-lOaZub8O9ZeALTgWuIgbONlBHRXu1-B12kifP4LHPjX5907K-txzQcH3UmpMabM_J-UKBMf6nWHl-5wjPPn-XeGXDreuo9MsIM9WLZnSPGDnr5S6-RvOtHKEgP9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzToa8Vt0r92plzbIg9M640pZXxwQHSsLQNDfkbILggi41YpiKJZCArXmgv6vSk2RSO3h9VXwMyh6PgyDIVSG1W84e5kNRA7V7_g0dyd2LP3xxPV46rxeunwwnCjSohRo2NjjroiW10CAo3omzWtvqz3EekJQaPUEiizeJrvIM-UVmWspDxyAEEo4kbsryBKb9Q&u_aref=6mGzVj%2F4f%2BRG0%2BwoVXwsnwXRSu4%3D
-     *
+     * https://www.nowcoder.com/questionTerminal/beb5aa231adc45b2a5dcc5b62c93f593?u_atoken=50210515-9ecb-4717-bb2f-5105515b6fd4&u_asession=01lBEXJ5iJK-xqW6oYZGYBehv9UE9_diPO1VLmeJeQOZZAATrvape1CnvPG9A52NwvX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K-Li7-QNHLulm_9hi6RWM_7MJtBx3S14qt35vRMTfjp8mBkFo3NEHBv0PZUm6pbxQU&u_asig=05TrrStJKDQyRL6Pe0d0BBudB2njKw7Ild18MC7W8uajnCmX7k-lOaZub8O9ZeALTgWuIgbONlBHRXu1-B12kifP4LHPjX5907K-txzQcH3UmpMabM_J-UKBMf6nWHl-5wjPPn-XeGXDreuo9MsIM9WLZnSPGDnr5S6-RvOtHKEgP9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzToa8Vt0r92plzbIg9M640pZXxwQHSsLQNDfkbILggi41YpiKJZCArXmgv6vSk2RSO3h9VXwMyh6PgyDIVSG1W84e5kNRA7V7_g0dyd2LP3xxPV46rxeunwwnCjSohRo2NjjroiW10CAo3omzWtvqz3EekJQaPUEiizeJrvIM-UVmWspDxyAEEo4kbsryBKb9Q&u_aref=6mGzVj%2F4f%2BRG0%2BwoVXwsnwXRSu4%3D
      */
     @Test
-    public void temp(){
-        int[] arr = new int[]{1,2,4,3,6,5};
+    public void temp() {
+        int[] arr = new int[]{1, 2, 4, 3, 6, 5};
         moveJiOuShu(arr);
         System.out.println(Arrays.toString(arr));
     }
+
     public void moveJiOuShu(int[] nums) {
         int left = 0; // 移动完成的末尾
         int right = 0; // 还没移动的开始
         while (right < nums.length) {
-            if (nums[right] %2!= 0) {
+            if (nums[right] % 2 != 0) {
                 // 这里就不能 简单的交换了，需要先记录下来这个奇数
                 // 然后把前面的往后移一位,然后给
                 int temp = nums[right];
@@ -158,6 +158,28 @@ public class LeetCodeNote {
         return now;
     }
 
+    /**
+     * 删除排序链表中的重复元素 83
+     */
+
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+
+        ListNode cur = head;
+        while (cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+
+        return head;
+    }
+
+
     ///------------------------ 4 ---------------------
 
     /**
@@ -208,6 +230,70 @@ public class LeetCodeNote {
         return false;
     }
 
+    @Test
+    public void textList() {
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        node1.next = node2;
+        ListNode node3 = new ListNode(3);
+        node2.next = node3;
+        ListNode node4 = new ListNode(4);
+        node3.next = node4;
+        node4.next = node2;
+        detectCycle1(node1);
+        detectCycle(node1);
+
+
+    }
+
+    public ListNode hasCycle1(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return fast;
+            }
+
+
+        }
+        return null;
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = hasCycle1(head);
+        if (slow == null) {
+            return null;
+        }
+        ListNode temp = head;
+        while (slow != temp) {
+            slow = slow.next;
+            temp = temp.next;
+        }
+        return temp;
+
+
+    }
+
+    public ListNode detectCycle1(ListNode head) {
+        ListNode fast = head, slow = head;
+        while (true) {
+            if (fast == null || fast.next == null) return null;
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) break;
+        }
+
+        ListNode temp = head;
+        while (slow != temp) {
+            slow = slow.next;
+            temp = temp.next;
+        }
+        return temp;
+
+
+    }
     ///------------------------ 6 ---------------------
 
     /**
@@ -340,6 +426,96 @@ public class LeetCodeNote {
 
     }
 
+    /**
+     * 25. K 个一组翻转链表
+     * https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    @Test
+    public void testKList() {
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        node1.next = node2;
+        ListNode node3 = new ListNode(3);
+        node2.next = node3;
+        ListNode node4 = new ListNode(4);
+        node3.next = node4;
+        ListNode node5 = new ListNode(5);
+        node4.next = node5;
+        ListNode node6 = new ListNode(6);
+        node5.next = node6;
+        ListNode node7 = new ListNode(7);
+        node6.next = node7;
+        reverseKGroup(node1, 3);
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        //递归终止条件，当head为null时中止递归
+        if (head == null) {
+            return null;
+        }
+        //根据k寻找待翻转链表的尾
+        ListNode end = head;
+        for (int i = 0; i < k - 1; i++) {
+            end = end.next;
+            if (end == null) {
+                return head;
+            }
+        }
+        //保存好下次翻转的链表的头 next = 4-5-6-7
+        ListNode nextListNode = end.next;
+
+        //翻转[start , end]范围中的链表，并返回头节点  newHead = 3-2-1（1就是head）
+        ListNode newHead = reverseListNode(head, end);
+
+        //此时head已经变成了链表的尾节点 head 就是 1，
+        //本次翻转后的链表的尾节点连接上下一个待翻转链表的头节点，递归实现
+        // 因为上面1就是head ，所以 直接操作head 就行了
+        head.next = reverseKGroup(nextListNode, k);
+        // 1-6-5-4-7
+        // 此时 newHead 是 3-2-1 1下面是谁呢，就是head.next
+
+        return newHead;
+    }
+
+    private ListNode reverseListNode(ListNode start, ListNode end) {
+        ListNode tmp = null;
+        ListNode temp = start;
+        while (tmp != end) {
+            ListNode next = temp.next;
+            temp.next = tmp;
+            tmp = temp;
+            temp = next;
+        }
+        return tmp;
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode pre = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        return pre;
+    }
+
+    public String printListNode(ListNode node) {
+        StringBuffer sb = new StringBuffer();
+        while (node != null) {
+            sb.append(node.val);
+            sb.append(" -> ");
+            node = node.next;
+
+        }
+        return sb.toString();
+    }
+
     ///------------------------ 10 ---------------------
     // 删除节点
     // https://leetcode-cn.com/problems/delete-middle-node-lcci/
@@ -409,6 +585,10 @@ public class LeetCodeNote {
 
     ///------------------------ 11 ---------------------
 
+    // 前序 根左右
+    // 中 左根右
+    // 后 左右根
+
     /**
      * 二叉树前序遍历
      * <p>
@@ -472,6 +652,7 @@ public class LeetCodeNote {
     /**
      * 层遍历二叉树,Z字形，每一层放到数组中
      * https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
+     * 二叉树的锯齿形层序遍历
      *
      * @param root
      * @return
@@ -685,6 +866,27 @@ public class LeetCodeNote {
         return isValidBST(node.left, lower, node.val) && isValidBST(node.right, node.val, upper);
     }
 
+    /**
+     * isBalanced
+     * 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树
+     */
+
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        int left = getDeep(root.left);
+        int right = getDeep(root.right);
+        return Math.abs(right - left) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+
+    }
+
+    public int getDeep(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        return Math.max(getDeep(node.left), getDeep(node.right)) + 1;
+    }
     ///------------------------ 17 ---------------------
 
     /**
@@ -701,6 +903,27 @@ public class LeetCodeNote {
 
     }
 
+    /**
+     * https://leetcode-cn.com/problems/diameter-of-binary-tree/
+     * 543. 二叉树的直径
+     */
+
+    int maxd = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        depth1(root);
+        return maxd;
+    }
+
+    public int depth1(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int Left = depth1(node.left);
+        int Right = depth1(node.right);
+        maxd = Math.max(Left + Right, maxd);//将每个节点最大直径(左子树深度+右子树深度)当前最大值比较并取大者
+        return Math.max(Left, Right) + 1;//返回节点深度
+    }
 
     ///------------------------ 18 ---------------------
     private boolean isHave = false;
@@ -1485,6 +1708,54 @@ public class LeetCodeNote {
     }
 
     /**
+     * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和并同样以字符串形式返回。
+     *
+     * @param num1
+     * @param num2 num1 = "11", num2 = "123"  返回= 134
+     * @return
+     */
+    @Test
+    public void tesss() {
+        System.out.println(addStrings("11", "123"));
+        ;
+    }
+
+    public String addStrings(String num1, String num2) {
+        int length1 = num1.length() - 1;
+        int length2 = num2.length() - 1;
+        int ret = 0;// 进位
+        StringBuilder result = new StringBuilder();
+        while (length1 >= 0 || length2 >= 0) {
+            int value1 = 0;
+            if (length1 <= -1) {
+                value1 = 0;
+            } else {
+                value1 = num1.charAt(length1) - '0';
+            }
+
+            int value2 = 0;
+            if (length2 <= -1) {
+                value2 = 0;
+            } else {
+                value2 = num2.charAt(length2) - '0';
+            }
+
+            int sum = ret + value1 + value2;
+            ret = sum / 10;
+            int nowValue = sum % 10;
+            result.append(nowValue);
+            length2--;
+            length1--;
+
+        }
+        if (ret == 1) {
+            result.append(1);
+        }
+        return result.reverse().toString();
+
+    }
+
+    /**
      * https://leetcode-cn.com/problems/add-binary/
      * 二进制求和
      *
@@ -2184,6 +2455,7 @@ public class LeetCodeNote {
     ///------------------------ 47 ---------------------
 
     /**
+     * https://leetcode-cn.com/problems/longest-palindromic-substring/
      * 5. 最长回文子串
      * 给你一个字符串 s，找到 s 中最长的回文子串。
      * 输入：s = "babad"
@@ -2376,6 +2648,26 @@ public class LeetCodeNote {
             dps(temp, result, nums);
         }
 
+    }
+
+    /**
+     * 给你一个整数数组 nums ，请你找出数组中乘积最大的非空连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+     * 因为有负数，所以记录起来最大值 和 最小值
+     */
+    public int maxProduct(int[] nums) {
+        int max = Integer.MIN_VALUE, imax = 1, imin = 1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] < 0) {
+                int tmp = imax;
+                imax = imin;
+                imin = tmp;
+            }
+            imax = Math.max(imax * nums[i], nums[i]);
+            imin = Math.min(imin * nums[i], nums[i]);
+
+            max = Math.max(max, imax);
+        }
+        return max;
     }
 
 
@@ -2645,7 +2937,7 @@ public class LeetCodeNote {
     }
 
     @Test
-    public void lowest(){
+    public void lowest() {
         TreeNode node7 = new TreeNode(7);
         TreeNode node4 = new TreeNode(4);
 
@@ -2665,7 +2957,7 @@ public class LeetCodeNote {
         node3.right = node1;
 
         node5.left = node6;
-        node5.right =node2;
+        node5.right = node2;
         node1.left = node0;
         node1.right = node8;
 
@@ -2673,10 +2965,12 @@ public class LeetCodeNote {
         node2.right = node4;
 
 
-        System.out.println("-----------"+lowestCommonAncestor(node3,node6,node4).val);;
+        System.out.println("-----------" + lowestCommonAncestor(node3, node6, node4).val);
+        ;
 
 
     }
+
     //给定一个二叉树, 找到该树中两个指定节点的最近公共祖先
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
@@ -2710,41 +3004,402 @@ public class LeetCodeNote {
     // https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 
     @Test
-    public void te(){
-        int[] arr = new int[]{5,7,7,8,8,10};
-        searchRange(arr,8);
+    public void te() {
+        int[] arr = new int[]{5, 7, 7, 8, 8, 10};
+        searchRange(arr, 8);
     }
+
     public int[] searchRange(int[] nums, int target) {
-         int left = 0;
-         int right = nums.length-1;
-         int rightIndex = -1;
-         int leftIndex = -1;
-         while (right>=left){
-             if(nums[right]==target){
-                 rightIndex = right;
-                 if(leftIndex!=-1){
-                     break;
-                 }
-             }else {
-                 right--;
-             }
-             if(nums[left]==target){
-                 leftIndex = left;
-                 if(rightIndex!=-1){
-                     break;
-                 }
-             }else {
-                 left++;
-             }
-         }
-        System.out.println(rightIndex+"======"+leftIndex);
-         if(rightIndex==-1||leftIndex==-1){
-             return new int[]{-1,-1};
-         }else {
-             return new int[]{leftIndex,rightIndex};
-         }
+        int left = 0;
+        int right = nums.length - 1;
+        int rightIndex = -1;
+        int leftIndex = -1;
+        while (right >= left) {
+            if (nums[right] == target) {
+                rightIndex = right;
+                if (leftIndex != -1) {
+                    break;
+                }
+            } else {
+                right--;
+            }
+            if (nums[left] == target) {
+                leftIndex = left;
+                if (rightIndex != -1) {
+                    break;
+                }
+            } else {
+                left++;
+            }
+        }
+        System.out.println(rightIndex + "======" + leftIndex);
+        if (rightIndex == -1 || leftIndex == -1) {
+            return new int[]{-1, -1};
+        } else {
+            return new int[]{leftIndex, rightIndex};
+        }
 
     }
+
+    /**
+     * https://leetcode-cn.com/problems/spiral-matrix/
+     * 螺旋矩阵 54
+     * 顺时针打印矩阵
+     *
+     * @param matrix
+     * @return
+     */
+    public int[] spiralOrder(int[][] matrix) {
+
+        if (matrix.length == 0) {
+            return new int[]{};
+        }
+        ArrayList<Integer> res = new ArrayList<>();
+        int left = 0;                       //左边界
+        int right = matrix[0].length - 1;    //右边界
+        int top = 0;                       //上边界
+        int bootom = matrix.length - 1;       //下边界
+        while (true) {
+            //从左往右
+            //列在变，列为循环值
+            //从左往右的下一步是往下走，上边界内缩，故++t
+            for (int i = left; i <= right; i++) {
+                res.add(matrix[top][i]);
+            }
+            // 因为已经从从左往右 了，所以 top 得 减1
+            top++;
+            if (top > bootom) break;
+            //从上往下，行在变
+            //从上往下的下一步是从右往左，右边界收缩，--r
+            for (int j = top; j <= bootom; j++) {
+                res.add(matrix[j][right]);
+            }
+            right--;
+            if (right < left) break;
+            //从右向左，列在变
+            //从右往左的下一步是从下往上，下边界收缩，--b
+            for (int i = right; i >= left; i--) {
+                res.add(matrix[bootom][i]);
+            }
+            bootom--;
+            if (bootom < top) break;
+            //从下到上，行在变
+            //从下到上的下一步是从左到右，左边界收缩，++l
+            for (int i = bootom; i >= top; i--) {
+                res.add(matrix[i][left]);
+            }
+            left++;
+            if (left > right) break;
+        }
+        int[] result = new int[res.size()];
+        for (int i = 0; i < res.size(); i++) {
+            result[i] = res.get(i);
+        }
+        return result;
+    }
+
+    public List<Integer> spiralOrde1r(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        if (matrix.length == 0) {
+            return result;
+        }
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+        while (true) {
+            for (int i = left; i <= right; i++) {
+                result.add(matrix[top][i]);
+            }
+            top++;
+            if (top > bottom) {
+                break;
+            }
+
+            for (int i = top; i <= bottom; i++) {
+                result.add(matrix[i][right]);
+            }
+            right--;
+            if (left > right) {
+                break;
+            }
+
+            for (int i = right; i >= left; i--) {
+                result.add(matrix[bottom][i]);
+            }
+            bottom--;
+            if (top > bottom) {
+                break;
+            }
+
+            for (int i = bottom; i >= top; i--) {
+                result.add(matrix[i][left]);
+            }
+            left++;
+            if (left > right) {
+                break;
+            }
+
+        }
+
+        return result;
+    }
+
+    public int search11(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int sum = map.getOrDefault(nums[i], 0) + 1;
+            map.put(nums[i], sum);
+        }
+        Integer integer = map.get(target);
+        if (integer == null) {
+            return 0;
+        }
+        return integer;
+    }
+
+    /**
+     * 二叉搜索树的第k大节点
+     * https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
+     * 中序遍历 就是递增的， “左、根、右”
+     * 中序遍历 倒叙，即 right 在 前面
+     */
+    int res, k;
+
+    public int kthLargest(TreeNode root, int k) {
+        this.k = k;
+        dfs(root);
+        return res;
+    }
+
+    void dfs(TreeNode root) {
+        if (root == null) return;
+        dfs(root.right);
+        if (k == 0) return;
+        if (--k == 0) res = root.val;
+        dfs(root.left);
+    }
+
+
+    /**
+     * 给定二叉搜索树（BST）的根节点 root 和一个整数值 val。
+     * <p>
+     * 你需要在 BST 中找到节点值等于 val 的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 null 。
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/search-in-a-binary-search-tree
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode searchBST(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        if (val == root.val) {
+            return root;
+        }
+        return searchBST(val < root.val ? root.left : root.right, val);
+    }
+
+    int sum = 0;
+
+    public int sumNumbers(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        sumNumbersString(root, "");
+        return sum;
+    }
+
+    public void sumNumbersString(TreeNode root, String temp) {
+        if (root == null) {
+            return;
+        }
+        String result = temp + root.val;
+        if (root.right == null && root.left == null) {
+            sum = sum + Integer.valueOf(result);
+        } else {
+            sumNumbersString(root.left, result);
+            sumNumbersString(root.right, result);
+        }
+
+    }
+
+    public int sumNumbers1(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        sumNumbersString1(root, 0);
+        return sum;
+    }
+
+    public void sumNumbersString1(TreeNode root, int temp) {
+        if (root == null) {
+            return;
+        }
+        int result = temp * 10 + root.val;
+        if (root.right == null && root.left == null) {
+            sum = sum + result;
+        } else {
+            sumNumbersString1(root.left, result);
+            sumNumbersString1(root.right, result);
+        }
+
+
+    }
+
+    /**
+     * 209. 长度最小的子数组
+     *
+     * @param s
+     * @param nums
+     * @return 找出该数组中满足其和 ≥ target 的长度最小的 连续子数组
+     */
+    public int minSubArrayLen(int s, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        int start = 0, end = 0;
+        int sum = 0;
+        while (end < n) {
+            // 右指针移动 直到 sum >=s 再进入 里面的循环，然后左--
+            sum = sum + nums[end];
+            while (sum >= s) {
+                ans = Math.min(ans, end - start + 1);
+                sum = sum - nums[start];
+                start++;
+            }
+            end++;
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
+
+    /**
+     * 143. 重排链表
+     * 给定一个单链表 L 的头节点 head ，单链表 L 表示为：
+     * <p>
+     * L0 → L1 → … → Ln - 1 → Ln
+     * 请将其重新排列后变为：
+     * <p>
+     * L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+     * <p>
+     * <p>
+     * 链接：https://leetcode-cn.com/problems/reorder-list
+     */
+
+    public void reorderList(ListNode head) {
+        // 先装入一个容器
+        ArrayList<ListNode> list = new ArrayList<>();
+        ListNode temp = head;
+        while (temp != null) {
+            list.add(temp);
+            temp = temp.next;
+        }
+
+        int start = 0;
+        int right = list.size() - 1;
+        while (start < right) {
+            list.get(start).next = list.get(right);
+            start++;
+            if (start == right) {
+                break;
+            }
+            list.get(right).next = list.get(start);
+            right--;
+        }
+        list.get(start).next = null;
+
+    }
+
+    public void reorderList1(ListNode head) {
+        ListNode temp = head;
+        // 先拿到 中间节点
+        ListNode mid = getMid(temp);
+        // 反转 mid 的next
+        ListNode revert = revertListNode(mid.next);
+        // 合并这两个链表
+        merge1(temp, revert);
+
+    }
+
+    private void merge1(ListNode temp, ListNode revert) {
+
+    }
+
+    private ListNode revertListNode(ListNode next) {
+        ListNode now = next;
+        ListNode pre = null;
+        while (now != null) {
+            ListNode temp = now.next;
+            now.next = pre;
+            pre = now;
+            now = temp;
+        }
+        return pre;
+    }
+
+    private ListNode getMid(ListNode temp) {
+        ListNode slow = temp;
+        ListNode fast = temp;
+        if (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+
+    /**
+     * 旋转 升序数组之后查找
+     * 1. 二分之后 肯定有一个是有顺序的，另一个 无序的
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search2(int[] nums, int target) {
+        int n = nums.length;
+        if (n == 0) {
+            return -1;
+        }
+        if (n == 1) {
+            return nums[0] == target ? 0 : -1;
+        }
+        int l = 0, r = n - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            // 左边是升序
+            if (nums[0] <= nums[mid]) {
+
+                if (nums[0] <= target && target < nums[mid]) {
+                    // 目标值在左侧
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            } else {
+                // 右边是升序
+                if (nums[mid] < target && target <= nums[n - 1]) {
+                    // 目标值在右侧
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+
 }
 
 
