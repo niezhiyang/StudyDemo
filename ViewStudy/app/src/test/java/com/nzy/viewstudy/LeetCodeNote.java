@@ -3406,25 +3406,77 @@ public class LeetCodeNote {
     /**
      * 剑指 Offer 07. 重建二叉树
      * https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/
+     * https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/solution/mian-shi-ti-07-zhong-jian-er-cha-shu-di-gui-fa-qin/
      * 输入某二叉树的前序遍历和中序遍历的结果，请构建该二叉树并返回其根节点。
+     *
+     *
+     *               1
+     *           2       5
+     *         3   4 | 6   7
+     * 比如  前序遍历 1，[2，3，4]，[5，6，7]      根据 下面的 左节点 长度，可以拿到 234 左节点的前序
+     *      中序遍历  [3，2，4]，1，[6，5，7] 前面是 根的左节点， 后面是根的右节点      324 是 左节点的中序
+     */
+    /**
+     * 根据前序遍历数组的 [preL, preR] 和 中序遍历数组的 [inL, inR] 重新组建二叉树
+     *
+     * @param preL 前序遍历数组的区间左端点
+     * @param preR 前序遍历数组的区间右端点
+     * @param inL  中序遍历数组的区间左端点
+     * @param inR  中序遍历数组的区间右端点
+     * @return 构建的新二叉树的根结点
      */
 
+    private TreeNode buildTree(int preL, int preR,
+                               int inL, int inR) {
+        if (preL > preR || inL > inR) {
+            return null;
+        }
+        // 构建的新二叉树的根结点一定是前序遍历数组的第 1 个元素
+        int pivot = preorder[preL];
+        TreeNode root = new TreeNode(pivot);
+
+        int pivotIndex = dic.get(pivot);
+
+        // 这一步得画草稿，计算边界的取值，必要时需要解方程，并不难
+        root.left = buildTree(preL + 1, preL + (pivotIndex - inL), inL, pivotIndex - 1);
+        root.right = buildTree(preL + (pivotIndex - inL) + 1, preR, pivotIndex + 1, inR);
+        return root;
+    }
+
+    ;//保留的先序遍历，方便递归时依据索引查看先序遍历的值
     int[] preorder;
+    //标记中序遍历
     HashMap<Integer, Integer> dic = new HashMap<>();
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         this.preorder = preorder;
         for(int i = 0; i < inorder.length; i++){
+            //将中序遍历的值及索引放在map中，方便递归时获取左子树与右子树的数量及其根的索引
             dic.put(inorder[i], i);
         }
-
-        return recur(0, 0, inorder.length - 1);
+        //三个索引分别为
+        //当前根的的索引
+        //递归树的左边界，即数组左边界
+        //递归树的右边界，即数组右边界
+        return buildTree(0, preorder.length - 1, 0, inorder.length - 1);
+//        return recur(0, 0, inorder.length - 1);
     }
+
+
     TreeNode recur(int root, int left, int right) {
+        // 相等的话就是自己
         if(left > right) return null;                          // 递归终止
+        //获取root节点
         TreeNode node = new TreeNode(preorder[root]);          // 建立根节点
+        //获取在中序遍历中根节点所在索引，以方便获取左子树的数量
         int i = dic.get(preorder[root]);                       // 划分根节点、左子树、右子树
+        //左子树的根的索引为先序中的根节点+1
+        //递归左子树的左边界为原来的中序left
+        //递归左子树的右边界为中序中的根节点索引-1
         node.left = recur(root + 1, left, i - 1);              // 开启左子树递归
-        node.right = recur(root + i - left + 1, i + 1, right); // 开启右子树递归
+        //右子树的根的索引为先序中的 当前根位置 + 左子树的数量 + 1
+        //递归右子树的左边界为中序中当前根节点+1
+        //递归右子树的右边界为中序中原来右子树的边界
+        node.right = recur(root + (i - left) + 1, i + 1, right); // 开启右子树递归
         return node;                                           // 回溯返回根节点
     }
 
@@ -3492,6 +3544,7 @@ public class LeetCodeNote {
             }
         }
 
+        // 把 node 放到 head的后面 1<-->2     把3   1<-->3<--->2
         private void addToHead(DLinkedNode node) {
             node.prev = head;
             node.next = head.next;
