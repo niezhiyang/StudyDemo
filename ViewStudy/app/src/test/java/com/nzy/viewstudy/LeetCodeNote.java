@@ -3161,8 +3161,11 @@ public class LeetCodeNote {
     /**
      * 二叉搜索树的第k大节点
      * https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
-     * 中序遍历 就是递增的， “左、根、右”
+     * 前序遍历 就是递增的， “左、根、右”
+     * 中序遍历             左根右
+     * 后序遍历             左右根
      * 中序遍历 倒叙，即 right 在 前面
+     * 后续
      */
     int res, k;
 
@@ -3399,6 +3402,119 @@ public class LeetCodeNote {
         return -1;
     }
 
+
+    /**
+     * 剑指 Offer 07. 重建二叉树
+     * https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/
+     * 输入某二叉树的前序遍历和中序遍历的结果，请构建该二叉树并返回其根节点。
+     */
+
+    int[] preorder;
+    HashMap<Integer, Integer> dic = new HashMap<>();
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        this.preorder = preorder;
+        for(int i = 0; i < inorder.length; i++){
+            dic.put(inorder[i], i);
+        }
+
+        return recur(0, 0, inorder.length - 1);
+    }
+    TreeNode recur(int root, int left, int right) {
+        if(left > right) return null;                          // 递归终止
+        TreeNode node = new TreeNode(preorder[root]);          // 建立根节点
+        int i = dic.get(preorder[root]);                       // 划分根节点、左子树、右子树
+        node.left = recur(root + 1, left, i - 1);              // 开启左子树递归
+        node.right = recur(root + i - left + 1, i + 1, right); // 开启右子树递归
+        return node;                                           // 回溯返回根节点
+    }
+
+
+    /** lru
+     * https://leetcode-cn.com/problems/lru-cache/solution/lruhuan-cun-ji-zhi-by-leetcode-solution/
+     */
+    public class LRUCache {
+        class DLinkedNode {
+            int key;
+            int value;
+            DLinkedNode prev;
+            DLinkedNode next;
+            public DLinkedNode() {}
+            public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+        }
+
+        private HashMap<Integer, DLinkedNode> cache = new HashMap<Integer, DLinkedNode>();
+        private int size;
+        private int capacity;
+        private DLinkedNode head, tail;
+
+        public LRUCache(int capacity) {
+            this.size = 0;
+            this.capacity = capacity;
+            // 使用伪头部和伪尾部节点
+            head = new DLinkedNode();
+            tail = new DLinkedNode();
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        public int get(int key) {
+            DLinkedNode node = cache.get(key);
+            if (node == null) {
+                return -1;
+            }
+            // 如果 key 存在，先通过哈希表定位，再移到头部
+            moveToHead(node);
+            return node.value;
+        }
+
+        public void put(int key, int value) {
+            DLinkedNode node = cache.get(key);
+            if (node == null) {
+                // 如果 key 不存在，创建一个新的节点
+                DLinkedNode newNode = new DLinkedNode(key, value);
+                // 添加进哈希表
+                cache.put(key, newNode);
+                // 添加至双向链表的头部
+                addToHead(newNode);
+                ++size;
+                if (size > capacity) {
+                    // 如果超出容量，删除双向链表的尾部节点
+                    DLinkedNode tail = removeTail();
+                    // 删除哈希表中对应的项
+                    cache.remove(tail.key);
+                    --size;
+                }
+            }
+            else {
+                // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
+                node.value = value;
+                moveToHead(node);
+            }
+        }
+
+        private void addToHead(DLinkedNode node) {
+            node.prev = head;
+            node.next = head.next;
+            head.next.prev = node;
+            head.next = node;
+        }
+
+        private void removeNode(DLinkedNode node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+
+        private void moveToHead(DLinkedNode node) {
+            removeNode(node);
+            addToHead(node);
+        }
+
+        private DLinkedNode removeTail() {
+            DLinkedNode res = tail.prev;
+            removeNode(res);
+            return res;
+        }
+    }
 
 }
 
