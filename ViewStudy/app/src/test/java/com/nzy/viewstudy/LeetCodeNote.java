@@ -539,7 +539,7 @@ public class LeetCodeNote {
                 // 找到了 直接break，此时 cur就是当前需要删除的，pre，就是需要删除的前一个
                 break;
             } else {
-                pre = cur;
+                pre = pre.next;
                 cur = cur.next;
             }
 
