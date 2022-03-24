@@ -39,6 +39,11 @@ public class LeetCodeNote {
 
     ///------------------------ 1 ---------------------
     //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * https://leetcode-cn.com/problems/move-zeroes/
+     * @param nums
+     */
     public void moveZeroes(int[] nums) {
         //  奇数偶数也一样可以这样用
         // 方案一
@@ -109,7 +114,8 @@ public class LeetCodeNote {
 
     /**
      * 盛最多水的容器
-     *
+     * 11. 盛最多水的容器
+     * https://leetcode-cn.com/problems/container-with-most-water/
      * @param height
      * @return
      */
@@ -366,7 +372,7 @@ public class LeetCodeNote {
 
     /**
      * 合并两个有序链表
-     *
+     * https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/
      * @param node1
      * @param node2
      * @return
@@ -404,7 +410,7 @@ public class LeetCodeNote {
 
     /**
      * 连个链表两两交换
-     *
+     * https://leetcode-cn.com/problems/swap-nodes-in-pairs/
      * @param head
      * @return
      */
@@ -578,6 +584,42 @@ public class LeetCodeNote {
         }
 
         pre.next = curr.next;
+
+        return head;
+
+    }
+
+    @Test
+    public void testKList1() {
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        node1.next = node2;
+        ListNode node3 = new ListNode(3);
+        node2.next = node3;
+        ListNode node4 = new ListNode(4);
+        node3.next = node4;
+        ListNode node5 = new ListNode(5);
+        node4.next = node5;
+        ListNode node6 = new ListNode(6);
+        node5.next = node6;
+        ListNode node7 = new ListNode(7);
+        node6.next = node7;
+        System.out.println(printListNode(node1));
+        System.out.println(printListNode(removeNthFromEnd1(node1,3)));
+
+    }
+
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        ListNode fast = head;
+        ListNode pre = head;
+        for (int i = 0; i < n; i++) {
+            pre = fast;
+            fast = fast.next;
+
+        }
+
+
+        pre.next = fast.next;
 
         return head;
 
@@ -1191,6 +1233,24 @@ public class LeetCodeNote {
         }
         return new ArrayList(map.values());
     }
+
+    /**
+     * B是否是A的子树
+     * @param A
+     * @param B
+     * @return
+     * https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/
+     */
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+
+        return (A != null && B != null) && (recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B));
+    }
+    boolean recur(TreeNode A, TreeNode B) {
+        if(B == null) return true;
+        if(A == null ) return false;
+        return A.val == B.val && recur(A.left, B.left) && recur(A.right, B.right);
+    }
+
 
     ///------------------------ 27 ---------------------
 
@@ -2651,6 +2711,7 @@ public class LeetCodeNote {
     }
 
     /**
+     * https://leetcode-cn.com/problems/maximum-product-subarray/
      * 给你一个整数数组 nums ，请你找出数组中乘积最大的非空连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
      * 因为有负数，所以记录起来最大值 和 最小值
      */
@@ -3447,9 +3508,10 @@ public class LeetCodeNote {
     int[] preorder;
     //标记中序遍历
     HashMap<Integer, Integer> dic = new HashMap<>();
+
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         this.preorder = preorder;
-        for(int i = 0; i < inorder.length; i++){
+        for (int i = 0; i < inorder.length; i++) {
             //将中序遍历的值及索引放在map中，方便递归时获取左子树与右子树的数量及其根的索引
             dic.put(inorder[i], i);
         }
@@ -3464,7 +3526,7 @@ public class LeetCodeNote {
 
     TreeNode recur(int root, int left, int right) {
         // 相等的话就是自己
-        if(left > right) return null;                          // 递归终止
+        if (left > right) return null;                          // 递归终止
         //获取root节点
         TreeNode node = new TreeNode(preorder[root]);          // 建立根节点
         //获取在中序遍历中根节点所在索引，以方便获取左子树的数量
@@ -3481,7 +3543,8 @@ public class LeetCodeNote {
     }
 
 
-    /** lru
+    /**
+     * lru
      * https://leetcode-cn.com/problems/lru-cache/solution/lruhuan-cun-ji-zhi-by-leetcode-solution/
      */
     public class LRUCache {
@@ -3490,8 +3553,14 @@ public class LeetCodeNote {
             int value;
             DLinkedNode prev;
             DLinkedNode next;
-            public DLinkedNode() {}
-            public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+
+            public DLinkedNode() {
+            }
+
+            public DLinkedNode(int _key, int _value) {
+                key = _key;
+                value = _value;
+            }
         }
 
         private HashMap<Integer, DLinkedNode> cache = new HashMap<Integer, DLinkedNode>();
@@ -3536,8 +3605,7 @@ public class LeetCodeNote {
                     cache.remove(tail.key);
                     --size;
                 }
-            }
-            else {
+            } else {
                 // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
                 node.value = value;
                 moveToHead(node);

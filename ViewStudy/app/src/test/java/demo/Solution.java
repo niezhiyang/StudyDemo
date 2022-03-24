@@ -58,10 +58,7 @@ public class Solution {
 
     }
 
-    @org.junit.Test
-    public void test() {
 
-    }
     public TreeNode getParentNode(TreeNode root , TreeNode p,TreeNode q){
         if(root==null){
             return null;
@@ -94,6 +91,10 @@ public class Solution {
 
 
 
+    @org.junit.Test
+    public void test() {
+
+    }
 
 
 
