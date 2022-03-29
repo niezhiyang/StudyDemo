@@ -13,7 +13,6 @@ import android.view.Display;
 import android.view.View;
 
 import com.nzy.viewstudy.fragment.MyFragment;
-import com.nzy.viewstudy.fragment.MyFragment2;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,7 +70,7 @@ public class Maintactivity4 extends AppCompatActivity {
 
         View viewById = findViewById(R.id.fl1);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl1, new MyFragment(), "fragment1").commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl2, new MyFragment2(), "fragment2").commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fl2, new MyFragment2(), "fragment2").commit();
 
 //        MyRecyclerView viewById1 = (MyRecyclerView) findViewById(R.id.recyclerview);
 //

@@ -26,7 +26,7 @@ public class MyButton extends Button {
                 Log.e(TAG, "onTouchEvent ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.e(TAG, "onTouchEvent ACTION_MOVE");
+//                Log.e(TAG, "onTouchEvent ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e(TAG, "onTouchEvent ACTION_UP");
@@ -49,7 +49,7 @@ public class MyButton extends Button {
                 Log.e(TAG, "dispatchTouchEvent ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.e(TAG, "dispatchTouchEvent ACTION_MOVE");
+//                Log.e(TAG, "dispatchTouchEvent ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e(TAG, "dispatchTouchEvent ACTION_UP");

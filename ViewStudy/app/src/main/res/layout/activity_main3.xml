@@ -7,18 +7,21 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/rllll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <com.nzy.viewstudy.view.MyView
             android:id="@+id/myview"
             android:layout_width="100dp"
             android:layout_height="100dp" />
     </RelativeLayout>
-    <Button
+
+    <com.nzy.viewstudy.view.MyButton
         android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:onClick="clickc" />
     <!--  <com.nzy.viewstudy.fragment.MyRecyclerView-->
@@ -32,9 +35,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp" />
 
-    <fragment
-        android:name="com.nzy.viewstudy.fragment.MyFragment"
-        android:id="@+id/fl2"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+<!--    <fragment-->
+<!--        android:id="@+id/fl2"-->
+<!--        android:name="com.nzy.viewstudy.fragment.MyFragment"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp" />-->
 </LinearLayout>
