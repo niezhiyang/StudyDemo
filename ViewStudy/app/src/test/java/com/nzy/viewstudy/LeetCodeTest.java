@@ -127,10 +127,10 @@ public class LeetCodeTest {
                     list.add(nums[right]);
                     result.add(list);
 
-                    while (right>left && nums[left]==nums[left+1]){
+                    while (right > left && nums[left] == nums[left + 1]) {
                         left++;
                     }
-                    while (right>left && nums[right]==nums[right-1]){
+                    while (right > left && nums[right] == nums[right - 1]) {
                         right--;
                     }
 
@@ -147,6 +147,96 @@ public class LeetCodeTest {
 
         return result;
 
+    }
+
+    /**
+     * 岛屿最大面积
+     * https://leetcode.cn/problems/max-area-of-island/
+     * <p>
+     * [
+     * 1. [0,0,1,0,0,0,0,1,0,0,0,0,0],
+     * 2. [0,0,0,0,0,0,0,1,1,1,0,0,0],
+     * 3. [0,1,1,0,1,0,0,0,0,0,0,0,0],
+     * 4. [0,1,0,0,1,1,0,0,1,0,1,0,0],
+     * 5. [0,1,0,0,1,1,0,0,1,1,1,0,0],
+     * 6. [0,0,0,0,0,0,0,0,0,0,1,0,0],
+     * 7. [0,0,0,0,0,0,0,1,1,1,0,0,0],
+     * 8 [0,0,0,0,0,0,0,1,1,0,0,0,0]
+     * ]
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/max-area-of-island
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
+     * @param grid
+     * @return
+     */
+    @Test
+    public void test() {
+        int[][] array = {
+                  {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}
+                , {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0}
+                , {0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}
+                , {0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0}
+                , {0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0}
+                , {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}
+                , {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0}
+                , {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
+        };
+        int[][] array1 = {
+                {0, 1,0}
+                , {1, 1,0}
+
+        };
+        maxAreaOfIsland(array);
+        System.out.println(maxNum);
+    }
+
+    int num = 0;
+
+    int maxNum = 1;
+
+    public int maxAreaOfIsland(int[][] grid) {
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                // 如果其实位置是 1，往下走
+                if (grid[i][j] == 1) {
+                    dfs1(grid, i, j);
+                    maxNum = Math.max(maxNum, num);
+                    num = 1;
+                }
+            }
+        }
+        return count;
+
+
+    }
+
+    void dfs1(int[][] grid, int row, int column) {
+        // 判断 base case
+        if (!inArea(grid, row, column)) {
+            return;
+        }
+        // 如果这个格子不是岛屿，直接返回
+        if (grid[row][column] != 1) {
+            return;
+        }
+        // 将格子标记为「已遍历过」
+        grid[row][column] = 2;
+        num++;
+
+        // 访问上、下、左、右四个相邻结点
+        dfs1(grid, row - 1, column);
+        dfs1(grid, row + 1, column);
+        dfs1(grid, row, column - 1);
+        dfs1(grid, row, column + 1);
+    }
+
+    // 判断坐标 (r, c) 是否在网格中
+    boolean inArea(int[][] grid, int row, int column) {
+        return 0 <= row && row < grid.length
+                && 0 <= column && column < grid[0].length;
     }
 
 

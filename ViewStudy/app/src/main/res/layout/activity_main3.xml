@@ -23,7 +23,14 @@
         android:id="@+id/button"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:onClick="clickc" />
+        android:text="点击崩溃"
+        android:onClick="click" />
+    <com.nzy.viewstudy.view.MyButton
+        android:id="@+id/detail"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="崩溃详情"
+        android:onClick="detail" />
     <!--  <com.nzy.viewstudy.fragment.MyRecyclerView-->
     <!--      android:orientation="vertical"-->
     <!--      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
