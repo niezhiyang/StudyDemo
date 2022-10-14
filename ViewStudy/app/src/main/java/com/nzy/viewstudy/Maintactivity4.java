@@ -1,16 +1,19 @@
 package com.nzy.viewstudy;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import com.nzy.viewstudy.crash.BundleKey;
-import com.nzy.viewstudy.crash.CrashCaptureManager;
-import com.nzy.viewstudy.crash.FileExplorerFragment;
+import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * @author niezhiyang
@@ -23,36 +26,33 @@ public class Maintactivity4 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
+
+
     }
 
     public void click(View view) {
-        int save = 1 / 0;
-    }
-
-    public void detail(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(BundleKey.DIR_KEY, CrashCaptureManager.getInstance()
-                .getCrashCacheDir());
-        showContent(FileExplorerFragment.class, bundle);
-    }
-
-    private void showContent(Class<FileExplorerFragment> target, Bundle bundle){
-        Fragment fragment = null;
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                // ip 就是 电脑的ip
+                .url("http://172.16.5.234:4523/m1/1731342-0-default/pet/2")
+                .get()
+                .build();
         try {
-            fragment = target.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+           client.newCall(request).enqueue(new Callback() {
+               @Override
+               public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                   e.printStackTrace();
+               }
+
+               @Override
+               public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                     Log.e("ssss",response.body().string());
+               }
+           });
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if (bundle != null) {
-            fragment.setArguments(bundle);
-        }
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .add(R.id.content, fragment)
-                .addToBackStack("")
-                .commit();
     }
 
 }

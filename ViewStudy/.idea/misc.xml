@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/layout/dk_item_file_info.xml" value="0.128125" />
         <entry key="app/src/main/res/layout/recycleview.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/recycleview_item.xml" value="0.128125" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.11510416666666666" />
       </map>
     </option>
   </component>
