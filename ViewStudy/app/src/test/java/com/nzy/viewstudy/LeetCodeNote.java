@@ -635,6 +635,8 @@ public class LeetCodeNote {
     // 后 左右根
 
     /**
+     * 前序遍历 中序遍历 后续遍历
+     * 二叉树遍历方式
      * -----1
      * --2      3
      * 4   5  6   7
@@ -655,15 +657,16 @@ public class LeetCodeNote {
         node3.left = node6;
         node3.right = node7;
 
-        ArrayList<Integer> middle = new ArrayList<>();
-        middleorder(node1, middle);
-        System.out.println(Arrays.toString(middle.toArray()));
+
         ArrayList<Integer> pre = new ArrayList<>();
         preorder(node1, pre);
-        System.out.println(Arrays.toString(pre.toArray()));
+        System.out.println("前序：" + Arrays.toString(pre.toArray()));
+        ArrayList<Integer> middle = new ArrayList<>();
+        middleorder(node1, middle);
+        System.out.println("中序：" + Arrays.toString(middle.toArray()));
         ArrayList<Integer> after = new ArrayList<>();
         afterorder(node1, after);
-        System.out.println(Arrays.toString(after.toArray()));
+        System.out.println("后序：" + Arrays.toString(after.toArray()));
     }
 
     /**
@@ -829,7 +832,7 @@ public class LeetCodeNote {
     ///------------------------ 14 ---------------------
 
     /**
-     * 二叉树中所有的路径  ["1->2->5","1->3"]
+     * 257 二叉树的所有路径  ["1->2->5","1->3"]
      * https://leetcode.cn/problems/binary-tree-paths/
      *
      * @param root
@@ -837,25 +840,22 @@ public class LeetCodeNote {
      */
     public List<String> binaryTreePaths(TreeNode root) {
         ArrayList<String> result = new ArrayList<>();
-        binary(root, "", result);
+        dfs(root, "", result);
         return result;
     }
 
-    private void binary(TreeNode root, String path, ArrayList<String> result) {
+    private void dfs(TreeNode root, String path, ArrayList<String> result) {
         if (root != null) {
-            String temp = "";
-            if (path.isEmpty()) {
-                temp = root.val + "";
-
-            } else {
-                temp = path + "->" + root.val;
-            }
-
+            StringBuilder pathTemp = new StringBuilder(path);
+            // String pathTemp = path + root.val;
+            pathTemp.append(root.val);
             if (root.left == null && root.right == null) {
-                result.add(temp);
+                result.add(pathTemp.toString());
             } else {
-                binary(root.right, temp, result);
-                binary(root.left, temp, result);
+                // pathTemp = pathTemp + "->";
+                pathTemp.append("->");
+                dfs(root.right, pathTemp.toString(), result);
+                dfs(root.left, pathTemp.toString(), result);
             }
 
 
@@ -1462,7 +1462,8 @@ public class LeetCodeNote {
     ///------------------------ 30 ---------------------
 
     /**
-     * 三角形最小路径和
+     * 120：三角形最小路径和
+     * https://leetcode.cn/problems/triangle/
      * <p>
      * dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j]) + triangle.get(i).get(j);
      */
@@ -1501,8 +1502,32 @@ public class LeetCodeNote {
      * 打家劫舍
      * dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
      * https://leetcode.cn/problems/house-robber/
+     * 下面可以优化空间复杂度
      */
     public int rob(int[] nums) {
+        // 先赋值第一个,因为下面for循环,不能从0开始
+        if (nums.length == 0) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        if (nums.length == 2) {
+            return Math.max(nums[0], nums[1]);
+        }
+        int pre = nums[0];
+        int cur = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < nums.length; i++) {
+            int temp = cur;
+            cur = Math.max(pre + nums[i], cur);
+            pre = temp;
+        }
+        return cur;
+
+
+    }
+
+    public int rob1(int[] nums) {
         int[] dp = new int[nums.length];
         // 先赋值第一个,因为下面for循环,不能从0开始
         if (nums.length == 0) {
@@ -1523,6 +1548,29 @@ public class LeetCodeNote {
         return dp[nums.length - 1];
 
 
+    }
+    ///------------------------ 31 ---------------------
+
+    /**
+     * 打家劫舍 假如是圆形，也就是第一个 和 最后一个不能同时透
+     * dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+     * https://leetcode.cn/problems/house-robber/
+     */
+    @Test
+    public void testRob3() {
+        System.out.println(rob3(new int[]{1, 2, 1, 1}));
+    }
+
+    public int rob3(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        if (nums.length == 2) {
+            return Math.max(nums[0], nums[1]);
+        }
+        int rob1 = rob(Arrays.copyOfRange(nums, 0, nums.length - 1));
+        int rob2 = rob(Arrays.copyOfRange(nums, 1, nums.length));
+        return Math.max(rob1, rob2);
     }
 
     ///------------------------ 32 ---------------------
@@ -2775,7 +2823,6 @@ public class LeetCodeNote {
     private void dps(ArrayList<Integer> path, List<List<Integer>> result, int[] nums) {
         if (nums.length == path.size()) {
             result.add(path);
-            System.out.println(Arrays.toString(path.toArray()));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
@@ -3213,7 +3260,7 @@ public class LeetCodeNote {
     /**
      * 二叉搜索树的第k大节点
      * https://leetcode.cn/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
-     * 前序遍历 就是递增的, “跟、左、右”
+     * 前序遍历 就是递增的, “根、左、右”
      * 中序遍历             左根右
      * 后序遍历             左右根
      * 中序遍历 倒叙,即 right 在 前面
@@ -4131,23 +4178,48 @@ public class LeetCodeNote {
      * @return
      */
     public int longestCommonSubsequence(String text1, String text2) {
-
+        int ans = -1;
         int text1Length = text1.length();
         int text2Length = text2.length();
         int dp[][] = new int[text1Length + 1][text2Length + 1];
-        for (int row = 1; row < dp.length; row++) {
-            char ch1 = text1.charAt(row - 1);
-            for (int col = 1; col < dp[row].length; col++) {
-                char ch2 = text2.charAt(col - 1);
+        for (int i = 1; i < dp.length; i++) {
+            char ch1 = text1.charAt(i - 1);
+            for (int j = 1; j < dp[i].length; j++) {
+                char ch2 = text2.charAt(j - 1);
                 if (ch1 == ch2) {
-                    dp[row][col] = dp[row - 1][col - 1] + 1;
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
-                    dp[row][col] = Math.max(dp[row - 1][col], dp[row][col - 1]);
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
+//  这下面两个是一样的 因为是不连续的所以 后面一定会比前面大，一只加上来的
+//        return dp[text1Length][text2Length];
+        return ans;
+    }
+
+    /**
+     * 718. 最长重复子数组，且子数组在原数组中连续
+     */
+    public int findLength(int[] nums1, int[] nums2) {
+        int ans = -1;
+        int[][] dp = new int[nums1.length + 1][nums2.length + 1];
+        for (int i = 1; i <= nums1.length; i++) {
+            for (int j = 1; j <= nums2.length; j++) {
+                if (nums1[i - 1] == nums2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                    ans = Math.max(ans, dp[i][j]);
+                } else {
+                    dp[i][j] = 0;
                 }
             }
         }
+        return ans;
+        //这下面就不可以，这个因为是连续的，所以这里不会是下面的
+//        return dp[nums1.length][nums2.length];
 
-        return dp[text1Length][text2Length];
+
     }
 
     @Test
@@ -4720,7 +4792,7 @@ public class LeetCodeNote {
      * 输入: temperatures = [73,74,75,71,69,72,76,73]
      * ---------------坐标= [ 0, 1, 2, 3, 4, 5, 6, 7]
      * 输出: [1,1,4,2,1,1,0,0]
-     *
+     * <p>
      * 单调递减栈
      * // 第一次 73[0]
      * // 压第二个 一看是 74 就不压进去 此时
@@ -4739,6 +4811,369 @@ public class LeetCodeNote {
             stack.push(i);
         }
         return result;
+
+    }
+
+    ///------------------------ 81 ---------------------
+
+    /**
+     * https://www.nowcoder.com/questionTerminal/16409dd00ab24a408ddd0c46e49ddcf8?answerType=1&f=discussion
+     * <p>
+     * 圆环上有 10 个点，编号 0~9 。从 0 出发，每次可以顺时针或逆时针走一格，请问一共走且仅走 n 步回到原点的方法有多少种。
+     * 圆环回原点
+     * [1]0-12共13个数构成一个环，从0出发，每次走1步，走n步回到0共有多少种走法（2020.09 字节跳动-广告-后端）
+     * [2]0-8组成一个圆环，从0出发，每次可以逆时针和顺时针走，走n步能回到0有多少种情况（2020.09 字节跳动-people-后端）
+     * [3]0~9的环，从0出发，N步后能否走回0。（2020.07 字节跳动-电商-后端）
+     * [4]圆环回原点问题 (2020.08 字节跳动-飞书-后端)
+     * <p>
+     * 此题跟斐波拉契系数很像 第i步走到
+     * dp[i][j] = dp[i-1][j-1] (i-1步走到j左边的方法数) + dp[i-1][j+1](i-1步走到j右边的方法数）
+     * <p>
+     * 数据范围： 由于答案可能会非常大，所以请对答案对 10^9+7
+     */
+    public int circle(int n) {
+
+        int length = 10;
+        int mod = (int) Math.pow(10, 9) + 7;
+        int[][] dp = new int[n + 1][10];
+        dp[0][0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < length; j++) {
+                // 这里要求魔 length 有可能 ，j+1 会大于length
+                dp[i][j] = (dp[i - 1][(j + 1) % length] + dp[i - 1][(j - 1 + length) % length]) % mod;
+            }
+        }
+        return dp[n][0];
+    }
+
+    ///------------------------ 82 ---------------------
+
+    /**
+     * 删除二叉搜索树中的节点
+     * 给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的key对应的节点，
+     * 并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。
+     * <p>
+     * - 如果目标节点大于当前节点值，则去右子树中删除；
+     * - 如果目标节点小于当前节点值，则去左子树中删除；
+     * - 如果目标节点就是当前节点，分为以下三种情况：
+     * -- 其无左子：其右子顶替其位置，删除了该节点；
+     * -- 其无右子：其左子顶替其位置，删除了该节点；
+     * -- 其左右子节点都有：其左子树转移到其右子树的最左节点的左子树上，然后右子树顶替其位置，由此删除了该节点。
+     *
+     * @return
+     */
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return null;
+
+        if (key > root.val) {
+            root.right = deleteNode(root.right, key); // 去右子树删除
+        } else if (key < root.val) {
+            root.left = deleteNode(root.left, key);  // 去左子树删除
+        } else {  // 当前节点就是要删除的节点
+
+            if (root.left == null) {
+                // 情况1，欲删除节点无左子
+                return root.right;
+            } else if (root.right == null) {
+                // 情况2，欲删除节点无右子
+                return root.left;
+            } else {
+                // 情况3，欲删除节点左右子都有
+                TreeNode node = root.right;
+                while (node.left != null) {
+                    // 寻找欲删除节点右子树的最左节点
+                    node = node.left;
+                }
+
+                // 将欲删除节点的左子树成为其右子树的最左节点的左子树
+                node.left = root.left;
+                // 欲删除节点的右子顶替其位置，节点被删除
+                root = root.right;
+            }
+        }
+        return root;
+    }
+
+    ///------------------------ 83 ---------------------
+
+    /**
+     * 展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。
+     * 展开后的单链表应该与二叉树 先序遍历 顺序相同。
+     * <p>
+     * 114. 二叉树展开为链表
+     */
+
+    public void flatten(TreeNode root) {
+
+        ArrayList<TreeNode> list = new ArrayList<>();
+        dfsflatten(root, list);
+        for (int i = 0; i < list.size(); i++) {
+            TreeNode node = list.get(i);
+            node.left = null;
+            node.right = null;
+            TreeNode right = null;
+            if (i != list.size() - 1) {
+                right = list.get(i + 1);
+            }
+            node.right = right;
+        }
+    }
+
+    private void dfsflatten(TreeNode root, ArrayList<TreeNode> list) {
+        if (root != null) {
+            list.add(root);
+            dfs(root.left);
+            dfs(root.right);
+        }
+    }
+
+    public void flatten1(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        //将根节点的左子树变成链表
+        flatten1(root.left);
+        //将根节点的右子树变成链表
+        flatten1(root.right);
+        TreeNode temp = root.right;
+        //把树的右边换成左边的链表
+        root.right = root.left;
+        //记得要将左边置空
+        root.left = null;
+        //找到树的最右边的节点
+        while (root.right != null) root = root.right;
+        //把右边的链表接到刚才树的最右边的节点
+        root.right = temp;
+    }
+
+
+    ///------------------------ 84 ---------------------
+
+    /**
+     * 124. 二叉树中的最大路径和
+     * ---1
+     * 2     3  则 2 ，1， 3 是最大值6
+     * --：-1
+     * -2     -3 则 -1 是最大值 -1
+     */
+    @Test
+    public void maxPathSumTest() {
+        TreeNode node1 = new TreeNode(2);
+        TreeNode node2 = new TreeNode(1);
+        TreeNode node3 = new TreeNode(3);
+        node1.left = node2;
+        node1.right = node3;
+        maxPathSum(node1);
+    }
+
+    int resultmaxPathSum = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+        dfsmaxPathSum(root);
+        return resultmaxPathSum;
+    }
+
+    // 函数功能：返回当前节点能为父亲提供的贡献，需要结合上面的图来看！
+    private int dfsmaxPathSum(TreeNode root) {
+        // 如果当前节点为叶子节点，那么对父亲贡献为 0
+        if (root == null) return 0;
+        // 如果不是叶子节点，计算当前节点的左右孩子对自身的贡献left和right
+        int left = dfsmaxPathSum(root.left);
+        int right = dfsmaxPathSum(root.right);
+        // 更新最大值，就是当前节点的val 加上左右节点的贡献。
+        resultmaxPathSum = Math.max(result, root.val + left + right);
+
+        // 计算当前节点能为父亲提供的最大贡献，必须是把 val 加上！
+        // 只能选一个分支，当前节点的最大值,上面已经把结果计算出来了
+        int max = Math.max(root.val + left, root.val + right);
+        // 如果当前节点小于0的话，直接返回0即可！
+        System.out.println(max);
+        return Math.max(max, 0);
+    }
+
+    ///------------------------ 85 ---------------------
+
+    /**
+     * 78. 子集
+     * 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+     * 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。
+     * 输入：nums = [1,2,3]
+     * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+     * 相当于二叉树，
+     * ------------选1                    不选1
+     * ------ 选2       不选2         选2        不选2
+     * ----选3  不选3  选3   不选3   选3 不选3  选3   不选3
+     * 时间复杂度：O(n 2 ^ n)
+     * 空间复杂度：O(n)。临时数组 tt 的空间代价是 O(n)，递归时栈空间的代价为 O(n)。
+     */
+    @Test
+    public void subsetsTest() {
+        subsets(new int[]{1, 2, 3});
+    }
+
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> state = new ArrayList<>();
+        back(res, state, nums, 0);
+        return res;
+
+    }
+
+    public void back(List<List<Integer>> res, List<Integer> state, int[] nums, int n) {
+        if (n == nums.length) {
+            res.add(new ArrayList<>(state));
+            for (int ddd : state) {
+                System.out.print(ddd);
+            }
+            System.out.println("------- " + n);
+
+        } else {
+            // 选择对应的 前序遍历
+            state.add(nums[n]);
+            back(res, state, nums, n + 1);
+            // 不选择对应的，相当于移除
+            state.remove(state.size() - 1);
+            back(res, state, nums, n + 1);
+
+        }
+
+    }
+
+    ///------------------------ 86 ---------------------
+
+    /**
+     * 39. 组合总和
+     * 无重复元素的数组
+     * 输入：candidates = [2,3,6,7], target = 7
+     * 输出：[[2,2,3],[7]]
+     * 解释：
+     * 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+     * 7 也是一个候选， 7 = 7 。
+     * --------------------0
+     * ----------2             3    第一次可以选择任意一个，第二次也可以选择任意一个
+     * [ 2  ,   3]    [ 2 ,  3]
+     * [2, 3] [2, 3]  [2, 3] [2, 3]
+     * 仅有这两种组合。
+     */
+
+    @Test
+    public void combinationSumTest() {
+        combinationSum(new int[]{2, 3, 6, 7}, 7);
+    }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> res = new ArrayList<>();
+        dfsCombinationSum(candidates, 0, 0, target, new ArrayList<Integer>(), res);
+        return res;
+    }
+
+    private void dfsCombinationSum(int[] candidates, int index, int tempSum, int target, ArrayList<Integer> path, List<List<Integer>> res) {
+        if (tempSum == target) {
+            res.add(new ArrayList<>(path));
+            System.out.println(Arrays.toString(path.toArray()));
+
+        } else {
+            for (int i = index; i < candidates.length; i++) {
+                if (tempSum + candidates[i] <= target) {
+                    path.add(candidates[i]);
+                    dfsCombinationSum(candidates, i, tempSum + candidates[i], target, path, res);
+                    path.remove(path.size() - 1);
+                }
+
+            }
+
+        }
+    }
+    ///------------------------ 87 ---------------------
+
+    /**
+     * 394. 字符串解码
+     * 输入：s = "3[a]2[bc]"
+     * 输出："aaabcbc"
+     * 输入：s = "3[a2[c]]"
+     * 输出："accaccacc"
+     * 输入：s = "2[abc]3[cd]ef"
+     * 输出："abcabccdcdcdef"
+     */
+    @Test
+    public void testdecodeString() {
+        System.out.println(decodeString("10[a2[d]]"));
+    }
+
+    public String decodeString(String s) {
+        StringBuffer ans = new StringBuffer();
+        Stack<Integer> multiStack = new Stack<>();
+        Stack<StringBuffer> ansStack = new Stack<>();
+        int multi = 0;
+        for (char c : s.toCharArray()) {
+            if ('0' <= c && '9' >= c) {
+                // 是十进制数字 乘以10代表跟上一次的
+                multi = multi * 10 + (c - '0');
+            } else if (c == '[') {
+                // 把 ans 进栈
+                ansStack.add(ans);
+                // 把 数字 进栈
+                multiStack.add(multi);
+                // 重新new 个
+                ans = new StringBuffer();
+                // 表示 数字的开始
+                multi = 0;
+            } else if (c == ']') {
+                // 表示 是 ],然后就 把ans pop 出来
+                StringBuffer ansTmp = ansStack.pop();
+                // 把数字pop出来
+                int tmp = multiStack.pop();
+                // 根据数字 拼接
+                for (int i = 0; i < tmp; i++) {
+                    ansTmp.append(ans);
+                }
+                // 把ans 给 ansTmp ，因为[] 有可能嵌套
+                ans = ansTmp;
+            } else {
+                // 如果是字母，直接 拼接到里面
+                ans.append(c);
+
+            }
+        }
+        return ans.toString();
+    }
+    //------------------------ 88 ---------------------
+
+    /**
+     * 14. 最长公共前缀
+     * 输入：strs = ["flower","flow","flight"]
+     * 输出："fl"
+     *
+     */
+    @Test
+    public void testlongestCommonPrefix(){
+        System.out.println(longestCommonPrefix(new String[]{"flower","flow","flight"}));
+    }
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        if (strs.length == 1) {
+            return strs[0];
+        }
+        int length = strs[0].length();
+        int count = strs.length;
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            char c = strs[0].charAt(i);
+            for (int j = 1; j < count; j++) {
+                if (i < strs[j].length() && strs[j].charAt(i) == c ) {
+                    if( j == strs.length - 1){
+                        res.append(c);
+                    }
+
+                } else {
+                    return res.toString();
+                }
+            }
+        }
+        return res.toString();
 
     }
 
