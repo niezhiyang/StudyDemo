@@ -1807,11 +1807,11 @@ public class LeetCodeNote {
 
     /**
      * https://leetcode.cn/problems/add-two-numbers/
-     * 给你两个 非空 的链表,表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的,并且每个节点只能存储 一位 数字。
+     * 给你两个非空 的链表,表示两个非负的整数。它们每位数字都是按照逆序的方式存储的,并且每个节点只能存储一位数字。
      * <p>
      * 请你将两个数相加,并以相同形式返回一个表示和的链表。
      * <p>
-     * 你可以假设除了数字 0 之外,这两个数都不会以 0 开头。
+     * 你可以假设除了数字 0 之外,这两个数都不会以 0开头。
      *
      * @param l1
      * @param l2
@@ -1887,9 +1887,9 @@ public class LeetCodeNote {
 
     /**
      * 415. 字符串相加
-     * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和并同样以字符串形式返回。
+     * 给定两个字符串形式的非负整数num1 和num2，计算它们的和并同样以字符串形式返回。
      * <p>
-     * 你不能使用任何內建的用于处理大整数的库（比如 BigInteger）， 也不能直接将输入的字符串转换为整数形式。
+     * 你不能使用任何內建的用于处理大整数的库（比如 BigInteger），也不能直接将输入的字符串转换为整数形式。
      * <p>
      * 给定两个字符串形式的非负整数 num1 和num2 ,计算它们的和并同样以字符串形式返回。
      *
@@ -1993,7 +1993,7 @@ public class LeetCodeNote {
      * <p>
      * 给你一个 32 位的有符号整数 x ,返回将 x 中的数字部分反转后的结果。
      * <p>
-     * 如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ,就返回 0。
+     * 如果反转后整数超过 32 位的有符号整数的范围[−231, 231− 1] ,就返回 0。
      * <p>
      * 假设环境不允许存储 64 位整数（有符号或无符号）。
      * <p>
@@ -2086,10 +2086,10 @@ public class LeetCodeNote {
 
     /**
      * 删除最外层的括号
-     * 例如,"","()","(())()" 和 "(()(()))" 都是有效的括号字符串。
-     * 如果有效字符串 s 非空,且不存在将其拆分为 s = A + B 的方法,我们称其为原语（primitive）,其中 A 和 B 都是非空有效括号字符串。
+     * 例如,"","()","(())()"和"(()(()))"都是有效的括号字符串。
+     * 如果有效字符串 s 非空,且不存在将其拆分为 s = A + B的方法,我们称其为原语（primitive）,其中A 和B都是非空有效括号字符串。
      * <p>
-     * 给出一个非空有效字符串 s,考虑将其进行原语化分解,使得：s = P_1 + P_2 + ... + P_k,其中 P_i 是有效括号字符串原语。
+     * 给出一个非空有效字符串 s,考虑将其进行原语化分解,使得：s = P_1 + P_2 + ... + P_k,其中P_i是有效括号字符串原语。
      * <p>
      * 对 s 进行原语化分解,删除分解中每个原语字符串的最外层括号,返回 s 。
      * <p>
@@ -2225,7 +2225,7 @@ public class LeetCodeNote {
      * 输入：s = "the sky is blue"
      * 输出："blue is sky the"
      * <p>
-     * 输入：s = "  hello world  "
+     * 输入：s = " hello world "
      * 输出："world hello"
      * 解释：输入字符串可以在前面或者后面包含多余的空格,但是翻转后的字符不能包括。
      */
@@ -2296,9 +2296,9 @@ public class LeetCodeNote {
      * [10, 13, 14, 17, 24],
      * [18, 21, 23, 26, 30]
      * ]
-     * 给定 target = 5,返回 true。
+     * 给定 target=5,返回true。
      * <p>
-     * 给定 target = 20,返回 false。
+     * 给定target=20,返回false。
      * https://leetcode.cn/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/
      */
 
@@ -2327,7 +2327,7 @@ public class LeetCodeNote {
 
     /**
      * 多数元素
-     * 给定一个大小为 n 的数组,找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
+     * 给定一个大小为 n 的数组,找到其中的多数元素。多数元素是指在数组中出现次数 大于⌊ n/2 ⌋的元素。
      * <p>
      * 你可以假设数组是非空的,并且给定的数组总是存在多数元素。
      * <p>
@@ -2348,46 +2348,47 @@ public class LeetCodeNote {
         }
         return -1;
     }
-    ///------------------------ 42 ---------------------
 
-    /**
-     * 二分查找
-     * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ,写一个函数搜索 nums 中的 target,如果目标值存在返回下标,否则返回 -1。
-     * <p>
-     * 来源：力扣（LeetCode）
-     * 链接：https://leetcode.cn/problems/binary-search
-     * 著作权归领扣网络所有。商业转载请联系官方授权,非商业转载请注明出处。
-     */
-
-    public int search(int[] nums, int target) {
-
-        return searchRe(0, nums.length - 1, target, nums);
-    }
-
-    private int searchRe(int start, int end, int target, int[] nums) {
-        if (end < start) {
-            return -1;
-        }
-
-        int mid = (end + start) / 2;
-
-        if (target < nums[mid]) {
-            return searchRe(start, mid - 1, target, nums);
-        } else if (target > nums[mid]) {
-            return searchRe(mid + 1, end, target, nums);
-        } else {
-            return mid;
-        }
-
-    }
 
     ///------------------------ 43 ---------------------
+    /**
+     * 0，1 背包，要不选要不不选，只能选一次
+     */
 
     /**
-     * 零钱兑换
+     * 给你一个可装载重量为 W 的背包和 N 个物品，每个物品有重量和价值两个属性。
+     * 其中第 i 个物品的重量为 wt[i]，价值为 val[i]，
+     * 现在让你用这个背包装物品，最多能装的价值是多少？
+     *
+     */
+    int knapsack(int W, int N, int[] wt, int[] val) {
+        assert N == wt.length;
+        // base case 已初始化
+        int[][] dp = new int[N + 1][W + 1];
+        for (int i = 1; i <= N; i++) {
+            for (int w = 1; w <= W; w++) {
+                if (w - wt[i - 1] < 0) {
+                    // 这种情况下只能选择不装入背包
+                    dp[i][w] = dp[i - 1][w];
+                } else {
+                    // 装入或者不装入背包，择优
+                    dp[i][w] = Math.max(
+                            dp[i - 1][w - wt[i-1]] + val[i-1],
+                            dp[i - 1][w]
+                    );
+                }
+            }
+        }
+
+        return dp[N][W];
+    }
+
+    ///------------------------ 42 ---------------------
+    /**
+     * 322 零钱兑换
      * 给你一个整数数组 coins ,表示不同面额的硬币；以及一个整数 amount ,表示总金额。
      * <p>
-     * 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额,返回 -1 。
+     * 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额,返-1 。
      * <p>
      * 你可以认为每种硬币的数量是无限的。
      * <p>
@@ -2425,6 +2426,88 @@ public class LeetCodeNote {
         return dp[amount];
     }
 
+    ///------------------------ 86 ---------------------
+
+    /**
+     * 39. 组合总和 跟下面的 518. 零钱兑换 II 一样 ，只不过518 求的是个数，只不过 518 是动归，背包问题
+     * 无重复元素的数组
+     * 输入：candidates = [2,3,6,7], target = 7
+     * 输出：[[2,2,3],[7]]
+     * 解释：
+     * 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+     * 7 也是一个候选， 7 = 7 。
+     * --------------------0
+     * ----------2             3    第一次可以选择任意一个，第二次也可以选择任意一个
+     * ----[ 2  ,   3]    [ 2 ,  3]
+     * [2, 3] [2, 3]  [2, 3] [2, 3]
+     * 仅有这两种组合。
+     */
+
+    @Test
+    public void combinationSumTest() {
+        combinationSum(new int[]{2, 3, 6, 7}, 7);
+    }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> res = new ArrayList<>();
+        dfsCombinationSum(candidates, 0, 0, target, new ArrayList<Integer>(), res);
+        return res;
+    }
+
+    private void dfsCombinationSum(int[] candidates, int index, int tempSum, int target, ArrayList<Integer> path, List<List<Integer>> res) {
+        if (tempSum == target) {
+            res.add(new ArrayList<>(path));
+            System.out.println(Arrays.toString(path.toArray()));
+
+        } else {
+            for (int i = index; i < candidates.length; i++) {
+                if (tempSum + candidates[i] <= target) {
+                    path.add(candidates[i]);
+                    dfsCombinationSum(candidates, i, tempSum + candidates[i], target, path, res);
+                    path.remove(path.size() - 1);
+                }
+
+            }
+
+        }
+    }
+
+    ///------------------------ 87 ---------------------
+
+
+    /**
+     * 518. 零钱兑换 II
+     * 请你计算并返回可以凑成总金额的硬币组合数 个数
+     * 输入：amount = 5, coins = [1, 2, 5]
+     * 输出：4
+     * 解释：有四种方式可以凑成总金额：
+     * 输入：coins = [1, 2, 5], amount = 11
+     * 输出：3
+     * 解释：11 = 5 + 5 + 1
+     * dp[amount] =
+     * 第一枚
+     * 如果选择是  1 那么 dp(n) = dp(n-1)+1
+     * 如果选择是  2 那么 dp[n] = dp(n-2)+1
+     * 如果选择是  5 那么 dp[n] = dp(n-5)+1
+     * dp[4] =
+     */
+    public int change(int amount, int[] coins) {
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        dp[0] = 1; // base case
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j <= amount; j++) {
+                if (j - coins[i] >= 0) {
+                    dp[j] = dp[j] + dp[j - coins[i]];
+                }
+            }
+        }
+
+
+        return dp[amount];
+    }
+
     /**
      * 加入 coins = {25,10,5,1} 的话 凑出来 41,因为  1 ,5,10,25 对应都是 向上都是5的倍数
      *
@@ -2453,13 +2536,14 @@ public class LeetCodeNote {
         return reslut;
     }
 
+
     ///------------------------ 44 ---------------------
 
     /**
      * 颜色分类
-     * 给定一个包含红色、白色和蓝色,一共 n 个元素的数组,原地对它们进行排序,使得相同颜色的元素相邻,并按照红色、白色、蓝色顺序排列。
+     * 给定一个包含红色、白色和蓝色,一共n 个元素的数组,原地对它们进行排序,使得相同颜色的元素相邻,并按照红色、白色、蓝色顺序排列。
      * <p>
-     * 此题中,我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+     * 此题中,我们使用整数 0、1 和 2 分别表示红色、白色和蓝色。
      * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode.cn/problems/sort-colors
@@ -2645,7 +2729,7 @@ public class LeetCodeNote {
 
     /**
      * 买卖股票的最佳时机 II ,贪心
-     * 给定一个数组 prices ,其中 prices[i] 是一支给定股票第 i 天的价格。
+     * 给定一个数组 prices ,其中prices[i] 是一支给定股票第 i 天的价格。
      * <p>
      * 设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
      * <p>
@@ -2862,7 +2946,7 @@ public class LeetCodeNote {
      * 三数之和
      *
      * @param nums
-     * @return 给你一个包含 n 个整数的数组 nums,判断 nums 中是否存在三个元素 a,b,c ,使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
+     * @return 给你一个包含 n 个整数的数组nums,判断nums中是否存在三个元素 a,b,c ,使得a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
      * <p>
      * 注意：答案中不可以包含重复的三元组。
      * <p>
@@ -3011,7 +3095,7 @@ public class LeetCodeNote {
     ///------------------------ 54 ---------------------
 
     /**
-     * 给你一个数组 nums 和一个值 val,你需要 原地 移除所有数值等于 val 的元素,并返回移除后数组的新长度。
+     * 给你一个数组 nums和一个值 val,你需要 原地 移除所有数值等于val的元素,并返回移除后数组的新长度。
      * <p>
      * 不要使用额外的数组空间,你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
      * <p>
@@ -3686,7 +3770,7 @@ public class LeetCodeNote {
 
     /**
      * 只反转中间的一段
-     * 给你单链表的头指针 head 和两个整数 left 和 right ,其中 left <= right
+     * 给你单链表的头指针 head 和两个整数left 和 right ,其中left <= right
      * 。请你反转从位置 left 到位置 right 的链表节点,返回 反转后的链表
      * 输入：head = [1,2,3,4,5], left = 2, right = 4
      * 输出：[1,4,3,2,5]
@@ -5039,52 +5123,7 @@ public class LeetCodeNote {
 
     }
 
-    ///------------------------ 86 ---------------------
 
-    /**
-     * 39. 组合总和
-     * 无重复元素的数组
-     * 输入：candidates = [2,3,6,7], target = 7
-     * 输出：[[2,2,3],[7]]
-     * 解释：
-     * 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
-     * 7 也是一个候选， 7 = 7 。
-     * --------------------0
-     * ----------2             3    第一次可以选择任意一个，第二次也可以选择任意一个
-     * [ 2  ,   3]    [ 2 ,  3]
-     * [2, 3] [2, 3]  [2, 3] [2, 3]
-     * 仅有这两种组合。
-     */
-
-    @Test
-    public void combinationSumTest() {
-        combinationSum(new int[]{2, 3, 6, 7}, 7);
-    }
-
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        Arrays.sort(candidates);
-        List<List<Integer>> res = new ArrayList<>();
-        dfsCombinationSum(candidates, 0, 0, target, new ArrayList<Integer>(), res);
-        return res;
-    }
-
-    private void dfsCombinationSum(int[] candidates, int index, int tempSum, int target, ArrayList<Integer> path, List<List<Integer>> res) {
-        if (tempSum == target) {
-            res.add(new ArrayList<>(path));
-            System.out.println(Arrays.toString(path.toArray()));
-
-        } else {
-            for (int i = index; i < candidates.length; i++) {
-                if (tempSum + candidates[i] <= target) {
-                    path.add(candidates[i]);
-                    dfsCombinationSum(candidates, i, tempSum + candidates[i], target, path, res);
-                    path.remove(path.size() - 1);
-                }
-
-            }
-
-        }
-    }
     ///------------------------ 87 ---------------------
 
     /**
@@ -5144,12 +5183,12 @@ public class LeetCodeNote {
      * 14. 最长公共前缀
      * 输入：strs = ["flower","flow","flight"]
      * 输出："fl"
-     *
      */
     @Test
-    public void testlongestCommonPrefix(){
-        System.out.println(longestCommonPrefix(new String[]{"flower","flow","flight"}));
+    public void testlongestCommonPrefix() {
+        System.out.println(longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
     }
+
     public String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
@@ -5163,8 +5202,8 @@ public class LeetCodeNote {
         for (int i = 0; i < length; i++) {
             char c = strs[0].charAt(i);
             for (int j = 1; j < count; j++) {
-                if (i < strs[j].length() && strs[j].charAt(i) == c ) {
-                    if( j == strs.length - 1){
+                if (i < strs[j].length() && strs[j].charAt(i) == c) {
+                    if (j == strs.length - 1) {
                         res.append(c);
                     }
 
@@ -5176,6 +5215,91 @@ public class LeetCodeNote {
         return res.toString();
 
     }
+
+    /**
+     * 二分查找
+     * 给定一个n个元素有序的（升序）整型数组nums 和一个目标值target ,写一个函数搜索nums中的 target,如果目标值存在返回下标,否则返回 -1。
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/binary-search
+     * 著作权归领扣网络所有。商业转载请联系官方授权,非商业转载请注明出处。
+     */
+
+    public int search(int[] nums, int target) {
+
+        return searchRe(0, nums.length - 1, target, nums);
+    }
+
+    private int searchRe(int start, int end, int target, int[] nums) {
+        if (end < start) {
+            return -1;
+        }
+
+        int mid = (end + start) / 2;
+
+        if (target < nums[mid]) {
+            return searchRe(start, mid - 1, target, nums);
+        } else if (target > nums[mid]) {
+            return searchRe(mid + 1, end, target, nums);
+        } else {
+            return mid;
+        }
+
+    }
+    //------------------------ 89 ---------------------
+
+    /**
+     * 162. 寻找峰值
+     * 峰值元素是指其值严格大于左右相邻值的元素。肯定存在一个或者多个，找到一个即可
+     * 你可以假设 nums[-1] = nums[n] = -∞
+     * 输入：nums = [1,2,3,1]
+     * 输出：index = 2
+     * 解释：3 是峰值元素，你的函数应该返回其索引 2。
+     * 三种情况
+     * 单调递增
+     * 单调递减
+     * 先升后减
+     */
+    @Test
+    public void testfindPeakElement() {
+        System.out.println(findPeakElement(new int[]{5, 4, 3, 2, 1}));
+    }
+
+    public int findPeakElement(int[] nums) {
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            // 如果mid
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right;
+    }
+
+    /**
+     * 旋转数组最小值
+     * @param nums
+     * @return
+     */
+    public int findMin(int[] nums) {
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        while (left < right) {
+            int pivot = left + (right - left) / 2;
+            // 如果mid
+            if (nums[pivot] < nums[right]) {
+                right = pivot;
+            } else {
+                left = pivot + 1;
+            }
+        }
+        return nums[left];
+    }
+
 
 }
 
