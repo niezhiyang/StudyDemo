@@ -18,6 +18,5 @@ class Dog{
 class TestKt {
     @Test
     fun test() {
-       var dog = Dog()
     }
 }

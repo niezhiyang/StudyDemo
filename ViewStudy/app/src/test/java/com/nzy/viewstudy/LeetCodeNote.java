@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -43,6 +44,7 @@ public class LeetCodeNote {
 
     /**
      * https://leetcode.cn/problems/move-zeroes/
+     * 给定一个数组 nums,编写一个函数将所有 0 移动到数组的末尾,同时保持非零元素的相对顺序。
      *
      * @param nums
      */
@@ -169,6 +171,7 @@ public class LeetCodeNote {
 
     /**
      * 删除排序链表中的重复元素 83
+     * https://leetcode.cn/problems/remove-duplicates-from-sorted-list/
      */
 
     public ListNode deleteDuplicates(ListNode head) {
@@ -233,8 +236,6 @@ public class LeetCodeNote {
             if (fast == slow) {
                 return true;
             }
-
-
         }
         return false;
     }
@@ -250,50 +251,33 @@ public class LeetCodeNote {
         node3.next = node4;
         node4.next = node2;
         detectCycle1(node1);
-        detectCycle(node1);
 
 
     }
 
-    public ListNode hasCycle1(ListNode head) {
+
+    /**
+     * https://leetcode.cn/problems/c32eOV/submissions/
+     * 链表是否有环，有的话，返回链表开始入环的第一个节点，没有返回null
+     *
+     * @param head
+     * @return
+     */
+    public ListNode detectCycle1(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
+        boolean hasCycle = false;
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
             if (fast == slow) {
-                return fast;
+                hasCycle = true;
+                break;
             }
-
-
         }
-        return null;
-    }
-
-    public ListNode detectCycle(ListNode head) {
-        ListNode slow = hasCycle1(head);
-        if (slow == null) {
+        if (!hasCycle) {
             return null;
         }
-        ListNode temp = head;
-        while (slow != temp) {
-            slow = slow.next;
-            temp = temp.next;
-        }
-        return temp;
-
-
-    }
-
-    public ListNode detectCycle1(ListNode head) {
-        ListNode fast = head, slow = head;
-        while (true) {
-            if (fast == null || fast.next == null) return null;
-            fast = fast.next.next;
-            slow = slow.next;
-            if (fast == slow) break;
-        }
-
         ListNode temp = head;
         while (slow != temp) {
             slow = slow.next;
@@ -413,7 +397,7 @@ public class LeetCodeNote {
     ///------------------------ 9 ---------------------
 
     /**
-     * 连个链表两两交换
+     * 链表两两交换
      * https://leetcode.cn/problems/swap-nodes-in-pairs/
      *
      * @param head
@@ -608,25 +592,10 @@ public class LeetCodeNote {
         ListNode node7 = new ListNode(7);
         node6.next = node7;
         System.out.println(printListNode(node1));
-        System.out.println(printListNode(removeNthFromEnd1(node1, 3)));
+        System.out.println(printListNode(removeNthFromEnd(node1, 3)));
 
     }
 
-    public ListNode removeNthFromEnd1(ListNode head, int n) {
-        ListNode fast = head;
-        ListNode pre = head;
-        for (int i = 0; i < n; i++) {
-            pre = fast;
-            fast = fast.next;
-
-        }
-
-
-        pre.next = fast.next;
-
-        return head;
-
-    }
 
     ///------------------------ 11 ---------------------
 
@@ -871,10 +840,11 @@ public class LeetCodeNote {
      * 先把所有的路径放到一个集合中,然后遍历集合
      *
      * @param root
-     * @param sum
+     * @param target
      * @return
      */
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+
+    public List<List<Integer>> pathSum(TreeNode root, int target) {
         List<List<Integer>> result = new ArrayList<>();
         getPath(root, result, new ArrayList<Integer>());
 
@@ -885,7 +855,7 @@ public class LeetCodeNote {
             int temp = 0;
             for (int j = 0; j < list.size(); j++) {
                 temp += list.get(j);
-                if (sum == temp && j == list.size() - 1) {
+                if (target == temp && j == list.size() - 1) {
                     now.add(list);
                 }
             }
@@ -907,6 +877,11 @@ public class LeetCodeNote {
             }
         }
     }
+
+    /**
+     * https://leetcode.cn/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
+     * 二叉树中和为某一值的路径*
+     */
 
     public List<List<Integer>> pathSum1(TreeNode root, int target) {
         List<List<Integer>> result = new ArrayList<>();
@@ -931,6 +906,11 @@ public class LeetCodeNote {
             }
         }
     }
+    /**
+     * https://leetcode.cn/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
+     * 二叉树中和为某一值的路径*
+     */
+
 
     ///------------------------ 16 ---------------------
 
@@ -2359,7 +2339,6 @@ public class LeetCodeNote {
      * 给你一个可装载重量为 W 的背包和 N 个物品，每个物品有重量和价值两个属性。
      * 其中第 i 个物品的重量为 wt[i]，价值为 val[i]，
      * 现在让你用这个背包装物品，最多能装的价值是多少？
-     *
      */
     int knapsack(int W, int N, int[] wt, int[] val) {
         assert N == wt.length;
@@ -2373,7 +2352,7 @@ public class LeetCodeNote {
                 } else {
                     // 装入或者不装入背包，择优
                     dp[i][w] = Math.max(
-                            dp[i - 1][w - wt[i-1]] + val[i-1],
+                            dp[i - 1][w - wt[i - 1]] + val[i - 1],
                             dp[i - 1][w]
                     );
                 }
@@ -2384,6 +2363,7 @@ public class LeetCodeNote {
     }
 
     ///------------------------ 42 ---------------------
+
     /**
      * 322 零钱兑换
      * 给你一个整数数组 coins ,表示不同面额的硬币；以及一个整数 amount ,表示总金额。
@@ -4025,6 +4005,40 @@ public class LeetCodeNote {
         return -1;
     }
 
+    // 优先级队列
+    public int findKthLargest1(int[] nums, int k) {
+        int len = nums.length;
+        // 使用一个含有 k 个元素的最小堆，PriorityQueue 底层是动态数组，为了防止数组扩容产生消耗，可以先指定数组的长度
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        // Java 里没有 heapify ，因此我们逐个将前 k 个元素添加到 minHeap 里
+        for (int i = 0; i < k; i++) {
+            minHeap.offer(nums[i]);
+        }
+
+        for (int i = k; i < len; i++) {
+            // 看一眼，不拿出，因为有可能没有必要替换
+            Integer topElement = minHeap.peek();
+            // 只要当前遍历的元素比堆顶元素大，堆顶弹出，遍历的元素进去
+            if (nums[i] > topElement) {
+                // Java 没有 replace()，所以得先 poll() 出来，然后再放回去
+                minHeap.poll();
+                minHeap.offer(nums[i]);
+            }
+        }
+        return minHeap.peek();
+    }
+    public int findKthLargest11(int[] nums, int k) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        for (int num : nums) {
+            heap.add(num);
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+        return heap.peek();
+    }
+
+
     ///------------------------ 67 ---------------------
 
     /**
@@ -5282,6 +5296,7 @@ public class LeetCodeNote {
 
     /**
      * 旋转数组最小值
+     *
      * @param nums
      * @return
      */
@@ -5298,6 +5313,142 @@ public class LeetCodeNote {
             }
         }
         return nums[left];
+    }
+
+    //------------------------ 90 ---------------------
+
+    /**
+     * 958. 二叉树的完全性检验
+     * 在一个完全二叉树中，除了最后一个关卡外，所有关卡都是完全被填满的，
+     * 并且最后一个关卡中的所有节点都是尽可能靠左的。它可以包含1到2h节点之间的最后一级 h 。
+     * 链接：https://leetcode.cn/problems/check-completeness-of-a-binary-tree
+     * <p>
+     * 也就是层次遍历 null 后面不能有 非null 数据
+     *
+     * @return
+     */
+    public boolean isCompleteTree(TreeNode root) {
+        LinkedList<TreeNode> list = new LinkedList<>();
+        boolean haveNull = false;
+        list.add(root);
+        while (!list.isEmpty()) {
+            TreeNode temp = list.removeFirst();
+            if (temp != null && haveNull) {
+                return false;
+            } else if (temp == null) {
+                haveNull = true;
+                continue;
+            }
+            list.add(temp.left);
+            list.add(temp.right);
+        }
+        return true;
+    }
+
+
+    //------------------------ 91 ---------------------
+
+    /**
+     * 402. 移掉 K 位数字
+     * 给你一个以字符串表示的非负整数 num 和一个整数 k ，
+     * 移除这个数中的 k 位数字，使得剩下的数字最小。请你以字符串形式返回这个最小的数字。
+     * 123531这样「高位递增」的数，肯定不会想删高位，会尽量删低位。
+     * 432135这样「高位递减」的数，会想干掉高位，直接让高位变小，效果好。
+     * 如果前面中是0 那么不入栈
+     * 如果循环了一遍 没有移除够k，那么直接从栈中的末尾移除，因为比栈顶大的都入栈了
+     *
+     * @return
+     */
+    @Test
+    public void testremoveKdigits() {
+//        removeKdigits("1432219", 3);
+//        removeKdigits("10200", 1);
+        removeKdigits("1234567890", 9);
+    }
+
+    public String removeKdigits(String num, int k) {
+        Stack<Character> stack = new Stack();
+        for (char c : num.toCharArray()) {
+            while (k > 0 && !stack.isEmpty() && c < stack.peek()) {
+                // 如果k>0 ,又不是空 且 栈顶大于当前的char
+                stack.pop();
+                k--;
+            }
+            if (c == '0' && stack.isEmpty()) {
+
+            } else {
+                stack.push(c);
+            }
+        }
+
+        while (k > 0 && !stack.isEmpty()) {
+            stack.pop();
+            k--;
+        }
+        StringBuilder result = new StringBuilder();
+        if (!stack.isEmpty()) {
+            while (!stack.isEmpty()) {
+                char c = stack.pop();
+                result.append(c);
+//                result.append(stack.pop);
+            }
+            result = result.reverse();
+        } else {
+            result.append("0");
+        }
+
+        return result.toString();
+
+
+    }
+
+    // ----------------92
+
+    /**
+     * 31. 下一个排列
+     * https://leetcode.cn/problems/next-permutation/description/
+     * 例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。
+     * 下一个是 132
+     * 如果没有比如 321，就返回123，
+     * <p>
+     * 一直觉得排列的题目很有趣，终于想通了根据当前排列计算出下一个排列的方法，在这里记录一下。
+     * 例如 2, 6, 3, 5, 4, 1 这个排列， 我们想要找到下一个刚好比他大的排列，
+     * 于是可以从后往前看 我们先看后两位 4, 1 能否组成更大的排列，答案是不可以，
+     * 同理 5, 4, 1也不可以 直到3, 5, 4, 1这个排列，因为 3 < 5，
+     * 我们可以通过重新排列这一段数字，来得到下一个排列 因为我们需要使得新的排列尽量小，
+     * 所以我们从后往前找第一个比3更大的数字，发现是4 然后，我们调换3和4的位置，得到4, 5, 3, 1这个数列
+     * 因为我们需要使得新生成的数列尽量小，于是我们可以对5, 3, 1进行排序，可以发现在这个算法中，
+     * 我们得到的末尾数字一定是倒序排列的，于是我们只需要把它反转即可 最终，
+     * 我们得到了4, 1, 3, 5这个数列 完整的数列则是2, 6, 4, 1, 3, 5
+     */
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 2;
+        // 从后往前找到第一个逆序的数字
+        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
+        // 找不到逆序数字, 说明数组整体已经是倒序的, 直接返回最小字典序
+        if (i < 0) {
+            Arrays.sort(nums);
+            return;
+        }
+        // 找到该逆序的数字后面比它大的最小数字
+        int j = nums.length - 1;
+        while (j > 0 && nums[j] <= nums[i]) j--;
+        // 交换两个数的位置
+        swap(nums, i, j);
+        // 反转后面的元素(必然是有序的)
+        reverse(nums, i + 1);
+    }
+
+    void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    void reverse(int[] nums, int i) {
+        int start = i, end = nums.length - 1;
+        while (start < end)
+            swap(nums, start++, end--);
     }
 
 
