@@ -520,6 +520,7 @@ public class LeetCodeNote {
 
     // 给个头结点,然后删除某个节点val 是 val的
     // https://leetcode.cn/problems/shan-chu-lian-biao-de-jie-dian-lcof/
+    // 题目保证链表中节点的值互不相同
     public ListNode deleteNode(ListNode head, int val) {
         if (head.val == val) {
             // 如果是头结点,直接返回下一个就行
@@ -772,30 +773,25 @@ public class LeetCodeNote {
      * @return
      */
     public int[] levelOrder1(TreeNode root) {
-        ArrayList<Integer> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        if (root != null) {
-            queue.add(root);
-            result.add(root.val);
-        }
-
+        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
         while (!queue.isEmpty()) {
-            TreeNode poll = queue.poll();
-            if (poll.left != null) {
-                queue.add(poll.left);
-                result.add(poll.left.val);
+            TreeNode temp = queue.removeFirst();
+            list.add(temp.val);
+            if (temp.left != null) {
+                queue.addLast(temp.left);
             }
+            if (temp.right != null) {
+                queue.addLast(temp.right);
 
-            if (poll.right != null) {
-                queue.add(poll.right);
-                result.add(poll.right.val);
             }
         }
-        int[] resultInt = new int[result.size()];
-        for (int i = 0; i < result.size(); i++) {
-            resultInt[i] = result.get(i);
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
         }
-        return resultInt;
+        return result;
     }
 
     ///------------------------ 14 ---------------------
@@ -838,11 +834,50 @@ public class LeetCodeNote {
      * 二叉树中和为某一值的路径
      * <p>
      * 先把所有的路径放到一个集合中,然后遍历集合
+     * 1
+     * 2      3
+     * 4   5  6  3
      *
-     * @param root
-     * @param target
      * @return
      */
+    @Test
+    public void testTargeet() {
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        node1.left = node2;
+        node1.right = node3;
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node6 = new TreeNode(6);
+        TreeNode node7 = new TreeNode(7);
+        node2.left = node4;
+        node2.right = node5;
+        node3.left = node6;
+        node3.right = node7;
+        pathTarget(node1, 7);
+    }
+
+    public List<List<Integer>> pathTarget(TreeNode root, int target) {
+        List<List<Integer>> reslut = new ArrayList<>();
+        dfsPathTarget(root, target, new LinkedList<Integer>(), reslut);
+        return reslut;
+    }
+
+    private void dfsPathTarget(TreeNode root, int target, LinkedList<Integer> integers, List<List<Integer>> reslut) {
+        if (root != null) {
+            integers.add(root.val);
+            target = target - root.val;
+            if (root.left == null && root.right == null && target == 0) {
+                reslut.add(new ArrayList<>(integers));
+            }
+            dfsPathTarget(root.left, target, integers, reslut);
+            dfsPathTarget(root.right, target, integers, reslut);
+            // 最后移除
+            integers.removeLast();
+        }
+    }
+
 
     public List<List<Integer>> pathSum(TreeNode root, int target) {
         List<List<Integer>> result = new ArrayList<>();
@@ -877,6 +912,7 @@ public class LeetCodeNote {
             }
         }
     }
+
 
     /**
      * https://leetcode.cn/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
@@ -946,6 +982,7 @@ public class LeetCodeNote {
     }
 
     /**
+     * https://leetcode.cn/problems/ping-heng-er-cha-shu-lcof/description/
      * isBalanced
      * 输入一棵二叉树的根节点,判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1,那么它就是一棵平衡二叉树
      */
@@ -1177,6 +1214,9 @@ public class LeetCodeNote {
      * 有效的括号
      * 给定一个只包括 '(',')','{','}','[',']' 的字符串 s ,判断字符串是否有效。
      * https://leetcode.cn/problems/valid-parentheses/
+     * 左括号必须用相同类型的右括号闭合。
+     * 左括号必须以正确的顺序闭合。
+     * 每个右括号都有一个对应的相同类型的左括号。
      *
      * @param s
      * @return
@@ -1254,6 +1294,9 @@ public class LeetCodeNote {
 
     /**
      * 给你一个字符串数组,请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
+     * https://leetcode.cn/problems/sfvd7V/description/
+     * 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+     * 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
      *
      * @param strs
      * @return
@@ -1279,13 +1322,32 @@ public class LeetCodeNote {
      * @return https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/solution/
      */
     public boolean isSubStructure(TreeNode A, TreeNode B) {
-
-        return (A != null && B != null) && (recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B));
+        // 若A与B其中一个为空,立即返回false
+        if (A == null || B == null) {
+            return false;
+        }
+        // B为A的子结构有3种情况,满足任意一种即可:
+        // 1.B的子结构起点为A的根节点,此时结果为recur(A,B)
+        // 2.B的子结构起点隐藏在A的左子树中,而不是直接为A的根节点,此时结果为isSubStructure(A.left, B)
+        // 3.B的子结构起点隐藏在A的右子树中,此时结果为isSubStructure(A.right, B)
+        return recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
 
-    boolean recur(TreeNode A, TreeNode B) {
-        if (B == null) return true;
-        if (A == null) return false;
+    /*
+    判断B是否为A的子结构,其中B子结构的起点为A的根节点
+    */
+    private boolean recur(TreeNode A, TreeNode B) {
+        // 若B走完了,说明查找完毕,B为A的子结构
+        if (B == null) {
+            return true;
+        }
+        // 若B不为空并且A为空或者A与B的值不相等,直接可以判断B不是A的子结构
+        if (A == null) {
+            return false;
+        }
+        // 当A与B当前节点值相等,若要判断B为A的子结构
+        // 还需要判断B的左子树是否为A左子树的子结构 && B的右子树是否为A右子树的子结构
+        // 若两者都满足就说明B是A的子结构,并且该子结构以A根节点为起点
         return A.val == B.val && recur(A.left, B.left) && recur(A.right, B.right);
     }
 
@@ -1294,8 +1356,7 @@ public class LeetCodeNote {
 
     /**
      * 有效的字母异位词
-     * 放到map中,遍历第一个 ++ ,遍历第二个 --；最后遍历hashmap 如果value 都等于0 证明是
-     * 也可以,先变成char数组 ,然后再排序,再转成String 看看 是否equals
+     * https://leetcode.cn/problems/dKk3P7/solutions/1151409/you-xiao-de-bian-wei-ci-by-leetcode-solu-xzi0/
      *
      * @param s
      * @param t
@@ -1534,7 +1595,7 @@ public class LeetCodeNote {
     /**
      * 打家劫舍 假如是圆形，也就是第一个 和 最后一个不能同时透
      * dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
-     * https://leetcode.cn/problems/house-robber/
+     * https://leetcode.cn/problems/PzWKhm/description/
      */
     @Test
     public void testRob3() {
@@ -1557,6 +1618,7 @@ public class LeetCodeNote {
 
     /**
      * 最大子数组和
+     * <p>
      * dp[i] = Math.max(nums[i], dp[i - 1]);
      * https://leetcode.cn/problems/maximum-subarray/
      * <p>
@@ -1567,6 +1629,7 @@ public class LeetCodeNote {
      * dp[4] = 5-3=2
      * dp[5] = 2+6 = 8
      */
+
     public int maxSubArray(int[] nums) {
 
         int[] dp = new int[nums.length];
@@ -1580,6 +1643,52 @@ public class LeetCodeNote {
         return result;
 
     }
+
+    /**
+     * 以 nums[i] 结尾的
+     *
+     * @param nums
+     * @return
+     */
+    public int maxSubArray1(int[] nums) {
+        int len = nums.length;
+        // dp[i] 表示：以 nums[i] 结尾的连续子数组的最大和
+        int[] dp = new int[len];
+        dp[0] = nums[0];
+
+        for (int i = 1; i < len; i++) {
+            if (dp[i - 1] > 0) {
+                dp[i] = dp[i - 1] + nums[i];
+            } else {
+                dp[i] = nums[i];
+            }
+        }
+        // 也可以在上面遍历的同时求出 res 的最大值，这里我们为了语义清晰分开写，大家可以自行选择
+        int res = dp[0];
+        for (int i = 1; i < len; i++) {
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
+
+    public int maxSubArray2(int[] nums) {
+        // 初始化为int类型最小值
+        int result = Integer.MIN_VALUE;
+        // 0任何数等于任何数
+        int tempTotal = 0;
+        for (int i = 0; i < nums.length; i++) {
+            tempTotal += nums[i];
+            // 记录最大数值
+            result = Math.max(tempTotal, result);
+            if (tempTotal < 0) {
+                // 如果和小于0,就重置为0，因为任何数加上一个负数一定小于当前数值
+                tempTotal = 0;
+            }
+        }
+
+        return result;
+    }
+
 
     ///------------------------ 33 ---------------------
 
@@ -1750,6 +1859,19 @@ public class LeetCodeNote {
             return mStack1.isEmpty();
         }
     }
+
+    /**
+     * 大数相加
+     * https://leetcode.cn/problems/add-strings/description/
+     * 示例 1：
+     * <p>
+     * 输入：num1 = "11", num2 = "123"
+     * 输出："134"
+     *
+     * @param num1
+     * @param num2
+     * @return
+     */
 
     public String add(String num1, String num2) {
         StringBuilder res = new StringBuilder("");
@@ -2388,6 +2510,11 @@ public class LeetCodeNote {
         // 假如里面都是1
         int[] dp = new int[amount + 1];
         // // 注意：因为要比较的是最小值,这个不可能的值就得赋值成为一个最大值
+        //为啥 dp 数组中的值都初始化为 amount + 1 呢，因为凑成 amount 金额的硬币数最多只可能等于
+        // amount（全用 1 元面值的硬币），
+        //        // 所以初始化为 amount + 1 就相当于初始化为正无穷，便于后续取最小值。
+        //        // 为啥不直接初始化为 int 型的最大值 Integer.MAX_VALUE 呢？
+        //        // 因为后面有 dp[i - coin] + 1，这就会导致整型溢出
         Arrays.fill(dp, amount + 1);
         // 理解 dp[0] = 0 的合理性,单独一枚硬币如果能够凑出面值,符合最优子结构
         dp[0] = 0;
@@ -2716,6 +2843,13 @@ public class LeetCodeNote {
      * 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
      * <p>
      * 链接：https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii
+     * 6
+     * 5
+     * <p>
+     * 4                4
+     * <p>
+     * 3             3
+     * 1
      */
     public int maxProfit(int[] prices) {
         int ans = 0;
@@ -2868,6 +3002,7 @@ public class LeetCodeNote {
      * 给定一个不含重复数字的数组 nums ,返回其 所有可能的全排列 。你可以 按任意顺序 返回答案
      * 输入：nums = [1,2,3]
      * 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+     * https://leetcode.cn/problems/VvJkup/description/
      *
      * @return
      */
@@ -3111,6 +3246,30 @@ public class LeetCodeNote {
      * <p>
      * https://leetcode.cn/problems/longest-consecutive-sequence/
      */
+
+    public int longestConsecutive1(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int result = 1;
+        int temp = 1;
+        int pre = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) {
+                continue;
+            }
+            if (nums[i] == pre + 1) {
+                temp++;
+                result = Math.max(result, temp);
+                pre = nums[i];
+            } else {
+                temp = 1;
+                pre = nums[i];
+            }
+        }
+        return result;
+    }
 
     public int longestConsecutive(int[] nums) {
         Set<Integer> num_set = new HashSet<Integer>();
@@ -3381,6 +3540,10 @@ public class LeetCodeNote {
      * @param s
      * @param nums
      * @return 找出该数组中满足其和 ≥ target 的长度最小的 连续子数组
+     * 时间复杂度：O(n)
+     * 其中 nnn 是数组的长度。指针  最多各移动 n 次。
+     * <p>
+     * 空间复杂度：O(1)
      */
     public int minSubArrayLen(int s, int[] nums) {
         int n = nums.length;
@@ -3388,17 +3551,18 @@ public class LeetCodeNote {
             return 0;
         }
         int ans = Integer.MAX_VALUE;
-        int start = 0, end = 0;
+        int left = 0;
+        int right = 0;
         int sum = 0;
-        while (end < n) {
+        while (right < n) {
             // 右指针移动 直到 sum >=s 再进入 里面的循环,然后左--
-            sum = sum + nums[end];
+            sum = sum + nums[right];
             while (sum >= s) {
-                ans = Math.min(ans, end - start + 1);
-                sum = sum - nums[start];
-                start++;
+                ans = Math.min(ans, right - left + 1);
+                sum = sum - nums[left];
+                left++;
             }
-            end++;
+            right++;
         }
         return ans == Integer.MAX_VALUE ? 0 : ans;
     }
@@ -3456,6 +3620,10 @@ public class LeetCodeNote {
      * https://leetcode.cn/problems/zhong-jian-er-cha-shu-lcof/
      * https://leetcode.cn/problems/zhong-jian-er-cha-shu-lcof/solution/mian-shi-ti-07-zhong-jian-er-cha-shu-di-gui-fa-qin/
      * 输入某二叉树的前序遍历和中序遍历的结果,请构建该二叉树并返回其根节点。
+     * https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+     * 105. 从前序与中序遍历序列构造二叉树
+     *
+     *
      *
      *
      *               1
@@ -3467,12 +3635,32 @@ public class LeetCodeNote {
     /**
      * 根据前序遍历数组的 [preL, preR] 和 中序遍历数组的 [inL, inR] 重新组建二叉树
      *
-     * @param preL 前序遍历数组的区间左端点
-     * @param preR 前序遍历数组的区间右端点
-     * @param inL  中序遍历数组的区间左端点
-     * @param inR  中序遍历数组的区间右端点
      * @return 构建的新二叉树的根结点
      */
+    private TreeNode buildTree1(int[] preorder, int[] inorder) {
+        // 时间 N的平方 ，递归了N次，里面又有个for循环，所以是N方 ，空间 n
+        if (preorder.length == 0 || inorder.length == 0) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[0]);
+        // 从in找左右
+        int rootIndex = 0;
+        for (int i = 0; i < inorder.length; i++) {
+            if (preorder[0] == inorder[i]) {
+                rootIndex = i;
+                break;
+            }
+        }
+        int[] leftIn = Arrays.copyOf(inorder, rootIndex);
+        int[] rightIn = Arrays.copyOfRange(inorder, rootIndex + 1, inorder.length);
+        int[] leftPre = Arrays.copyOfRange(preorder, 1, leftIn.length + 1);
+        int[] rightPre = Arrays.copyOfRange(preorder, leftIn.length + 1, preorder.length);
+        TreeNode left = buildTree1(leftPre, leftIn);
+        TreeNode right = buildTree1(rightPre, rightIn);
+        root.left = left;
+        root.right = right;
+        return root;
+    }
 
     private TreeNode buildTree(int preL, int preR,
                                int inL, int inR) {
@@ -3682,7 +3870,7 @@ public class LeetCodeNote {
      * @param grid
      * @return
      */
-    int num = 0;
+    int numSum = 0;
 
     int maxNum = 0;
 
@@ -3693,8 +3881,8 @@ public class LeetCodeNote {
                 // 如果其实位置是 1,往下走
                 if (grid[i][j] == '1') {
                     dfs1(grid, i, j);
-                    maxNum = Math.max(maxNum, num);
-                    num = 0;
+                    maxNum = Math.max(maxNum, numSum);
+                    numSum = 0;
                 }
             }
         }
@@ -3714,7 +3902,7 @@ public class LeetCodeNote {
         }
         // 将格子标记为「已遍历过」
         grid[row][column] = '2';
-        num++;
+        numSum++;
 
         // 访问上、下、左、右四个相邻结点
         dfs1(grid, row - 1, column);
@@ -4027,6 +4215,7 @@ public class LeetCodeNote {
         }
         return minHeap.peek();
     }
+
     public int findKthLargest11(int[] nums, int k) {
         PriorityQueue<Integer> heap = new PriorityQueue<>();
         for (int num : nums) {
@@ -5294,8 +5483,86 @@ public class LeetCodeNote {
         return right;
     }
 
+    @Test
+    public void testsearch3() {
+        search3(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8}, 4);
+    }
+
+    /**
+     * https://leetcode.cn/problems/binary-search/
+     * 二分查找
+     * <p>
+     * 时间复杂度：O(logn)，其中 n 是数组的长度。
+     * 空间 O(1)
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search3(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (right >= left) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                System.out.println("找到: " + mid);
+                return mid;
+            }
+            if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        System.out.println("没有找到");
+        return -1;
+    }
+
+    /**
+     * 搜索旋转排序数组
+     * 输入：nums = [4,5,6,7,0,1,2], target = 0
+     * 输出：4
+     * https://leetcode.cn/problems/search-in-rotated-sorted-array/
+     *时间复杂度 O(logn)，显然应该使用二分查找
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search4(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (right >= left) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                System.out.println("找到: " + mid);
+                return mid;
+            }
+            if (nums[mid] >= nums[left]) {
+                // left -> mid 是递增了
+                if (target >= nums[left] && target < nums[mid]) {
+                    // 在这个递增之间
+                    right = mid - 1;
+                } else {
+                    // 不在这个区间
+                    left = mid + 1;
+                }
+            } else {
+                //  mid -> right 是递增了
+                if (target > nums[mid] && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+
+        }
+        return -1;
+    }
+
     /**
      * 旋转数组最小值
+     * 时间复杂度 O(logn)，显然应该使用二分查找
+     * https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/
      *
      * @param nums
      * @return
@@ -5304,13 +5571,15 @@ public class LeetCodeNote {
         int n = nums.length;
         int left = 0, right = n - 1;
         while (left < right) {
-            int pivot = left + (right - left) / 2;
+            int mid = left + (right - left) / 2;
             // 如果mid
-            if (nums[pivot] < nums[right]) {
-                right = pivot;
+            if (nums[mid] < nums[right]) {
+                // 证明  mid -》 right 递增
+                right = mid;
             } else {
-                left = pivot + 1;
+                left = mid + 1;
             }
+
         }
         return nums[left];
     }
@@ -5449,6 +5718,39 @@ public class LeetCodeNote {
         int start = i, end = nums.length - 1;
         while (start < end)
             swap(nums, start++, end--);
+    }
+
+    @Test
+    public void testCon() {
+        constructMaximumBinaryTree(new int[]{3, 2, 1, 6, 0, 5});
+    }
+
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return buildNode(nums, 0, nums.length);
+
+    }
+
+    private TreeNode buildNode(int[] nums, int start, int end) {
+        TreeNode root = null;
+        if (end > start) {
+            int maxIndex = getMax(nums, start, end);
+            root = new TreeNode(nums[maxIndex]);
+            root.left = buildNode(nums, start, maxIndex);
+            root.right = buildNode(nums, maxIndex + 1, end);
+        }
+        return root;
+    }
+
+    private int getMax(int[] nums, int start, int end) {
+        int max = Integer.MIN_VALUE;
+        int index = -1;
+        for (int i = start; i < end; i++) {
+            if (nums[i] > max) {
+                max = Math.max(max, nums[i]);
+                index = i;
+            }
+        }
+        return index;
     }
 
 
