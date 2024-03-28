@@ -45,15 +45,14 @@ public class Stady {
         merge(nums1, 0, nums2, 1);
         ListNode head = new ListNode(-1);
         ArrayList<Integer> temp = new ArrayList<>();
-        while (head!=null){
+        while (head != null) {
             temp.add(head.val);
-            head =head.next;
+            head = head.next;
         }
-        int[]  result = new int[temp.size()];
-        for(int i = 0; i<temp.size();i++){
+        int[] result = new int[temp.size()];
+        for (int i = 0; i < temp.size(); i++) {
             result[i] = temp.get(i);
         }
-
 
 
     }
@@ -596,6 +595,8 @@ public class Stady {
         //最远距离k不再改变,且没有到末尾元素
         return false;
     }
+
+
 
 
 

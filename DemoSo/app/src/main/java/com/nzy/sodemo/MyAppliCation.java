@@ -1,13 +1,9 @@
 package com.nzy.sodemo;
 
 import android.app.Application;
-import android.app.Service;
 import android.os.Build;
-import android.os.Vibrator;
 import android.util.Log;
 
-import com.baidu.mapapi.CoordType;
-import com.baidu.mapapi.SDKInitializer;
 import com.nzy.sodemo.tinker.ShareReflectUtil;
 import com.nzy.sodemo.tinker.TinkerLoadLibrary;
 
@@ -21,38 +17,30 @@ import java.util.List;
  * since 2020/10/9
  */
 public class MyAppliCation extends Application {
-    public LocationService locationService;
-    public Vibrator mVibrator;
+    private final static String TAG = "MyAppliCation";
+
     @Override
     public void onCreate() {
         super.onCreate();
         String assetsPath = "";
-        if(Build.BOARD.contains("x86")){
-            //x86
-            assetsPath = "x86";
-        }else {
-            assetsPath = "armeabi";
-        }
-        File fileso = new File(getFilesDir().getAbsolutePath()+"/solib");
-        if(!fileso.exists()){
+        String[] supportAbis = Build.SUPPORTED_ABIS;
+        // 这是demo ，所以选择最合适的去复制，线上需要判断apk中的so文件夹，对应的去复制
+        // 比如线上so的文件夹只有arm ，就只复制arm,从dexPathList中的nativeLibraryDirectories中查看
+        // 比如线上只有arm64
+        Log.d(TAG, "最适合的架构类型是：" + supportAbis[0]);
+        assetsPath = supportAbis[0];
+        File fileso = new File(getFilesDir().getAbsolutePath() + "/solib");
+        if (!fileso.exists()) {
             fileso.mkdirs();
         }
-        if(fileso.list().length<=0){
-            FileUtil.doCopy(this, assetsPath,fileso.getAbsolutePath());
+        if (fileso.list().length <= 0) {
+            FileUtil.doCopy(this, assetsPath, fileso.getAbsolutePath());
         }
         try {
-            TinkerLoadLibrary.installNativeLibraryPath(getClassLoader(),fileso);
+            TinkerLoadLibrary.installNativeLibraryPath(getClassLoader(), fileso);
         } catch (Throwable throwable) {
-            Log.e(MainActivity.TAG,throwable.getMessage());
+            Log.e(MainActivity.TAG, throwable.getMessage());
         }
-
-        /***
-         * 初始化定位sdk，建议在Application中创建
-         */
-        locationService = new LocationService(getApplicationContext());
-        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(getApplicationContext());
-        SDKInitializer.setCoordType(CoordType.BD09LL);
         getPathSo();
 
     }
@@ -83,9 +71,9 @@ public class MyAppliCation extends Application {
             Field nativeLibraryPathElements = ShareReflectUtil.findField(dexPathList, "nativeLibraryPathElements");
             Object o = nativeLibraryPathElements.get(dexPathList);
 
-        libDirs.addAll(systemLibDirs);
-        Object[] elements = (Object[]) makePathElements.
-                invoke(dexPathList, libDirs);
+            libDirs.addAll(systemLibDirs);
+            Object[] elements = (Object[]) makePathElements.
+                    invoke(dexPathList, libDirs);
         } catch (Exception e) {
             e.printStackTrace();
         }

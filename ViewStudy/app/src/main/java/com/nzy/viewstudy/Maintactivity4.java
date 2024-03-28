@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import java.io.IOException;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.nzy.viewstudy.a.ConstClass;
+import com.nzy.viewstudy.a.SonParent;
+
+import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -26,7 +30,8 @@ public class Maintactivity4 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-
+        Log.e("sssss",ConstClass.HELLO_WORLD);
+        int i = SonParent.staticMember;
 
     }
 
