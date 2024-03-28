@@ -24,6 +24,7 @@ public class SoMethodVisitor extends AdviceAdapter {
 
     protected SoMethodVisitor(int api, MethodVisitor methodVisitor, int access, String name, String descriptor, String clazzName) {
         super(api, methodVisitor, access, name, descriptor);
+        // 拿到当类名，如果是咱们的SoLoader类，就不去替换
         this.clazzName = clazzName;
 
     }
