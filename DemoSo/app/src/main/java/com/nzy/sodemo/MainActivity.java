@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.location);
         String rootDir = MMKV.initialize(this);
         Log.d(TAG,"mmkv root: " + rootDir);
+        Log.d("zhiyang", getClassLoader().hashCode() + "--" + getClassLoader().getClass());
+        Log.d("zhiyang",  SoLoader.class.getClassLoader().hashCode() + "--so--" + SoLoader.class.getClassLoader().getClass());
     }
     public void setMMKV(View view){
 

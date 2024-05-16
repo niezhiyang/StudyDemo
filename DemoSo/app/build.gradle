@@ -31,9 +31,9 @@ android {
     }
     packagingOptions {
         //去除SO
-        exclude 'lib/x86/libmmkv.so'
-        exclude 'lib/armeabi-v7a/libmmkv.so'
-        exclude 'lib/arm64-v8a/libmmkv.so'
+//        exclude 'lib/x86/libmmkv.so'
+//        exclude 'lib/armeabi-v7a/libmmkv.so'
+//        exclude 'lib/arm64-v8a/libmmkv.so'
     }
 }
 

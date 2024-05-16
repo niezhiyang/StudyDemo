@@ -178,7 +178,6 @@ public class LeetCodeNote {
         if (head == null) {
             return head;
         }
-
         ListNode cur = head;
         while (cur.next != null) {
             if (cur.val == cur.next.val) {
@@ -1045,6 +1044,8 @@ public class LeetCodeNote {
     private boolean isHave = false;
 
     /**
+     * 112. 路径总和
+     * https://leetcode.cn/problems/path-sum/description/
      * 是否含有一个路径 的sum 是某个值
      *
      * @param root
@@ -1077,7 +1078,8 @@ public class LeetCodeNote {
     ///------------------------ 19 ---------------------
 
     /**
-     * 二叉树反转
+     * LCR 144. 翻转二叉树
+     * https://leetcode.cn/problems/er-cha-shu-de-jing-xiang-lcof/
      *
      * @param root
      * @return
@@ -1164,15 +1166,15 @@ public class LeetCodeNote {
         while (fast < nums.length) {
             // 因为是有序数组,所以 slow 代表可以代表不重复的个数
 
-            if (nums[slow] == nums[fast]) {
-                // 如果相等 就让 快的走
-                fast++;
-            } else {
+            if (nums[slow] != nums[fast]) {
                 // 如果不相等 就让慢的走,代表 不重复的个数
                 slow++;
                 // 赋值给慢的
                 nums[slow] = nums[fast];
+
             }
+            // 无论如何，也要走快的
+            fast++;
         }
 
         return slow + 1;
@@ -1187,6 +1189,10 @@ public class LeetCodeNote {
      * 数组中的每个元素代表你在该位置可以跳跃的最大长度。
      * <p>
      * 判断你是否能够到达最后一个下标。
+     * <p>
+     * 输入：nums = [2,3,1,1,4]
+     * 输出：true
+     * 解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。
      *
      * @param nums
      * @return
@@ -1619,8 +1625,15 @@ public class LeetCodeNote {
     /**
      * 最大子数组和
      * <p>
-     * dp[i] = Math.max(nums[i], dp[i - 1]);
      * https://leetcode.cn/problems/maximum-subarray/
+     * <p>
+     * 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+     * 输出：6
+     * 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+     *
+     *
+     *
+     *
      * <p>
      * 1，-2，5，-3，6
      * dp[0] = 1
@@ -1628,6 +1641,7 @@ public class LeetCodeNote {
      * dp[3] = 5
      * dp[4] = 5-3=2
      * dp[5] = 2+6 = 8
+     * dp[i] = Math.max(nums[i], dp[i - 1]);
      */
 
     public int maxSubArray(int[] nums) {
@@ -1729,6 +1743,13 @@ public class LeetCodeNote {
     /**
      * 合并两个有序数组
      * https://leetcode.cn/problems/merge-sorted-array/
+     * 给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，
+     * 分别表示 nums1 和 nums2 中的元素数目。
+     * <p>
+     * 请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。
+     * <p>
+     * 注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初始长度为 m + n，
+     * 其中前 m 个元素表示应合并的元素，后 n 个元素为 0 ，应忽略。nums2 的长度为 n 。
      *
      * @param nums1
      * @param m
@@ -2488,6 +2509,7 @@ public class LeetCodeNote {
 
     /**
      * 322 零钱兑换
+     * https://leetcode.cn/problems/gaM7Ch/description/
      * 给你一个整数数组 coins ,表示不同面额的硬币；以及一个整数 amount ,表示总金额。
      * <p>
      * 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额,返-1 。
@@ -2504,10 +2526,10 @@ public class LeetCodeNote {
      * 如果选择是  2 那么 dp[n] = dp(n-2)+1
      * 如果选择是  5 那么 dp[n] = dp(n-5)+1
      * 所以是 这三个的最小值
+     * https://leetcode.cn/problems/gaM7Ch/description/
      */
 
     public int coinChange(int[] coins, int amount) {
-        // 假如里面都是1
         int[] dp = new int[amount + 1];
         // // 注意：因为要比较的是最小值,这个不可能的值就得赋值成为一个最大值
         //为啥 dp 数组中的值都初始化为 amount + 1 呢，因为凑成 amount 金额的硬币数最多只可能等于
@@ -2515,7 +2537,7 @@ public class LeetCodeNote {
         //        // 所以初始化为 amount + 1 就相当于初始化为正无穷，便于后续取最小值。
         //        // 为啥不直接初始化为 int 型的最大值 Integer.MAX_VALUE 呢？
         //        // 因为后面有 dp[i - coin] + 1，这就会导致整型溢出
-        Arrays.fill(dp, amount + 1);
+        Arrays.fill(dp, Integer.MAX_VALUE - 1);
         // 理解 dp[0] = 0 的合理性,单独一枚硬币如果能够凑出面值,符合最优子结构
         dp[0] = 0;
         for (int i = 1; i <= amount; i++) {
@@ -2527,7 +2549,7 @@ public class LeetCodeNote {
                 }
             }
         }
-        if (dp[amount] == amount + 1) {
+        if (dp[amount] == Integer.MAX_VALUE - 1) {
             dp[amount] = -1;
         }
         return dp[amount];
@@ -2537,6 +2559,7 @@ public class LeetCodeNote {
 
     /**
      * 39. 组合总和 跟下面的 518. 零钱兑换 II 一样 ，只不过518 求的是个数，只不过 518 是动归，背包问题
+     * https://leetcode.cn/problems/combination-sum/description/
      * 无重复元素的数组
      * 输入：candidates = [2,3,6,7], target = 7
      * 输出：[[2,2,3],[7]]
@@ -3022,15 +3045,16 @@ public class LeetCodeNote {
     private void dps(ArrayList<Integer> path, List<List<Integer>> result, int[] nums) {
         if (nums.length == path.size()) {
             result.add(path);
-            return;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (path.contains(nums[i])) continue;
-            ArrayList<Integer> temp = new ArrayList<>(path);
-            temp.add(nums[i]);
-            dps(temp, result, nums);
-        }
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (!path.contains(nums[i])) {
+                    ArrayList<Integer> temp = new ArrayList<>(path);
+                    temp.add(nums[i]);
+                    dps(temp, result, nums);
+                }
 
+            }
+        }
     }
 
     /**
@@ -3039,16 +3063,21 @@ public class LeetCodeNote {
      * 因为有负数,所以记录起来最大值 和 最小值
      */
     public int maxProduct(int[] nums) {
-        int max = Integer.MIN_VALUE, imax = 1, imin = 1;
+        //由于存在负数，那么会导致最大的变最小的，最小的变最大的。因此还需要维护当前最小值imin
+        int max = Integer.MIN_VALUE, imax = 1, imin = 1;//阶段最大值 阶段最小值
         for (int i = 0; i < nums.length; i++) {
+            //当遇到负数的时候进行交换，因为阶段最小*负数就变阶段最大了，反之同理
             if (nums[i] < 0) {
                 int tmp = imax;
                 imax = imin;
                 imin = tmp;
             }
+            //在这里用乘积和元素本身比较的意思是：
+            //对于最小值来说，最小值是本身则说明这个元素值比前面连续子数组的最小值还小。相当于重置了阶段最小值的起始位置
             imax = Math.max(imax * nums[i], nums[i]);
             imin = Math.min(imin * nums[i], nums[i]);
 
+            //对比阶段最大值和结果最大值
             max = Math.max(max, imax);
         }
         return max;
@@ -3230,7 +3259,7 @@ public class LeetCodeNote {
             }
             right++;
         }
-        return left + 1;
+        return left;
     }
 
     ///------------------------ 55 ---------------------
@@ -3579,35 +3608,42 @@ public class LeetCodeNote {
      * @return
      */
     public int search2(int[] nums, int target) {
-        int n = nums.length;
-        if (n == 0) {
+        int length = nums.length;
+        if (length == 0) {
             return -1;
         }
-        if (n == 1) {
+        if (length == 1) {
             return nums[0] == target ? 0 : -1;
         }
-        int l = 0, r = n - 1;
-        while (l <= r) {
-            int mid = (l + r) / 2;
+        int left = 0, right = length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
             if (nums[mid] == target) {
                 return mid;
             }
+            // 若果left right 就是的话直接返回
+            if (nums[left] == target) {
+                return left;
+            }
+            if (nums[right] == target) {
+                return right;
+            }
             // 左边是升序
-            if (nums[0] <= nums[mid]) {
-
-                if (nums[0] <= target && target < nums[mid]) {
+            // [5,6,1],[2,3,4]
+            if (nums[0] < nums[mid]) {
+                if (nums[0] < target && target < nums[mid]) {
                     // 目标值在左侧
-                    r = mid - 1;
+                    right = mid - 1;
                 } else {
-                    l = mid + 1;
+                    left = mid + 1;
                 }
             } else {
                 // 右边是升序
-                if (nums[mid] < target && target <= nums[n - 1]) {
+                if (nums[mid] < target && target < nums[length - 1]) {
                     // 目标值在右侧
-                    l = mid + 1;
+                    left = mid + 1;
                 } else {
-                    r = mid - 1;
+                    right = mid - 1;
                 }
             }
         }
@@ -3628,7 +3664,7 @@ public class LeetCodeNote {
      *
      *               1
      *           2       5
-     *         3   4 | 6   7
+     *         3    | 6   7
      * 比如  前序遍历 1,[2,3,4],[5,6,7]      根据 下面的 左节点 长度,可以拿到 234 左节点的前序
      *      中序遍历  [3,2,4],1,[6,5,7] 前面是 根的左节点, 后面是根的右节点      324 是 左节点的中序
      */
@@ -3637,7 +3673,12 @@ public class LeetCodeNote {
      *
      * @return 构建的新二叉树的根结点
      */
-    private TreeNode buildTree1(int[] preorder, int[] inorder) {
+    @Test
+    public void testdeduceTree() {
+        deduceTree(new int[]{1, 2, 3, 4, 5, 6, 7}, new int[]{3, 2, 4, 1, 6, 5, 7});
+    }
+
+    private TreeNode deduceTree(int[] preorder, int[] inorder) {
         // 时间 N的平方 ，递归了N次，里面又有个for循环，所以是N方 ，空间 n
         if (preorder.length == 0 || inorder.length == 0) {
             return null;
@@ -3651,12 +3692,14 @@ public class LeetCodeNote {
                 break;
             }
         }
-        int[] leftIn = Arrays.copyOf(inorder, rootIndex);
+        int[] leftPre = Arrays.copyOfRange(preorder, 1, rootIndex + 1);
+        int[] rightPre = Arrays.copyOfRange(preorder, rootIndex + 1, preorder.length);
+
+        int[] leftIn = Arrays.copyOfRange(inorder, 0, rootIndex);
         int[] rightIn = Arrays.copyOfRange(inorder, rootIndex + 1, inorder.length);
-        int[] leftPre = Arrays.copyOfRange(preorder, 1, leftIn.length + 1);
-        int[] rightPre = Arrays.copyOfRange(preorder, leftIn.length + 1, preorder.length);
-        TreeNode left = buildTree1(leftPre, leftIn);
-        TreeNode right = buildTree1(rightPre, rightIn);
+        System.out.println(rootIndex + "---" + leftIn.length + 1);
+        TreeNode left = deduceTree(leftPre, leftIn);
+        TreeNode right = deduceTree(rightPre, rightIn);
         root.left = left;
         root.right = right;
         return root;
@@ -4033,9 +4076,9 @@ public class LeetCodeNote {
      * 第一层最大是 1
      * 第二层最大是2,
      * 第三层 【4,null,null,7】= 7-4 +1= 4
-     * 1
-     * 2       3
-     * 4   5   6   7
+     * \      1               2的0
+     * \   2       3        2 1   3 1+1
+     * 4   5   6   7     2*n 2n+1
      *
      * @param root
      * @return
@@ -4289,6 +4332,7 @@ public class LeetCodeNote {
     }
 
     // 合并两个有序的链表 ，
+    // https://leetcode.cn/problems/merge-two-sorted-lists
     public ListNode merge(ListNode head1, ListNode head2) {
         ListNode dummyHead = new ListNode(0);
         ListNode temp = dummyHead, temp1 = head1, temp2 = head2;
@@ -4453,6 +4497,10 @@ public class LeetCodeNote {
      * https://leetcode.cn/problems/longest-common-subsequence/
      * 1143. 最长公共子序列 , 顺序必须一样，并不是连续的
      * 输入：text1 = "abcde", text2 = "ace"
+     * a b c d e
+     * a 1 1 1 1 1
+     * c 1 1 2 2 1
+     * e 1 1 2 2 3
      * 输出：3
      * 解释：最长公共子序列是 "ace" ，它的长度为 3 。
      * https://leetcode.cn/problems/longest-common-subsequence/solution/shi-pin-jiang-jie-shi-yong-dong-tai-gui-hua-qiu-ji/
@@ -4462,7 +4510,7 @@ public class LeetCodeNote {
      *              dp[i,j] = dp[i-1,j-1] + 1
      *              如果 text1.chatAt(i) != text2.chatAt(j)
      *              dp[i,j] = Math.max(dp[i-1,j],dp[i,j-1])
-     * @return
+     * @return a
      */
     public int longestCommonSubsequence(String text1, String text2) {
         int ans = -1;
@@ -4482,8 +4530,8 @@ public class LeetCodeNote {
             }
         }
 //  这下面两个是一样的 因为是不连续的所以 后面一定会比前面大，一只加上来的
-//        return dp[text1Length][text2Length];
-        return ans;
+        return dp[text1Length][text2Length];
+//        return ans;
     }
 
     /**
@@ -4798,6 +4846,25 @@ public class LeetCodeNote {
                 maxlength = Math.max(maxlength, 2 * left);
             } else if (left > right) {
                 left = right = 0;
+            }
+        }
+        return maxlength;
+    }
+
+    public int longestValidParentheses1(String s) {
+        int maxlength = 0;
+        int index = 0;
+        Stack<Character> stack = new Stack<>();
+        while (index < s.length()) {
+            if (s.charAt(index) == '(') {
+                stack.push(s.charAt(index));
+            } else {
+                char pop = stack.pop();
+                if (pop == ')') {
+                    if (stack.isEmpty()) {
+
+                    }
+                }
             }
         }
         return maxlength;
@@ -5523,7 +5590,8 @@ public class LeetCodeNote {
      * 输入：nums = [4,5,6,7,0,1,2], target = 0
      * 输出：4
      * https://leetcode.cn/problems/search-in-rotated-sorted-array/
-     *时间复杂度 O(logn)，显然应该使用二分查找
+     * 时间复杂度 O(logn)，显然应该使用二分查找
+     *
      * @param nums
      * @param target
      * @return

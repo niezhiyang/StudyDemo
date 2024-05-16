@@ -1,16 +1,13 @@
 package com.nzy.sodemo;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.util.Log;
 
-import com.nzy.sodemo.tinker.ShareReflectUtil;
-import com.nzy.sodemo.tinker.TinkerLoadLibrary;
-
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * @author niezhiyang
@@ -18,6 +15,17 @@ import java.util.List;
  */
 public class MyAppliCation extends Application {
     private final static String TAG = "MyAppliCation";
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        getSysytemClassLoader();
+    }
+
+    private void getSysytemClassLoader() {
+        Log.d("zhiyang",  ClassLoader.getSystemClassLoader().hashCode() + "---第一个---" +  ClassLoader.getSystemClassLoader().getClass());
+
+    }
 
     @Override
     public void onCreate() {
@@ -37,45 +45,37 @@ public class MyAppliCation extends Application {
             FileUtil.doCopy(this, assetsPath, fileso.getAbsolutePath());
         }
         try {
-            TinkerLoadLibrary.installNativeLibraryPath(getClassLoader(), fileso);
+            SoHook.addPath(getClassLoader(), fileso);
+//            TinkerLoadLibrary.installNativeLibraryPath(getClassLoader(),fileso);
         } catch (Throwable throwable) {
-            Log.e(MainActivity.TAG, throwable.getMessage());
+            Log.e("MyAppliCation", throwable.getMessage());
         }
-        getPathSo();
+//
+        Log.d("zhiyang", getClassLoader().hashCode() + "--applcation的--" + getClassLoader().getClass());
+        ApplicationInfo appInfo = getApplicationInfo();
+        String apkPath = appInfo.sourceDir;
+        MyPathClassLoader classLoader =
+                new MyPathClassLoader(apkPath, getClassLoader());
+        hookPackageClassLoader(classLoader);
+        Thread.currentThread().setContextClassLoader(classLoader);
 
+        new SoNoStatic();
     }
 
-    private void getPathSo() {
-        Field pathListField = null;
+    private void hookPackageClassLoader(ClassLoader appClassLoaderNew) {
         try {
-            pathListField = ShareReflectUtil.findField(getClassLoader(), "pathList");
-
-            Object dexPathList = pathListField.get(getClassLoader());
-
-            Field nativeLibraryDirectories = ShareReflectUtil.findField(dexPathList, "nativeLibraryDirectories");
-
-            List<File> libDirs = (List<File>) nativeLibraryDirectories.get(dexPathList);
-            for (File file : libDirs) {
-                Log.e(MainActivity.TAG, file.getAbsolutePath());
-            }
-
-//        libDirs.add(0, folder);
-            Field systemNativeLibraryDirectories =
-                    ShareReflectUtil.findField(dexPathList, "systemNativeLibraryDirectories");
-            List<File> systemLibDirs = (List<File>) systemNativeLibraryDirectories.get(dexPathList);
-            for (File file : systemLibDirs) {
-                Log.e(MainActivity.TAG, file.getAbsolutePath());
-            }
-            Method makePathElements =
-                    ShareReflectUtil.findMethod(dexPathList, "makePathElements", List.class);
-            Field nativeLibraryPathElements = ShareReflectUtil.findField(dexPathList, "nativeLibraryPathElements");
-            Object o = nativeLibraryPathElements.get(dexPathList);
-
-            libDirs.addAll(systemLibDirs);
-            Object[] elements = (Object[]) makePathElements.
-                    invoke(dexPathList, libDirs);
-        } catch (Exception e) {
-            e.printStackTrace();
+            Field packageInfoField =
+                    Class.forName("android.app.ContextImpl").getDeclaredField("mPackageInfo");
+            packageInfoField.setAccessible(true);
+            Object loadedApkObject = packageInfoField.get(getBaseContext());
+            Class clazzApk = Class.forName("android.app.LoadedApk");
+            Field appClassLoaderField = clazzApk.getDeclaredField("mClassLoader");
+            appClassLoaderField.setAccessible(true);
+            Log.d("zhiyang",  appClassLoaderField.get(loadedApkObject).hashCode() + "-反射之前-" +  appClassLoaderField.get(loadedApkObject).getClass());
+            appClassLoaderField.set(loadedApkObject, appClassLoaderNew);
+        } catch (Throwable e) {
+            Log.e("zhiyang", "error:" + e.getMessage());
         }
     }
+
 }

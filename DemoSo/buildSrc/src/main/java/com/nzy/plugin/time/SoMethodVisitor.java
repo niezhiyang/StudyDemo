@@ -34,7 +34,7 @@ public class SoMethodVisitor extends AdviceAdapter {
         LoggerUtil.e("clazzName=" + clazzName + "---mMethodName=" + name + "---mMethodOwner=" + owner + "---" + (Objects.equals(mMethodOwner, owner)) + "---" + (Objects.equals(name, mMethodName)) + "----descriptor" + descriptor);
         if (Objects.equals(mMethodOwner, owner) && Objects.equals(name, mMethodName) && !Objects.equals(clazzName, newOwner)) {
             if (Objects.equals(descriptor, mMethodDesc)) {
-                super.visitMethodInsn(newOpcode, newOwner, newMethodName, descriptor, false);
+                super.visitMethodInsn(opcodeAndSource, newOwner, newMethodName, descriptor, false);
                 return;
             }
         }
