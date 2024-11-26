@@ -1,4 +1,8 @@
-package com.nzy.viewstudy;
+package com.nzy.suanfa;
+
+
+import com.nzy.suanfa.model.ListNode;
+import com.nzy.suanfa.model.TreeNode;
 
 import org.junit.Test;
 
